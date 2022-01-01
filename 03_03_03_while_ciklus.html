@@ -1,0 +1,175 @@
+<!--doctype html-->
+<html lang='hu'>
+   <meta charset='utf-8'>
+	 
+<link href="css/jquery-ui.min.css" rel="stylesheet">
+<link href="css/oldal.css" rel="stylesheet" type="text/css" />
+
+<script src="google-code-prettify/run_prettify.js"></script>  
+<script src="external/jquery/jquery.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/csharpmenu.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script>
+<script type="text/javascript" src="MathJax26.min/MathJax.js?config=TeX-AMS_HTML-full"></script>
+
+<style>
+	#menu
+	{width: 70px;text-align:left; background-color: #00a0a0;}
+	#ulmenu
+	{width: 250px;}
+	#limenu
+	{padding: none;}		
+	a{text-decoration: none;}
+	#tartalom
+	{width: 70px; height:20px; text-align:left; background-color: #00a0a0;}
+</style>
+<header>
+
+		<ul id="menu">
+		<script>
+		document.getElementById("menu").innerHTML = menuszoveg;
+		$( "#menu" ).menu();
+    </script>
+		</ul>
+		
+	<ul id="tartalom">
+		<script>
+		document.getElementById("tartalom").innerHTML = '<li id ="limenu"><a href="tartalom.html">Tartalom</a></li>';
+		$( "#tartalom" ).menu();
+    </script>
+		</ul>
+		
+<h1 style="color: white; position: absolute; left: 40%; top:0px; text-align: center; margin-top:0px;">C# középiskolásoknak</h1>
+</header>
+
+<article>
+<p style="width: 100%;height:40px;"></p>
+<!--ide jön a tartalom-->
+
+<H2>A While (elöltesztelős) ciklus</H2>
+<p>Formátuma:</p>
+<pre> 
+while (logikai_kifejezés)
+     <span style="color: red;">ismételendő_utasítás;</span>
+ </pre> 
+<p>
+<u>Magyar olvasata:</u><BR>
+
+amíg a <strong>logikai_kifejezés</strong> értéke <strong>igaz</strong> marad, addig ismételd az <span style="color: red;">utasítás-t! </span><BR>
+<BR><BR>
+vagy  ha több utasítást kell ismételtetni:
+</p>
+<pre> 
+while (logikai_kifejezés)
+<span style="color: red;">     { 
+      ismételendő_utasítás1;
+      ismételendő_utasítás2;
+      ismételendő_utasítás3;
+	  ...
+      ismételendő_utasításN;
+     }
+	 </span>
+</pre> 
+
+<p>
+<u>Magyar olvasata:</u><BR>
+
+amíg a <strong>logikai_kifejezés</strong> értéke <strong>igaz</strong> marad, addig ismételd az <span style="color: red;">utasítás1, utasítás2, utasítás3, ..., utasításN</span> parancssorozatot!<BR>
+<BR><BR>
+A  fenti példákban a <span style="color: red;"> pirossal</span> kiemelt rész a <strong><u>ciklusmag.</u></strong><BR><BR>
+
+<BR>
+Lássunk egy egyszerű példát:
+</p>
+<pre class="prettyprint lang-cs">	
+using System;
+class Program
+{
+	static void Main()
+	{
+	int i;
+	i = 0;
+	while (i &lt 10)
+		{
+		Console.WriteLine(""+i);
+		Console.WriteLine("Szia");
+		i++;
+		}
+	}
+}
+</pre>
+<p>Lássuk tehát, hogyan működik ez a ciklus:</p>
+<OL>
+<li id = "listaelem">     Először a ciklusszámlálót (i-t) inicializáljuk, ami azt jelenti, hogy i megkapja a kezdőértékét, azaz a 0-t</LI>
+<li id = "listaelem">   Utána kiértékelődik a logikai feltétel: i &lt 10 .  Ha nem igaz, akkor a ciklus véget ér. Ha viszont igaz, akkor</LI>
+<li id = "listaelem">   Végrehajtódik a ciklusmag</LI>
+<li id = "listaelem">   A ciklusmag végrehajtása során a ciklusváltozó értéke <U>módosul.</U> Itt a módosuláss azt jelenti, hogy i-t növeljük 1-gyel: i++;<BR>
+        Ezután a 3. ponthoz ugrunk.</LI>
+</OL>
+<p>A while ciklusra egy másik példa: visszaszámlálás:</p>
+
+<pre class="prettyprint lang-cs">	
+using System;
+class Program
+{
+	static void Main()
+	{
+	int n;
+	Console.WriteLine("Rakétakilövésre felkészülni!");
+	n=8;
+	while (n>0)
+		{
+		Console.Write(""+n+", ";
+		n--;
+		}
+	Console.WriteLine("Kilövééés!!!); 
+	}
+}
+</pre>
+<p>Kimenet:</p>
+<div class="codeblock3">
+<pre>
+Rakétakilövésre felkészulni!
+8, 7, 6, 5, 4, 3, 2, 1, Kilövééés!!!
+</pre>
+</div>
+<p>
+Az elején  felkészülésről szóló üzenet után n a 8 értéket kapja, majd kezdődik a ciklus.<BR>
+Kiértékelődik a logikai feltétel: n>0, azaz 8>0. Ez igaz, ezért megkezdődik a ciklusmagban lévő utasítások végrehajtása.<BR>
+Kiírja az n értékét és a vesszőt, majd n értékét 1-gyel csökkenti, így n értéke tehát 7 lesz.<BR>
+Ezután ismét kiértékeli a logikai_kifejezes-t 7>0 igaz, így még egyszer végrehajtódik a ciklusmag.<BR>
+A 8-ik ismétlés után n 0-ra csökken.<BR>
+Kiértékelődik ismét a logikai kifejezés. 0>0 nem igaz, ezért nem hajtja többé végre a ciklusmagot, hanem<BR>
+a ciklusmag utáni utasításra ugrik, kiírja az <strong>"Kilövééés!!!</strong> üzenetet.<BR>
+<BR>
+A while ciklus jellemző tulajdonsága, hogy ha a belépési feltétel a kezdetkor hamisnak bizonyul, a ciklusmag egyszer se fut le.<BR>
+Amennyiben a ciklusmag végrehajtása során a feltétel soha nem válik hamissá, akkor  a ciklus egy <strong>végtelen ciklus</strong>sá válik.<BR>
+A programok "lefagyása" általában egy végtelen ciklus következménye. Példa végtelen ciklusra:
+</p>
+<pre class="prettyprint lang-cs">	
+using System;
+class Program
+{
+	static void Main()
+	{
+	int n;
+	Console.WriteLine("Rakétakilövésre felkészülni!");
+	n=8;
+	while (n>0)
+		{
+		Console.Write(""+n+", ";
+		}
+	Console.WriteLine("Kilövééés!!!); 
+	}
+}
+</pre>
+<p>
+Ez majdnem a fenti példa, egyetlen kis eltérés van: az n értéke sohasem változik, mindig 8 marad, és 8 az mindig &gt 0, ezért a ciklus sohasem ér véget.<BR>
+A program elkezd 8-asokat írni a konzolra a végtelenségig.
+</p>
+</article>
+</html>

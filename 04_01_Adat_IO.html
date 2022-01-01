@@ -1,0 +1,201 @@
+<!--doctype html-->
+<html lang='hu'>
+   <meta charset='utf-8'>
+	 
+<link href="css/jquery-ui.min.css" rel="stylesheet">
+<link href="css/oldal.css" rel="stylesheet" type="text/css" />
+
+<script src="google-code-prettify/run_prettify.js"></script>  
+<script src="external/jquery/jquery.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/csharpmenu.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script>
+<script type="text/javascript" src="MathJax26.min/MathJax.js?config=TeX-AMS_HTML-full"></script>
+
+<style>
+	#menu
+	{width: 70px;text-align:left; background-color: #00a0a0;}
+	#ulmenu
+	{width: 250px;}
+	#limenu
+	{padding: none;}		
+	a{text-decoration: none;}
+	#tartalom
+	{width: 70px; height:20px; text-align:left; background-color: #00a0a0;}
+</style>
+<header>
+
+		<ul id="menu">
+		<script>
+		document.getElementById("menu").innerHTML = menuszoveg;
+		$( "#menu" ).menu();
+    </script>
+		</ul>
+		
+	<ul id="tartalom">
+		<script>
+		document.getElementById("tartalom").innerHTML = '<li id ="limenu"><a href="tartalom.html">Tartalom</a></li>';
+		$( "#tartalom" ).menu();
+    </script>
+		</ul>
+		
+<h1 style="color: white; position: absolute; left: 40%; top:0px; text-align: center; margin-top:0px;">C# középiskolásoknak</h1>
+</header>
+
+<article>
+<p style="width: 100%;height:40px;"></p>
+<!--ide jön a tartalom-->
+<h2>Adatok kiírása konzolra</h2>
+<h3>Egyszerű adatok kiírása</h3>
+<p>
+A <strong>Console.Write(adat)</strong> vagy <strong>Console.WriteLine(adat)</strong> utasítással történik.<BR> 
+Itt az <strong>adat</strong> bármilyen egyszerű adat lehet, azaz <strong>int, double, bool, char, string.</strong>
+A <strong>Console.Write(adat)</strong> hatására az adat kiírása megtörténik, és a kurzor az utolsó karakter mögött marad. <BR>
+Ha megint kiírásra kerül valami, akkor azt közvetlenül melléírja.<BR>
+A <strong>Console.WriteLine(adat)</strong> hatására az adat kiírása megtörténik, és a kurzor a következő sorba ugrik.
+A következő adat már az új sor elejére kerül.<BR>
+A <strong>Console.Write(adat)</strong> utasítást egymás mellé írásra, <BR>
+a <strong>Console.WriteLine(adat)</strong> utasítást egymás alá írásra használjuk.
+
+</p>
+
+
+<pre class="prettyprint lang-cs">
+using System;
+
+public class Test
+{
+  static void Main()
+		{
+		int a = 34;
+		double b = 2,23;
+		char betu = 'B';
+		boolean hidegVan = true;
+		string sz = "alma";
+		Console.WriteLine(a);//&#8594; 34
+		Console.WriteLine(b);//&#8594; 2,23
+		Console.WriteLine(betu);//&#8594; 'B'
+		Console.WriteLine(hidegVan);//&#8594; true
+		Console.WriteLine(sz);//&#8594; "alma"
+		}
+}
+</pre>		
+<h3>Tömb kiírása konzolra</h3>
+<p>Legegyszerűbb <strong>foreach</strong> ciklussal:</p>
+<pre class="prettyprint lang-cs">
+using System;
+
+public class Test
+{
+  static void Main()
+		{
+		string[] gyumolcs = {"alma","körte","szilva","barack","szőlő"};
+		foreach (string gyumi in gyumolcs)
+			{
+			Console.WriteLine(gyumi);
+			}			
+		}
+}
+</pre>		
+<p>A fenti kiíratás működik listákra, halmazokra is.</p>
+<pre class="prettyprint lang-cs">
+using System;
+using System.Collections.Generic;
+
+public class Test
+{
+  static void Main()
+		{
+		List &lt;string&gt; gyumolcs = new List&lt;string&gt;();
+		gyumolcs.Add("alma");
+		gyumolcs.Add("korte");
+		gyumolcs.Add("szilva");
+		gyumolcs.Add("barack");
+		//kiíratás:
+		foreach (string gyumi in gyumolcs)
+			{
+			Console.WriteLine(gyumi);
+			}			
+		}
+}
+</pre>
+<h2>Egyszerű adat bekérése konzolról</h2>
+<p>
+A <strong>szoveg = Console.ReadLine()</strong> utasítással történik.<BR>
+Ezzel az utasítással csak szöveges adatot tudunk bekérni. <BR>
+Amennyiben számra vagy egyéb adatra van szükségünk, úgy adatkonverzióra lesz szükségünk.<BR>
+Adatbekéréskor illik tájékoztatni a felhasználót, hogy mit is várunk el tőle.
+</p>
+<h3>Szöveges adat bekérése konzolról</h3>
+<pre class="prettyprint lang-cs">
+using System;
+
+public class Test
+{
+  static void Main()
+		{
+		string nev;
+		//üzenünk a felhasználónak
+		Console.WriteLine("kérem, írja be a nevét:");
+		//beolvassuk a begépelt adatot nev változóba
+		nev = Console.ReadLine();
+		//kiírunk:
+		Console.WriteLine("Az ön neve: " + nev);
+		}
+}
+</pre>
+<h3>Egész szám bekérése konzolról</h3>
+<p>Mint említettem, a konzolról csak szöveges információt olvashatunk be. Ezért aztán szükség van a szöveg számmá konvertálására:</p>
+
+<pre class="prettyprint lang-cs">
+using System;
+
+public class Test
+{
+  static void Main()
+		{
+		string szoveg;
+		int eletkor;
+		//üzenünk a felhasználónak
+		Console.WriteLine("kérem, írja be az életkorát:");
+		//beolvassuk a begépelt adatot  a szoveg változóba
+		szoveg = Console.ReadLine();
+		//konvertáljuk:
+		eletkor = Convert.ToInt32(szoveg);
+		//kiírunk:
+		Console.WriteLine("Az ön neve: " + nev);
+		}
+}
+</pre>
+<p>
+Ez a művelet a programfutás szempontjából kockázatos lehet, mert a felhasználó olyan adatot is megadhat, ami nem értelmezhető egész számként.
+Ezért az ilyen műveleteket kivételkezeléssel ajánlott megcsinálni.
+</p>
+<h3>Lebegőpontos szám bekérése konzolról</h3>
+<pre class="prettyprint lang-cs">
+using System;
+
+public class Test
+{
+  static void Main()
+		{
+		string szoveg;
+		double testmagassag;
+		//üzenünk a felhasználónak
+		Console.WriteLine("kérem, adja meg a testmagasságát méterben:");
+		//beolvassuk a begépelt adatot szoveg változóba
+		szoveg = Console.ReadLine();
+		//konvertáljuk:
+		testmagassag = Convert.ToDouble(szoveg);
+		//kiírunk:
+		Console.WriteLine("Az ön neve: " + nev);
+		}
+}
+</pre>
+
+</article>
+</html>

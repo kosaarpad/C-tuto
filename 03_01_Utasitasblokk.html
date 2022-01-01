@@ -1,0 +1,130 @@
+<!--doctype html-->
+<html lang='hu'>
+   <meta charset='utf-8'>
+	 
+<link href="css/jquery-ui.min.css" rel="stylesheet">
+<link href="css/oldal.css" rel="stylesheet" type="text/css" />
+
+<script src="google-code-prettify/run_prettify.js"></script>  
+<script src="external/jquery/jquery.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/csharpmenu.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script>
+<script type="text/javascript" src="MathJax26.min/MathJax.js?config=TeX-AMS_HTML-full"></script>
+
+<style>
+	#menu
+	{width: 70px;text-align:left; background-color: #00a0a0;}
+	#ulmenu
+	{width: 250px;}
+	#limenu
+	{padding: none;}		
+	a{text-decoration: none;}
+	#tartalom
+	{width: 70px; height:20px; text-align:left; background-color: #00a0a0;}
+</style>
+<header>
+
+		<ul id="menu">
+		<script>
+		document.getElementById("menu").innerHTML = menuszoveg;
+		$( "#menu" ).menu();
+    </script>
+		</ul>
+		
+	<ul id="tartalom">
+		<script>
+		document.getElementById("tartalom").innerHTML = '<li id ="limenu"><a href="tartalom.html">Tartalom</a></li>';
+		$( "#tartalom" ).menu();
+    </script>
+		</ul>
+		
+<h1 style="color: white; position: absolute; left: 40%; top:0px; text-align: center; margin-top:0px;">C# középiskolásoknak</h1>
+</header>
+
+<article>
+<p style="width: 100%;height:40px;"></p>
+<!--ide jön a tartalom-->
+
+
+<H2> Utasításblokk</H2>
+<p>
+Az utasításblokk (másik nevén: <strong>szekvencia</strong>) egy olyan utasítás-sorozat, amelyet a gép a felsorolt sorrendben hajt végre. Az utasításblokkot mindig kapcsos zárójelek közé tesszük:
+
+</p>
+<pre class="prettyprint lang-cs">
+{ utasítás1; utasítás2; utasítás3; utasítás4; … utasításN;}
+</pre>
+<p>
+A gép ezt balról jobbra fogja végrehajtani, ahogyan egymás után következnek.<BR>
+
+Azonban programozástechnikai és szövegszerkesztési okokból az egymás után következő utasításokat egymás alá szoktuk írni, a jobb olvashatóság miatt, így:
+
+</p>
+<pre class="prettyprint lang-cs">
+{ 
+	utasítás1; 
+	utasítás2; 
+	utasítás3; 
+	utasítás4; 
+	… 
+	utasításN;
+}
+</pre>
+<p>
+A gép ezt fentről lefele, ugyanúgy fogja végrehajtani, mint a sorban írt verziót. <BR>
+A gépnek mindegy, hogy egy sorban vagy egymás után írunk egy utasításblokkot, nekünk azonban nem, mert az utóbbit jobban át lehet tekinteni.<BR>
+</p>
+<H3>FONTOS!</H3>
+<p>
+Lehetőségünk van arra, hogy bármelyik utasításblokkban változókat deklaráljunk.<BR>
+<u>A C# nyelvben, ha  egy változót az adott utasításblokkon belül deklarálunk, akkor az adott változó csak onnan látható, a blokkon kívülről már nem!</u><BR>
+Példa:<BR>
+</p>
+<pre class="prettyprint lang-cs">	
+using System;
+class Program
+{
+   static void Main()
+    {
+    //létrehozunk egy blokkot.
+	//Itt nincs értelme, csupán demo...
+		{
+		int i;
+		i=5;
+		Console.WriteLine(""+i);
+		}
+    }
+}
+</pre>
+<p>
+A program így lefut, mert a kiíró utasítás egy blokkban van a deklarált i változóval.<BR>
+De:
+</p>
+<pre class="prettyprint lang-cs">	
+using System;
+class Program
+{
+    static void Main()
+    {
+    //létrehozunk egy blokkot.
+	//Itt nincs értelme, csupán demo...
+		{
+		int i;
+		i=5;
+		}
+	Console.WriteLine(""+i);	
+    }
+}
+</pre>
+<p>
+Nos, ez a program már le se fordul, hibaüzenetet kapunk már a fordításkor. <BR>
+Ennek az az oka, hogy az i változót a blokkban deklaráltuk, azonban a blokkon kívülről akarjuk kiíratni.<BR>
+A blokkon belüli változót lokális változónak nevezzük, ez a változó a blokkon kívülről nem "látszik".<BR>
+</p>
+</article>
+</html>

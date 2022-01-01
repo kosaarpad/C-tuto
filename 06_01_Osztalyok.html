@@ -1,0 +1,134 @@
+<!--doctype html-->
+<html lang='hu'>
+   <meta charset='utf-8'>
+	 
+<link href="css/jquery-ui.min.css" rel="stylesheet">
+<link href="css/oldal.css" rel="stylesheet" type="text/css" />
+
+<script src="google-code-prettify/run_prettify.js"></script>  
+<script src="external/jquery/jquery.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/csharpmenu.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script>
+<script type="text/javascript" src="MathJax26.min/MathJax.js?config=TeX-AMS_HTML-full"></script>
+
+<style>
+	#menu
+	{width: 70px;text-align:left; background-color: #00a0a0;}
+	#ulmenu
+	{width: 250px;}
+	#limenu
+	{padding: none;}		
+	a{text-decoration: none;}
+	#tartalom
+	{width: 70px; height:20px; text-align:left; background-color: #00a0a0;}
+</style>
+<header>
+
+		<ul id="menu">
+		<script>
+		document.getElementById("menu").innerHTML = menuszoveg;
+		$( "#menu" ).menu();
+    </script>
+		</ul>
+		
+	<ul id="tartalom">
+		<script>
+		document.getElementById("tartalom").innerHTML = '<li id ="limenu"><a href="tartalom.html">Tartalom</a></li>';
+		$( "#tartalom" ).menu();
+    </script>
+		</ul>
+		
+<h1 style="color: white; position: absolute; left: 40%; top:0px; text-align: center; margin-top:0px;">C# középiskolásoknak</h1>
+</header>
+
+<article>
+<p style="width: 100%;height:40px;"></p>
+<!--ide jön a tartalom-->
+<H1>Osztályok</H1>
+<p>Az osztály egy olyan adattípus, amely a dolgok tulajdonságait leíró adatok mellett tartalmazza a viselkedését is, amelyeket függvények segítségével adunk meg
+</p> 
+<p> A dolgokat jellemző mennyiségeket leíró adattagokat <b>tulajdonságoknak</b> nevezzük </p>
+<p> A dolgok <b>viselkedését</b> leíró függvényeket  (adattagokkal végezhető műveletek, a dolgok közötti kölcsönhatások) <b>metódusoknak</b> nevezzük </p>
+<p>Az osztály lehetővé teszi azt, hogy a dolgok tulajdonságait és viselkedését egységes egészként kezeljük, ezáltal a programunk bonyolultságát csökkentsük.</p>
+<p>Az osztályok használata ugyanakkor megvédi a programozót attól, hogy véletlenül egy bizonyos adatot felülírjon.</p>
+<H2>Osztály és objektum</H2>
+<UL>
+
+<LI>
+Osztályok: az adatformátum és az elérhető metódusok definíciója az adott típus vagy a típushoz tartozó objektumok számára. Az osztályok is tartalmazhatnak adattagokat és metódusokat, amelyek műveleteket végeznek az osztály adattagjain. Összetartozó adatok és függvények, eljárások egysége.
+</LI>
+<LI>Objektumok: az osztály példányai.</LI>
+</UL>
+<H3>Osztály létrehozása</H3>
+Két módunk van arra, hogy létrehozzunk egy osztályt. Az első:
+<pre class="prettyprint lang-cs">
+Osztálynév objektumnév = new Osztálynév();
+</pre>
+Erre példa:
+<pre class="prettyprint lang-cs">
+Téglalap t = new Téglalap(2, 3);
+</pre>
+
+A másik mód az, hogy egy már létező objektumból létrehozunk egy újat:
+<pre class="prettyprint lang-cs">
+Osztálynév objektumnév1 = new Osztálynév();
+Osztálynév objektumnév2;
+objektumnév2 = objektumnév1;
+</pre>
+példa:
+<pre class="prettyprint lang-cs">
+Téglalap t1=new Téglalap(4,1);
+Téglalap t2;
+t2 = t1; 
+</pre>
+Ahhoz, hogy a fenti kódrészletek működjenek, természetesen szükség van arra, hogy megírjuk a Téglalap osztály definícióját.
+<BR>Mi is egy téglalap? Milyen tulajdonságai vannak egy téglalapnak? <BR>
+Előszöris, egy téglalapnak van hosszúsága meg szélessége.<BR> Ezenkívül még lehet színe, kerülete, területe, stb.<BR>
+Ha ismerjük a téglalapunk hosszúságát meg szélességét, a kerületét meg területét ki tudjuk számítani.
+<BR>Ezért amikor létrehozzuk a téglalapot, elég ezt a két adatot megadni.
+<pre class="prettyprint lang-cs">
+using System;
+public class Téglalap
+{
+double hossz, szél;
+//konstruktor
+public Téglalap(double ujhossz, double ujszél)
+	{
+	this.hossz=ujhossz;
+	this.szél=ujszél;
+	}
+//tagfüggvény vagy metódus, ami a téglalap kerületét kiszámítja	
+public double Kerület()
+	{
+	return 2*(this.hossz+this.szél);
+	}
+public double Terület()
+	{
+	return this.hossz*this.szél;
+	}
+public double Átló()
+	{
+	return Math.Sqrt(this.hossz*this.hossz+this.szél*this.szél);
+	}	
+}
+class Program
+{
+// Main metódus
+static void Main(string[] args)
+	{
+	Téglalap t1 = new Téglalap(4,1);
+	Console.WriteLine("A téglalap kerülete: "+t1.Kerület());
+	Console.WriteLine("A téglalap területe: "+t1.Terület());
+	Console.WriteLine("A téglalap átlója: "+t1.Átló());
+	Console.ReadKey();
+	}
+}
+</pre>
+
+</article>
+</html>

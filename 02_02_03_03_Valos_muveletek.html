@@ -1,0 +1,158 @@
+<!--doctype html-->
+<html lang='hu'>
+   <meta charset='utf-8'>
+	 
+<link href="css/jquery-ui.min.css" rel="stylesheet">
+<link href="css/oldal.css" rel="stylesheet" type="text/css" />
+
+<script src="google-code-prettify/run_prettify.js"></script>  
+<script src="external/jquery/jquery.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/csharpmenu.js"></script>
+
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML">
+</script>	
+<style>
+	#menu
+	{width: 70px;text-align:left; background-color: #00a0a0;}
+	#ulmenu
+	{width: 250px;}
+	#limenu
+	{padding: none;}		
+	a{text-decoration: none;}
+	#tartalom
+	{width: 70px; height:20px; text-align:left; background-color: #00a0a0;}
+</style>
+<header>
+
+		<ul id="menu">
+		<script>
+		document.getElementById("menu").innerHTML = menuszoveg;
+		$( "#menu" ).menu();
+    </script>
+		</ul>
+		
+	<ul id="tartalom">
+		<script>
+		document.getElementById("tartalom").innerHTML = '<li id ="limenu"><a href="tartalom.html">Tartalom</a></li>';
+		$( "#tartalom" ).menu();
+    </script>
+		</ul>
+		
+<h1 style="color: white; position: absolute; left: 40%; top:0px; text-align: center; margin-top:0px;">C# középiskolásoknak</h1>
+</header>
+
+<article>
+<p style="width: 100%;height:40px;"></p>
+<!--ide jön a tartalom-->
+<H2>Műveletek a float és double típusokkal. A Math osztály</H2>
+<p>
+A float és a double típusokkal - a szokásos matematikai műveletek mellett, amely egészekkel elvégezhető (+, -, /, *, stb) - olyan műveleteket is elvégezhetünk, amelyeket a műszaki számításokban, gyakran használunk.<BR>
+Megjegyezendő, hogy itt az osztás nem ugyanúgy működik, mint az egész számok esetében.<BR> 
+Egész számok esetében pl 8/3=2, ha a 8 is és a 3 is egész típus.<BR>
+Itt azonban ha a 8 vagy a 3 közül legalább az egyik lebegőpontos érték, akkor a  8/3 értéke 2.66666666667 lesz.
+Az alábbi példaprogrammal ez kipróbálható:
+</p>
+<pre class="prettyprint lang-cs">
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        // double, osztva egésszel:
+        double a = 8;
+		int b = 3;
+        Console.WriteLine("double/int: 8/3="+a/b);
+        //egész, osztva double-al: 
+        int a1=8;
+		double b1 = 3;
+        Console.WriteLine("int/double: 8/3="+a1/b1);
+		//double, osztva double-al: 
+        int a2=8;
+		double b2 = 3;
+        Console.WriteLine("double/double: 8/3="+a2/b2);
+		//egész osztva egésszel
+		Console.WriteLine("Na DE:");
+		int a3=8;
+		int b3 = 3;
+		Console.WriteLine("int/int: 8/3="+a3/b3);
+    }
+}
+</pre>
+<H2>A Math osztály</H2>
+<p>
+A gyakoribb matematikai műveleteket (gyökvonás, hatványozás, kerekítés, stb.) megvalósító osztály.
+A műszaki alkalmazásban fontos állandókat is tartalmazza, mint pl:<BR>
+</p>
+<UL>
+<li id ="listaelem"> Math.PI = 3.14159265358979323846;</LI>
+<li id ="listaelem"> Math.E = 2.7182818284590452354;</LI> 
+</UL>
+<p>Az előbbi a pi, az utóbbi a természetes logaritmus alapja, azaz</p>
+\begin{equation}
+e=2.718281828...=\frac{1}{0!}+\frac{1}{1!}+\frac{1}{2!}+\frac{1}{3!}+...
+\end{equation} 
+<pre class="prettyprint lang-cs">
+using System;
+
+class Program
+{
+	static void Main()
+		{
+		double a = 2;
+		int b = 3;
+		Console.WriteLine("gyökvonás: gyök 2 = "+Math.Sqrt(a));
+		Console.WriteLine("hatványozás: 2 a 3-on = "+Math.Pow(a,b));
+		}
+}
+</pre>
+<p>
+Az alábbi program a leggyakoribb műveleteket és valós függvényeket mutatja be. <BR>
+Fontos megjegyezni, hogy a trigonometriai függvények radiánban dolgoznak, ezért adott fok szinuszát úgy számítjuk ki, <BR>
+hogy a fokban mért szöget előbb radiánba alakítjuk, azaz szorozzuk pi/180-nal.
+</p>
+<pre class="prettyprint lang-cs">
+using System;
+
+class Program
+{
+  static void Main()
+    {
+		double a = 2, b = 3;
+		double pi = Math.PI;
+		Console.WriteLine("gyökvonás: gyök 2 = "+Math.Sqrt(a));
+		Console.WriteLine("hatványozás: 2 a 3-on = "+Math.Pow(a,b));
+		Console.WriteLine("köbgyökvonás: köbgyök 2 = "+Math.Pow(a, 1.0/3));
+		Console.WriteLine("Ln 2 = "+Math.Log(2));
+		Console.WriteLine("Log2 8 = "+Math.Log(8, 2));
+		Console.WriteLine("Lg 2  = "+Math.Log10(2));
+		Console.WriteLine("kerekítés egészre pi = "+Math.Round(pi));
+		Console.WriteLine("kerekítés 4 tizedesjegyre: pi = "+Math.Round(pi,4));
+		Console.WriteLine("szinusz(60°) = "+Math.Sin(60*pi/180));
+		Console.WriteLine("koszinusz(60°) = "+Math.Cos(60*pi/180));
+    }
+}
+</pre>
+<p>Output</p>
+<div class="codeblock3"><pre>
+d:\suli\!!2017-18\C#TutoJquery\kodok\02float>Mathex
+gyökvonás: gyök 2 = 1,4142135623731
+hatványozás: 2 a 3-on = 8
+köbgyökvonás: köbgyök 2 = 1,25992104989487
+Ln 2 = 0,693147180559945
+Log2 8 = 3
+Lg 2  = 0,301029995663981
+kerekítés egészre pi = 3
+kerekítés 4 tizedesjegyre: pi = 3,1416
+szinusz(60°) = 0,866025403784439
+koszinusz(60°) = 0,5
+
+d:\suli\!!2017-18\C#TutoJquery\kodok\02float>
+</pre>
+</div>
+
+</article>
+</html>

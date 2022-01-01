@@ -1,0 +1,466 @@
+<!--doctype html-->
+<html lang='hu'>
+   <meta charset='utf-8'>
+	 
+<link href="css/jquery-ui.min.css" rel="stylesheet">
+<link href="css/oldal.css" rel="stylesheet" type="text/css" />
+
+<script src="google-code-prettify/run_prettify.js"></script>  
+<script src="external/jquery/jquery.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/csharpmenu.js"></script>
+<style>
+	#menu
+	{width: 70px;text-align:left; background-color: #00a0a0;}
+	#ulmenu
+	{width: 250px;}
+	#limenu
+	{padding: none;}		
+	a{text-decoration: none;}
+	#tartalom
+	{width: 70px; height:20px; text-align:left; background-color: #00a0a0;}
+</style>
+<header>
+
+		<ul id="menu">
+		<script>
+		document.getElementById("menu").innerHTML = menuszoveg;
+		$( "#menu" ).menu();
+    </script>
+		</ul>
+		
+	<ul id="tartalom">
+		<script>
+		document.getElementById("tartalom").innerHTML = '<li id ="limenu"><a href="tartalom.html">Tartalom</a></li>';
+		$( "#tartalom" ).menu();
+    </script>
+		</ul>
+		
+<h1 style="color: white; position: absolute; left: 40%; top:0px; text-align: center; margin-top:0px;">C# középiskolásoknak</h1>
+</header>
+
+<article>
+<p style="width: 100%;height:40px;"></p>
+<!--ide jön a tartalom-->
+
+<H1>Az egész adattípusról általában</H1>
+Olyan típus, amely értékei <U>csak egész számok</U> lehetnek.<BR>
+A lehetséges értékek az adott egész típustól függenek.
+Például az <strong>int</strong> egész típus:
+</p>
+<p style ="font-weight:bold; font-size = 20px; text-decoration: underline;">
+Adathalmaz:(-2 147 483 648 ...   +2 147 483 648) <BR>
+Műveletek: (+, -, *, /, %, &, |, ^, ~, <<, >>, ==, !=, &gt, &lt, ++, --)
+</P>
+Ez tehát azt jelenti, hogy az <strong>int</strong> adattípusú változó  minden egész értéket felvehet, -2 147 483 648-tól +2 147 483 647-ig, és a következő műveletek végezhetők ezekkel az értékekkel:
+<UL>
+<li id ="listaelem">
+a <strong> + </strong> vagyis összeadás
+</LI>
+<li id ="listaelem">
+a <strong style ="font-weight:normal;"> - </strong> vagyis kivonás
+</LI>
+<li id ="listaelem">
+a <strong> * </strong> vagyis szorzás
+</LI>
+<li id ="listaelem">
+a <strong> / </strong> vagyis <strong>egész</strong> osztás
+</LI>
+<li id ="listaelem">
+a <strong> % </strong> vagyis maradékszámítás
+</LI>
+<li id ="listaelem">
+az <strong> & </strong> vagyis bitenkénti ÉS
+</LI>
+<li id ="listaelem">
+a <strong> | </strong> vagyis bitenkénti VAGY
+</LI>
+<li id ="listaelem">
+a <strong> ^ </strong> vagyis bitenkénti XOR
+</LI>
+<li id ="listaelem">
+a <strong> ~ </strong> vagyis bitenkénti NEM
+</LI>
+<li id ="listaelem">
+a <strong> << </strong> vagyis bitléptetés balra
+</LI>
+<li id ="listaelem">
+a <strong> >> </strong> vagyis bitléptetés jobbra
+</LI>
+<li id ="listaelem">
+a <strong> == </strong> az egyenlőségvizsgálat
+</LI>
+<li id ="listaelem">
+a <strong> != </strong> az különbözőségvizsgálat...stb
+</LI>
+
+</UL>
+<p>Milyen műveleteket végezhetünk egészekkel?</p>
+<div align="center">
+	<table border="1" id="table1" width="395" cellpadding="5" bordercolor="#000000" cellspacing="0">
+		<tr>
+			<td align="left" bgcolor="#006600"><strong><font color="#FFFFFF">Művelet</font></strong></td>
+			<td align="center" bgcolor="#006600" width="92"><strong>
+			<font color="#FFFFFF">Jelölés</font></strong></td>
+			<td width="68" align="center" bgcolor="#006600"><strong>
+			<font color="#FFFFFF">Példa</font></strong></td>
+			<td width="61" align="center" bgcolor="#006600"><strong>
+			<font color="#FFFFFF">Eredmény</font></strong></td>
+		</tr>
+		<tr>
+			<td align="left">Összeadás</td>
+			<td align="center" width="92">x + y</td>
+			<td width="68" align="center">2 +3</td>
+			<td width="61" align="center">5</td>
+		</tr>
+		<tr>
+			<td align="left">Kivonás</td>
+			<td align="center" width="92">x-y</td>
+			<td width="68" align="center">9-7</td>
+			<td width="61" align="center">2</td>
+		</tr>
+		<tr>
+			<td align="left">Szorzás</td>
+			<td align="center" width="92">x * y</td>
+			<td width="68" align="center">3*7</td>
+			<td width="61" align="center">21</td>
+		</tr>
+		<tr>
+			<td align="left">Egészosztás</td>
+			<td align="center" width="92">x / y</td>
+			<td width="68" align="center">11 / 4</td>
+			<td width="61" align="center">2</td>
+		</tr>
+		<tr>
+			<td align="left">Maradékszámítás</td>
+			<td align="center" width="92">x % y</td>
+			<td width="68" align="center">11 % 4</td>
+			<td width="61" align="center">3</td>
+		</tr>
+		<tr>
+			<td align="left">Hatványozás</td>
+			<td align="center" width="92">x ** y</td>
+			<td width="68" align="center">2 ** 3</td>
+			<td width="61" align="center">8</td>
+		</tr>
+		<tr>
+			<td align="left">Bitléptetés balra</td>
+			<td align="center" width="92">x &lt;&lt;y</td>
+			<td width="68" align="center">2 &lt;&lt; 3</td>
+			<td width="61" align="center">16</td>
+		</tr>
+		<tr>
+			<td align="left">Bitléptetés jobbra</td>
+			<td align="center" width="92">x &gt;&gt; y</td>
+			<td width="68" align="center">96 &gt;&gt; 5</td>
+			<td width="61" align="center">3</td>
+		</tr>
+		<tr>
+			<td align="left">Bitenkénti ÉS</td>
+			<td align="center" width="92">x &amp; y</td>
+			<td width="68" align="center">23 &amp; 9</td>
+			<td width="61" align="center">1</td>
+		</tr>
+		<tr>
+			<td align="left">Bitenkénti VAGY</td>
+			<td align="center" width="92">x | y</td>
+			<td width="68" align="center">16 | 7</td>
+			<td width="61" align="center">23</td>
+		</tr>
+		<tr>
+			<td align="left">Bitenkénti XOR</td>
+			<td align="center" width="92">x ^ y</td>
+			<td width="68" align="center">10 ^ 3</td>
+			<td width="61" align="center">9</td>
+		</tr>
+	</table>
+</div>
+<p align="left"><strong><font size="4">Magyarázat: </font></strong></p>
+<p align="left"><u><strong>Egészosztás:</strong></u> 11 / 4 eredménye a 11/4, azaz a&nbsp; 
+2,75 egészrésze, ami 2.</p>
+<p align="left"><u><strong>Maradékszámítás: </strong></u>11 % 4&nbsp; a 11 4-gyel való 
+egészosztás maradéka, azaz 3</p>
+<p align="left"><u><strong>Bitléptetés balra:</strong></u> 2 &lt;&lt; 3:&nbsp;&nbsp; 2 bináris 
+alakja 10<sub>2</sub>.&nbsp; ezt beírva egy-egy bithelyre:</p>
+<div align="center">
+	<table border="1" id="table2" cellspacing="0" cellpadding="5" bordercolor="#000000">
+		<tr>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>1</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+		</tr>
+	</table>
+</div>
+<p>Minden bitet 3 hellyel balra csúsztatunk:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</p>
+<div align="center">
+	<table border="1" id="table3" cellspacing="0" cellpadding="5" bordercolor="#000000">
+		<tr>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>1</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+		</tr>
+	</table>
+</div>
+<p>az eredmény 10000<sub>2</sub>, ami tízes számrendszerben =16.</p>
+<p><u><strong>Bitléptetés jobbra: </strong></u>96 &gt;&gt; 5:&nbsp; 96 kettes számrendszerben 
+1100000<sub>2</sub>, azaz:</p>
+<div align="center">
+	<table border="1" id="table4" cellspacing="0" cellpadding="5" bordercolor="#000000">
+		<tr>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>1</strong></font></td>
+			<td><font color="#FF0000"><strong>1</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+		</tr>
+	</table>
+</div>
+<p>Minden bitet 5 hellyel balra költöztetve ezt kapjuk:</p>
+<div align="center">
+	<table border="1" id="table5" cellspacing="0" cellpadding="5" bordercolor="#000000">
+		<tr>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>1</strong></font></td>
+			<td><font color="#FF0000"><strong>1</strong></font></td>
+		</tr>
+	</table>
+</div>
+<p>&nbsp;ami tízes számrendszerben 3.</p>
+<p><u><strong>Bitenkénti ÉS:</strong></u>&nbsp; 23 &amp; 9&nbsp;&nbsp;&nbsp; a két számot 2-es 
+számrendszerbe írjuk egymás alá úgy, hogy a megfelelő helyértékek kerüljenek 
+egymás alá. 23=10111<sub>2</sub>, 9=1001<sub>2</sub>, egymás alá írva és balról 
+0-val kiegészítve: </p>
+<div align="center">
+	<table border="1" id="table6" cellspacing="0" cellpadding="5" bordercolor="#000000" style="border-left-width: 0px; border-top-width: 0px; border-bottom-width: 0px" width="225">
+		<tr>
+			<td style="border-left-style: none; border-left-width: medium; border-right-style: solid; border-right-width: 1px; border-top-style: none; border-top-width: medium; border-bottom-style: none; border-bottom-width: medium">&nbsp;</td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>1</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>1</strong></font></td>
+			<td><font color="#FF0000"><strong>1</strong></font></td>
+			<td><font color="#FF0000"><strong>1</strong></font></td>
+		</tr>
+		<tr>
+			<td style="border-left-style: none; border-left-width: medium; border-right-style: solid; border-right-width: 1px; border-top-style: none; border-top-width: medium; border-bottom-style: none; border-bottom-width: medium">
+			<font color="#008000"><strong>AND</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>1</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>1</strong></font></td>
+		</tr>
+		<tr>
+			<td style="border-left-style: none; border-left-width: medium; border-right-style: solid; border-right-width: 1px; border-top-style: none; border-top-width: medium; border-bottom-style: none; border-bottom-width: medium">&nbsp;</td>
+			<td><font color="#0000FF"><strong>0</strong></font></td>
+			<td><font color="#0000FF"><strong>0</strong></font></td>
+			<td><font color="#0000FF"><strong>0</strong></font></td>
+			<td><font color="#0000FF"><strong>0</strong></font></td>
+			<td><font color="#0000FF"><strong>0</strong></font></td>
+			<td><font color="#0000FF"><strong>0</strong></font></td>
+			<td><font color="#0000FF"><strong>0</strong></font></td>
+			<td><font color="#0000FF"><strong>1</strong></font></td>
+		</tr>
+	</table>
+</div>
+<p>Az egymás alatti bitekre alkalmazzuk az ÉS műveletet, vagyis<u><strong> ha mindkét 
+bit 1-es, az eredménybit is 1, különben az eredménybit 0.</strong></u></p>
+<p>Így a kék színnel ábrázolt biteket kapjuk, majd a kék színű sort 
+visszaalakítva tízes számrendszerbe: 23 &amp; 9 =1</p>
+<p><u><strong>Bitenkénti VAGY:</strong></u>&nbsp; 16 | 7&nbsp;&nbsp;&nbsp; a két számot 
+2-es számrendszerbe írjuk egymás alá úgy, hogy a megfelelő helyértékek 
+kerüljenek egymás alá. 16=10000<sub>2</sub>, 7=111<sub>2</sub>, egymás alá írva 
+és balról 0-val kiegészítve: </p>
+<div align="center">
+	<table border="1" id="table7" cellspacing="0" cellpadding="5" bordercolor="#000000" style="border-left-width: 0px; border-top-width: 0px; border-bottom-width: 0px" width="225">
+		<tr>
+			<td style="border-left-style: none; border-left-width: medium; border-right-style: solid; border-right-width: 1px; border-top-style: none; border-top-width: medium; border-bottom-style: none; border-bottom-width: medium">&nbsp;</td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>1</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+		</tr>
+		<tr>
+			<td style="border-left-style: none; border-left-width: medium; border-right-style: solid; border-right-width: 1px; border-top-style: none; border-top-width: medium; border-bottom-style: none; border-bottom-width: medium">
+			<font color="#008000"><strong>OR</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>1</strong></font></td>
+			<td><font color="#FF0000"><strong>1</strong></font></td>
+			<td><font color="#FF0000"><strong>1</strong></font></td>
+		</tr>
+		<tr>
+			<td style="border-left-style: none; border-left-width: medium; border-right-style: solid; border-right-width: 1px; border-top-style: none; border-top-width: medium; border-bottom-style: none; border-bottom-width: medium">&nbsp;</td>
+			<td><font color="#0000FF"><strong>0</strong></font></td>
+			<td><font color="#0000FF"><strong>0</strong></font></td>
+			<td><font color="#0000FF"><strong>0</strong></font></td>
+			<td><font color="#0000FF"><strong>1</strong></font></td>
+			<td><font color="#0000FF"><strong>0</strong></font></td>
+			<td><font color="#0000FF"><strong>1</strong></font></td>
+			<td><font color="#0000FF"><strong>1</strong></font></td>
+			<td><font color="#0000FF"><strong>1</strong></font></td>
+		</tr>
+	</table>
+</div>
+<p>Az egymás alatti bitekre alkalmazzuk az VAGY műveletet, azaz <u><strong>ha 
+valamelyik bit a kettő közül 1, akkor az eredménybit 1, különben az eredménybit 
+0.</strong></u></p>
+<p>Így a kék színnel ábrázolt biteket kapjuk, majd a kék színű sort 
+visszaalakítva tízes számrendszerbe: 16 | 7 =23</p>
+<p><u><strong>Bitenkénti KIZÁRÓ VAGY:</strong></u>&nbsp; 10 ^ 3&nbsp;&nbsp;&nbsp; a két 
+számot 2-es számrendszerbe írjuk egymás alá úgy, hogy a megfelelő helyértékek 
+kerüljenek egymás alá. 10=1010<sub>2</sub>, 3=11<sub>2</sub>, egymás alá írva és 
+balról 0-val kiegészítve: </p>
+<div align="center">
+	<table border="1" id="table8" cellspacing="0" cellpadding="5" bordercolor="#000000" style="border-left-width: 0px; border-top-width: 0px; border-bottom-width: 0px" width="225">
+		<tr>
+			<td style="border-left-style: none; border-left-width: medium; border-right-style: solid; border-right-width: 1px; border-top-style: none; border-top-width: medium; border-bottom-style: none; border-bottom-width: medium">&nbsp;</td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>1</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>1</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+		</tr>
+		<tr>
+			<td style="border-left-style: none; border-left-width: medium; border-right-style: solid; border-right-width: 1px; border-top-style: none; border-top-width: medium; border-bottom-style: none; border-bottom-width: medium">
+			<font color="#008000"><strong>XOR</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>0</strong></font></td>
+			<td><font color="#FF0000"><strong>1</strong></font></td>
+			<td><font color="#FF0000"><strong>1</strong></font></td>
+		</tr>
+		<tr>
+			<td style="border-left-style: none; border-left-width: medium; border-right-style: solid; border-right-width: 1px; border-top-style: none; border-top-width: medium; border-bottom-style: none; border-bottom-width: medium">&nbsp;</td>
+			<td><font color="#0000FF"><strong>0</strong></font></td>
+			<td><font color="#0000FF"><strong>0</strong></font></td>
+			<td><font color="#0000FF"><strong>0</strong></font></td>
+			<td><font color="#0000FF"><strong>0</strong></font></td>
+			<td><font color="#0000FF"><strong>1</strong></font></td>
+			<td><font color="#0000FF"><strong>0</strong></font></td>
+			<td><font color="#0000FF"><strong>0</strong></font></td>
+			<td><font color="#0000FF"><strong>1</strong></font></td>
+		</tr>
+	</table>
+</div>
+<p>Az egymás alatti bitekre alkalmazzuk az KIZÁRÓ VAGY műveletet, azaz a<u><strong> 
+különböző bitek esetén az eredménybit 1, egyforma bitek esetén az eredménybit 0.</strong></u></p>
+<p>&nbsp;Így a kék színnel ábrázolt biteket kapjuk, majd a kék színű sort 
+visszaalakítva tízes számrendszerbe: 10 ^ 3 =9</p>
+
+<H2>A C# egész típusai</H2>
+<p>
+Legtöbb esetben az <strong>int</strong> típus fogjuk használni, valahányszor egész típusra lesz szükségünk.<BR>
+Azonban sok esetben az int típus túl pazarló, ha pl valakinek az életkorát akarjuk tárolni, akkor elég a <strong>byte</strong> típus, hiszen a várható értékeket ez a típus bőven tartalmazza, és csak 1 bájtot foglal a memóriában, szemben az <strong>int</strong>-tel, ami 4 bájtot. A megfelelő típust alkalmazva így memóriát is megtakaríthatunk, és a programunkat is gyorsabbá tehetjük.
+Bizonyos esetekben, ha óriás egészekkel kell számolni, és az <strong>int</strong> értéktartománya túl kevés, az <strong>int</strong> helyett kénytelenek leszünk a <strong>long</strong> vagy az <strong>ulong</strong> típust használni.<BR> 
+<U><strong>Az összes itt felsorolt típusra (a char-t kivéve) alkalmazhatók az egészekre fentebb megadott műveletek.</strong></U>
+</p>
+
+<div align="center">
+<table border="1"  width="800" cellpadding="5" bordercolor="#000000" cellspacing="0">
+
+		<tr>
+		<TH>Típus</TH><TH>Értéktartomány</TH><TH>Méret</TH>
+		</tr>
+		<tr>
+		<TD>sbyte</TD><TD>-128-tól ... +127-ig</TD><TD>előjeles 8 bites egész</TD>
+		</tr>
+		<tr>
+		<TD>byte</TD><TD>0-tól ... +255-ig</TD><TD>előjel nélküli 8 bites egész</TD>
+		</tr>
+		<tr>
+		<TD>char</TD><TD>U+0000 -tól U+ffff-ig</TD><TD>16 bites Unicode karakter</TD>
+		</tr>
+		<tr>
+		<TD>short</TD><TD>-32 768-tól ... +32767-ig</TD><TD>előjeles 16 bites egész</TD>
+		</tr>
+		<tr>
+		<TD>ushort</TD><TD>0-tól ... +65355-ig</TD><TD>előjel nélküli 16 bites egész</TD>
+		</tr>
+		<TD>int</TD><TD>-2 147 483 648-tól ... +2 147 483 648-ig</TD><TD>előjeles 32 bites egész</TD>
+		</tr>
+		<tr>
+		<TD>uint</TD><TD>0-tól ... +4 294 967 295-ig</TD><TD>előjel nélküli 32 bites egész</TD>
+		</tr>
+		<TD>long</TD><TD>-9 223 372 036 854 775 808-tól ... +9 223 372 036 854 775 808-ig</TD><TD>előjeles 64 bites egész</TD>
+		</tr>
+		<tr>
+		<TD>ulong</TD><TD>0-tól ... +18 446 744 073 709 551 615-ig</TD><TD>előjel nélküli 64 bites egész</TD>
+		</tr>
+		
+</table>	
+</div>
+<H2>Példaprogram byte-tal</H2>
+<pre class="prettyprint lang-cs">	
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        // Deklaráció értékadással
+        byte ertek = 5;
+        Console.WriteLine(ertek);
+
+        // Így kérdezhetjük le a legkisebb illetve a legnagyobb byte értéket:
+        Console.WriteLine(byte.MinValue);
+        Console.WriteLine(byte.MaxValue);
+
+    }
+}
+</pre>
+<H2>Példaprogram long-gal</H2>
+Számjegyeket tartalmazó szöveg long típussá alakítása:
+<pre class="prettyprint lang-cs">	
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        string ertek = "9223372036854775807";
+        long n = long.Parse(ertek);
+        Console.WriteLine(n);
+    }
+}
+</pre>
+
+</article>
+</html>

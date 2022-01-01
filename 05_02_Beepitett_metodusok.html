@@ -1,0 +1,102 @@
+<!--doctype html-->
+<html lang='hu'>
+   <meta charset='utf-8'>
+	 
+<link href="css/jquery-ui.min.css" rel="stylesheet">
+<link href="css/oldal.css" rel="stylesheet" type="text/css" />
+
+<script src="google-code-prettify/run_prettify.js"></script>  
+<script src="external/jquery/jquery.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/csharpmenu.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script>
+<script type="text/javascript" src="MathJax26.min/MathJax.js?config=TeX-AMS_HTML-full"></script>
+
+<style>
+	#menu
+	{width: 70px;text-align:left; background-color: #00a0a0;}
+	#ulmenu
+	{width: 250px;}
+	#limenu
+	{padding: none;}		
+	a{text-decoration: none;}
+	#tartalom
+	{width: 70px; height:20px; text-align:left; background-color: #00a0a0;}
+</style>
+<header>
+
+		<ul id="menu">
+		<script>
+		document.getElementById("menu").innerHTML = menuszoveg;
+		$( "#menu" ).menu();
+    </script>
+		</ul>
+		
+	<ul id="tartalom">
+		<script>
+		document.getElementById("tartalom").innerHTML = '<li id ="limenu"><a href="tartalom.html">Tartalom</a></li>';
+		$( "#tartalom" ).menu();
+    </script>
+		</ul>
+		
+<h1 style="color: white; position: absolute; left: 40%; top:0px; text-align: center; margin-top:0px;">C# középiskolásoknak</h1>
+</header>
+
+<article>
+<p style="width: 100%;height:40px;"></p>
+<!--ide jön a tartalom-->
+
+<H2>Beépített ("gyári") metódusok(függvények)</H2>
+<p>
+A C# rendszer nagyon sok, előre megírt programkódot tartalmaz.<BR>
+Ezeket a kódok előre megírt osztályok, amelyek megkönnyítik a munkánkat.<BR>
+Az osztályok természetesen egy sor tagfüggvényt, <STRONG>metódust</STRONG> tartalmaznak.
+A string típusnál sok szövegkezelő metódussal találkoztunk már.<BR>
+A valós típusoknál már tárgyaltunk a Math osztály metódusairól.
+Emlékeztetőül felsorolunk néhány beépített metódust, amit gyakran használhatunk:
+ <pre class="prettyprint lang-cs">
+//A Math osztály gyakoribb metódusai
+Math.Min(a,b); // a két változó közül a kisebb értéket adja eredményül
+Math.Max(a,b); // a két változó közül a nagyobb értéket adja eredményül
+Math.Round(tortszám, tizedes); // matematikai szabály szerint kerekíti a változó értékét
+Math.Abs(a); // az adott változó értékének abszolút értékét adja vissza
+Math.Sqrt(a); // az adott változó négyzetgyökét adja vissza
+Math.Pow(a,b); // az a számot a b-edik hatványra emeli, vagyis kiszámítja a<sup>b</sup>-t 
+Math.Log(a); //az a szám természetes logaritmusa, azaz log<sub>e</sub>a, ahol e = 2,7182818...
+Math.Log(a, b);//az a szám b alapú logaritmusa, vagyis log<sub>b</sub>a
+Math.Sin(a); // az a szám szinuszát adja vissza 
+Math.Cos(a); // az a szám koszinuszát adja vissza 
+Math.Tan(a); // az a szám koszinuszát adja vissza 
+ </pre>
+Egynémely feladatnál hasznosak lehetnek a halmazok, és a halmazműveletek. <BR>
+Ezt támogatja a System.Collection.Generics modul HashSet osztálya, amely többek között az alábbi függvényeket tartalmazza:
+<pre class="prettyprint lang-cs">
+//halmaz objektum gyakoribb metódusai
+
+HasSet.Add(halmazelem); //a halmazhoz hozzáad egy elemet
+HashSet.Remove(halmazelem); //halmazból kivesz egy elemet
+HashSet1.UnionWith(HashSet2); // két halmaz uniója
+HashSet1.IntersectWith(HashSet2); // két halmaz metszete
+..stb.
+</pre>
+
+A halmazhoz hasonlóképpen a lista is gyakran használt adatszerkezet, ennek is megvannak a saját metódusai. 
+<pre class="prettyprint lang-cs">
+//lista objektum gyakoribb metódusai
+List.Add(elem); //hozzáad egy elemet a listához
+List.Remove(elem); //töröl egy elemet a listához
+List.Insert(n, elem); //listaelemet az n-edik helyre beszúrja
+
+
+..stb.
+</pre>
+
+A listákkal, halmazokkal, szótárakkal a későbbiekben foglalkozunk. 
+</p>
+
+</article>
+</html>

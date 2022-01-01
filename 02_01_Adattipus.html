@@ -1,0 +1,130 @@
+<!--doctype html-->
+<html lang='hu'>
+   <meta charset='utf-8'>
+	 
+<link href="css/jquery-ui.min.css" rel="stylesheet">
+<link href="css/oldal.css" rel="stylesheet" type="text/css" />
+
+<script src="google-code-prettify/run_prettify.js"></script>  
+<script src="external/jquery/jquery.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/csharpmenu.js"></script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML">
+</script>	
+<style>
+	#menu
+	{width: 70px;text-align:left; background-color: #00a0a0;}
+	#ulmenu
+	{width: 250px;}
+	#limenu
+	{padding: none;}		
+	a{text-decoration: none;}
+	#tartalom
+	{width: 70px; height:20px; text-align:left; background-color: #00a0a0;}
+</style>
+<header>
+
+		<ul id="menu">
+		<script>
+		document.getElementById("menu").innerHTML = menuszoveg;
+		$( "#menu" ).menu();
+    </script>
+		</ul>
+		
+	<ul id="tartalom">
+		<script>
+		document.getElementById("tartalom").innerHTML = '<li id ="limenu"><a href="tartalom.html">Tartalom</a></li>';
+		$( "#tartalom" ).menu();
+    </script>
+		</ul>
+		
+<h1 style="color: white; position: absolute; left: 40%; top:0px; text-align: center; margin-top:0px;">C# középiskolásoknak</h1>
+</header>
+
+<article>
+<p style="width: 100%;height:40px;"></p>
+<!--ide jön a tartalom-->
+<H1>Az adattípus fogalma</H1>
+<p style ="font-weight:bold; font-size = 20px; text-decoration: underline;">
+Az adattípus = (A lehetséges értékek halmaza) + (az értékhalmazon végezhető műveletek)
+</p>
+<p>
+Például az <strong>int</strong> egész típus:
+</p>
+<p style ="font-weight:bold; font-size = 20px; text-decoration: underline;">
+(-2 147 483 648 ...   +2 147 483 648) + {+, -, *, /, %, &, |, ^, ~, <<, >>, ==, !=, &gt, &lt, ++, -- }
+</P>
+Ez azt jelenti, hogy az <strong>int</strong> adattípusú változó  minden egész értéket felvehet, -2 147 483 648-tól +2 147 483 647-ig, és a következő műveletek végezhetők ezekkel az értékekkel:
+<UL>
+<li id ="listaelem">
+a <strong> + </strong> vagyis összeadás
+</LI>
+<li id ="listaelem">
+a <B style ="font-weight:normal;"> - </strong> vagyis kivonás
+</LI>
+<li id ="listaelem">
+a <strong> * </strong> vagyis szorzás
+</LI>
+<li id ="listaelem">
+a <strong> / </strong> vagyis <strong>egész</strong> osztás
+</LI>
+<li id ="listaelem">
+a <strong> % </strong> vagyis maradékszámítás
+</LI>
+<li id ="listaelem">
+az <strong> & </strong> vagyis bitenkénti ÉS
+</LI>
+<li id ="listaelem">
+a <strong> | </strong> vagyis bitenkénti VAGY
+</LI>
+<li id ="listaelem">
+a <strong> ^ </strong> vagyis bitenkénti XOR
+</LI>
+<li id ="listaelem">
+a <strong> ~ </strong> vagyis bitenkénti NEM
+</LI>
+<li id ="listaelem">
+a <strong> << </strong> vagyis bitléptetés balra
+</LI>
+<li id ="listaelem">
+a <strong> >> </strong> vagyis bitléptetés jobbra
+</LI>
+<li id ="listaelem">
+a <strong> == </strong> az egyenlőségvizsgálat
+</LI>
+<li id ="listaelem">
+a <strong> != </strong> az különbözőségvizsgálat...stb
+</LI>
+
+</UL>
+<P>
+Az <strong>int</strong> típussal nem végezhető pl. gyökvonás, mert annak az eredménye legtöbbször nem egész szám.<BR>
+<U>Minden adattípusnak megvan a maga értékhalmaza, és megvan az a műveletkészlet, amely hozzá tartozik.</U><BR>
+Másik példa a <strong>logikai</strong> típus, vagyis a <strong>bool</strong>.</P>
+Ennek az értékkészlete mindössze 2 értékből áll, és a logikai műveletek végeszhetők el vele:
+<p style ="font-weight:bold; font-size = 20px; text-decoration: underline;">
+(false, true) + {&&, ||, !, ^} 
+</P>
+A <strong>bool</strong> műveletkészlete tehát:
+
+<UL>
+<li id ="listaelem">
+a <strong> && </strong> vagyis logikai ÉS
+</LI>
+<li id ="listaelem">
+a <strong> || </strong> vagyis logikai VAGY
+</LI>
+<li id ="listaelem">
+a <strong> ! </strong> vagyis logikai NEM
+</LI>
+<li id ="listaelem">
+a <strong> ^ </strong> vagyis logikai KIZÁRÓ VAGY
+</LI>
+</UL>
+<p style ="font-weight:bold; font-size = 20px; text-decoration: underline;">
+MINDEN TÍPUSNAK VAN TEHÁT EGY ÉRTÉKHALMAZA ÉS EGY MŰVELETKÉSZLETE
+
+
+</article>
+</html>

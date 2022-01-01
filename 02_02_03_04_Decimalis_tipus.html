@@ -1,0 +1,109 @@
+<!--doctype html-->
+<html lang='hu'>
+   <meta charset='utf-8'>
+	 
+<link href="css/jquery-ui.min.css" rel="stylesheet">
+<link href="css/oldal.css" rel="stylesheet" type="text/css" />
+
+<script src="google-code-prettify/run_prettify.js"></script>  
+<script src="external/jquery/jquery.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/csharpmenu.js"></script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML">
+</script>	
+<style>
+	#menu
+	{width: 70px;text-align:left; background-color: #00a0a0;}
+	#ulmenu
+	{width: 250px;}
+	#limenu
+	{padding: none;}		
+	a{text-decoration: none;}
+	#tartalom
+	{width: 70px; height:20px; text-align:left; background-color: #00a0a0;}
+</style>
+<header>
+
+		<ul id="menu">
+		<script>
+		document.getElementById("menu").innerHTML = menuszoveg;
+		$( "#menu" ).menu();
+    </script>
+		</ul>
+		
+	<ul id="tartalom">
+		<script>
+		document.getElementById("tartalom").innerHTML = '<li id ="limenu"><a href="tartalom.html">Tartalom</a></li>';
+		$( "#tartalom" ).menu();
+    </script>
+		</ul>
+		
+<h1 style="color: white; position: absolute; left: 40%; top:0px; text-align: center; margin-top:0px;">C# középiskolásoknak</h1>
+</header>
+
+<article>
+<p style="width: 100%;height:40px;"></p>
+<!--ide jön a tartalom-->
+
+<H2>A decimális típus</H2>
+<p>
+A decimális típus <strong>(decimal)</strong>	olyan számtípus, amelyet a nagy pontosságú értékek kezelésére hozták létre.<BR>
+Értéktartománya: (-7.9 x 10<SUP>28</SUP>-tól 7.9 x 10<SUP>28</SUP>-ig) / (10<SUP>0</SUP> tól 10<SUP>28</SUP>-ig)<BR>
+Pontossága 28-29 számjegy.<BR>
+A decimális értékeket az m vagy M szuffix jelöli. (a szuffix az a betű a számérték végén);
+</p>
+<pre class="prettyprint lang-cs">
+decimal myMoney = 300.5m;  
+//vagy
+decimal myMoney = 300.5M;  
+</pre>
+<p>
+Mivel értéktípus, ugyanazokat a műveleteket, amiket számértékekkel el lehet végezni, azokat a decimálissal is.
+példaprogram:
+</p>
+<pre class="prettyprint lang-cs">
+using System;
+
+class Program
+{
+	static void Main()
+		{
+		decimal d = 1.0M;
+		// Egyenlőségteszt.
+		if (d == 1.0M)
+			{
+			Console.WriteLine(d);
+			}
+		decimal y = 0.5M;
+		// Értéknövelés:
+		y += d;
+		Console.WriteLine(y);
+		// Értékcsökkentés d kétszeresével:
+		y -= (d * 2);
+		Console.WriteLine(y);
+		}
+}
+</pre>
+
+<H2>Aritmetika decimálisokkal</H2>
+
+
+<pre class="prettyprint lang-cs">
+using System;
+
+class Program
+{
+	static void Main()
+    {
+		Console.WriteLine(decimal.Add(1.1M, 1.3M)); // Add
+		Console.WriteLine(decimal.Multiply(5.0M, 2.0M)); // 5 * 2
+		Console.WriteLine(decimal.Subtract(2.0M, 1.0M)); // 2 - 1
+		Console.WriteLine(decimal.Divide(10M, 2M)); // 10 / 2
+    }
+}
+</pre>
+
+</article>
+</html>

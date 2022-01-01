@@ -1,0 +1,203 @@
+<!--doctype html-->
+<html lang='hu'>
+   <meta charset='utf-8'>
+	 
+<link href="css/jquery-ui.min.css" rel="stylesheet">
+<link href="css/oldal.css" rel="stylesheet" type="text/css" />
+
+<script src="google-code-prettify/run_prettify.js"></script>  
+<script src="external/jquery/jquery.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/csharpmenu.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script>
+<script type="text/javascript" src="MathJax26.min/MathJax.js?config=TeX-AMS_HTML-full"></script>
+
+<style>
+	#menu
+	{width: 70px;text-align:left; background-color: #00a0a0;}
+	#ulmenu
+	{width: 250px;}
+	#limenu
+	{padding: none;}		
+	a{text-decoration: none;}
+	#tartalom
+	{width: 70px; height:20px; text-align:left; background-color: #00a0a0;}
+</style>
+<header>
+
+		<ul id="menu">
+		<script>
+		document.getElementById("menu").innerHTML = menuszoveg;
+		$( "#menu" ).menu();
+    </script>
+		</ul>
+		
+	<ul id="tartalom">
+		<script>
+		document.getElementById("tartalom").innerHTML = '<li id ="limenu"><a href="tartalom.html">Tartalom</a></li>';
+		$( "#tartalom" ).menu();
+    </script>
+		</ul>
+		
+<h1 style="color: white; position: absolute; left: 40%; top:0px; text-align: center; margin-top:0px;">C# középiskolásoknak</h1>
+</header>
+
+<article>
+<p style="width: 100%;height:40px;"></p>
+<!--ide jön a tartalom-->
+<h2>A C# szintaktikája</h2>
+<p>
+Amikor egy programozási nyelv szintaktikájáról beszélünk, akkor azokra a szabályokra gondolunk, amelyek
+megszabják a forráskód felépítését. Ez azért fontos, mert az egyes fordítóprogramok csak ezekkel a
+szabályokkal létrehozott kódot tudják értelmezni. Ha a forráskód szintaxisa nem megfelelő, a program nem
+fordul le.<BR>
+A C# úgynevezett C-stílusú szintaxissal rendelkezik (azaz a C programozási nyelv szintaxisát veszi alapul), ez
+három fontos szabályt von maga után:
+<UL>
+<LI>Az egyes utasítások végén pontosvessző - <strong>;</strong> - áll.</LI>
+<LI>A kis- és nagybetűk különböző jelentőséggel bírnak, azaz a “program” és “Program” azonosítók
+különböznek. Ha a fenti kódban <strong>Console.WriteLine</strong> helyett <strong>console.writeline</strong> –t írnánk, akkor a
+program nem fordulna le.</LI>
+<LI>A program egységeit (osztályok, metódusok stb.) ún. blokkokkal jelöljük ki, kapcsos zárójelek <strong>{ és }</strong>
+segítségével.</LI>
+</UL>
+</p>
+<h2>Kulcsszavak</h2>
+<p>
+Szinte minden programnyelv definiál kulcsszavakat, amelyek speciális jelentőséggel bírnak a fordító számára.
+Ezeket az azonosítókat a saját meghatározott jelentésükön kívül nem lehet másra használni, ellenkező esetben
+a fordító hibát jelez. Vegyünk például egy változót, aminek az “int” nevet akarjuk adni! Az “int” név is beépített
+típusra utal, azaz kulcsszó, tehát nem fog lefordulni a program.
+</p>
+<pre class="prettyprint">
+int int; //hibaaaa!!!!
+</pre>
+<p>
+A legtöbb fejlesztőeszköz (így a Visual Studio is) megszínezi a kulcsszavakat, ezért könnyű elkerülni a fenti hibát.
+</p>
+A C# kulcsszavai:<BR><BR>
+<img style="display: block;margin: auto;" src="images/kulcsszavak.png"><BR><BR>
+<U><strong>Ne használjuk ezeket a szavakat saját változónévként, osztályazonosítókként!</strong></U><BR>
+<h2>Megjegyzések</h2>
+<p>
+A forráskódba megjegyzéseket tehetünk. Ezzel egyrészt üzeneteket hagyhatunk (pl. egy metódus leírása)
+magunknak vagy a többi fejlesztőnek, másrészt a kommentek segítségével dokumentációt tudunk generálni,
+ami szintén az első célt szolgálja, csak éppen élvezhetőbb formában.
+Megjegyzéseket a következőképpen hagyhatunk:
+</p>
+<pre class="prettyprint lang-cs">
+static void Main(string[] args)
+	{
+	Console.WriteLine("Hello World"); // Ez egy egysoros komment
+	Console.ReadKey();
+	/* Ez
+	egy
+	többsoros komment */
+	}
+</pre>
+<p>
+Az egysoros komment a saját sora legvégéig tart, míg a többsoros a “/*” és “*/” párokon belül érvényes.
+Utóbbiakat nem lehet egymásba ágyazni:
+</p>
+<pre class="prettyprint">
+/*ez egy komment
+
+	/*ez egy beágyazott komment akar lenni, de nem sikerül neki. */
+
+*/
+</pre>
+<p>
+Ez a “kód” nem fordul le.<BR>
+A kommenteket a fordító nem veszi figyelembe, tulajdonképpen a fordítóprogram első lépése, hogy a
+forráskódból eltávolít minden megjegyzést.
+</p>
+<h2>Névterek</h2>
+<p>
+A .NET Framework osztálykönyvtárai szerény becslés szerint is legalább tízezer nevet, azonosítót tartalmaznak.
+Ilyen nagyságrenddel elkerülhetetlen, hogy a nevek ne ismétlődjenek. Ekkor egyrészt nehéz eligazodni
+közöttük, másrészt a fordító sem tudná, mikor mire gondolunk. Ennek a problémának a kiküszöbölésére hozták
+létre a névterek fogalmát. Egy névtér tulajdonképpen egy virtuális doboz, amelyben a logikailag összefüggő
+osztályok, metódusok stb. vannak. Nyilván könnyebb megtalálni az adatbázis-kezeléshez szükséges osztályokat,
+ha valamilyen kifejező nevű névtérben vannak (pl. System.Data).
+Névteret magunk is definiálhatunk a namespace kulcsszóval:
+</p>
+<pre class="prettyprint">
+namespace MyNameSpace
+{
+}
+</pre>
+<p>
+Ezután a névtérre vagy a program elején a using kulcsszóval, vagy az azonosító elé írt teljes eléréssel
+hivatkozhatunk:
+</p>
+<pre class="prettyprint lang-cs">
+using MyNameSpace;
+//vagy
+MyNameSpace.Valami
+</pre>
+<p>
+Mi főleg a System névteret fogjuk használni.
+</p>
+<h2>Változók</h2>
+<p>
+Amikor programot írunk, akkor szükség lehet tárolókra, ahová az adatainkat ideiglenesen eltároljuk. Ezeket a
+tárolókat  <strong>változóknak</strong> nevezzük.<BR>
+A változók a memória egy (vagy több) cellájára hivatkozó leírók. Minden változónak van egy neve, ez a <strong>változónév</strong> vagy más néven <strong>azonosító.</strong>
+Egy változót a következő módon hozhatunk létre C# nyelven:
+</p>
+<pre class="prettyprint  lang-cs">
+Típus változónév;
+</pre>
+például:
+<pre class="prettyprint lang-cs">
+int egeszSzam;
+bool vanRajtaSapka;
+string jelszo;
+</pre>
+<p>
+A változóknak létrehozáskor adhatunk egy kezdőértéket. Ha ezt nem tesszük meg, a C# ad egy kezdőértéket. A C# által adott kezdőérték a <strong>default value.</strong>
+<p>
+<pre class="prettyprint">
+Típus változónév = kezdőérték;
+</pre>
+<p>
+például:
+</p>
+<pre class="prettyprint lang-cs">
+int egeszSzam = 7;
+bool vanRajtaSapka = True;
+string jelszo = "titok";
+</pre>
+<img  style="display: block;margin: auto;" src="images/valtozo.jpg">
+<p>
+<strong>FONTOS!!!</strong><BR>
+<U>
+A változónév MINDIG betűvel kezdődik és betűvel vagy számjeggyel folytatódik.<BR>
+A változónév NEM tartalmazhat szóközöket és írásjeleket.<BR></U>
+Ajánlott olyan változónevet kitalálni, amely utal arra, amit tárolunk majd benne. Ezt nevezzük  <strong>"beszédes változónév"</strong>nek.<BR>
+Pl. valakinek az életkorát tárolhatjuk egy <strong>x1</strong> nevű változóban, de nem célszerű. <BR>
+Az <strong>eletkor</strong> változónév utal arra hogy ez a változó mit is tárol, ez tehát egy <u>beszédes változónév.</u>
+</p>
+<h2>A legegyszerűbb C# program</h2>
+<p>A legjobban lecsupaszított C# program így néz ki:</p>
+<pre class="prettyprint lang-cs">
+using System;
+
+class Program
+{
+	static void Main()
+	{
+	Console.WriteLine("Szia! ");
+	}
+}
+</pre>
+<p>
+Az elkövetkezőkben ezt a kis programot fogjuk bővítgetni.
+</p>
+
+</article>
+</html>

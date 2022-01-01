@@ -1,0 +1,140 @@
+<!--doctype html-->
+<html lang='hu'>
+   <meta charset='utf-8'>
+	 
+<link href="css/jquery-ui.min.css" rel="stylesheet">
+<link href="css/oldal.css" rel="stylesheet" type="text/css" />
+
+<script src="google-code-prettify/run_prettify.js"></script>  
+<script src="external/jquery/jquery.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/csharpmenu.js"></script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML">
+</script>	
+<style>
+	#menu
+	{width: 70px;text-align:left; background-color: #00a0a0;}
+	#ulmenu
+	{width: 250px;}
+	#limenu
+	{padding: none;}		
+	a{text-decoration: none;}
+	#tartalom
+	{width: 70px; height:20px; text-align:left; background-color: #00a0a0;}
+</style>
+<header>
+
+		<ul id="menu">
+		<script>
+		document.getElementById("menu").innerHTML = menuszoveg;
+		$( "#menu" ).menu();
+    </script>
+		</ul>
+		
+	<ul id="tartalom">
+		<script>
+		document.getElementById("tartalom").innerHTML = '<li id ="limenu"><a href="tartalom.html">Tartalom</a></li>';
+		$( "#tartalom" ).menu();
+    </script>
+		</ul>
+		
+<h1 style="color: white; position: absolute; left: 40%; top:0px; text-align: center; margin-top:0px;">C# középiskolásoknak</h1>
+</header>
+
+<article>
+<p style="width: 100%;height:40px;"></p>
+<!--ide jön a tartalom-->
+
+<H1>A valós típusok</H1>
+Mivel a számítógépek memóriájéának tárkapacitása korlátozott, nem tárolhatunk benne valós számokat tetszőleges pontossággal.
+\begin{equation}
+\frac{2}{3}=0.6666666...
+\end{equation}
+\begin{equation}
+\sqrt{2}=1.4142135...
+\end{equation}
+vagy 
+\begin{equation}
+\pi=3.141592653...
+\end{equation}
+<P>
+Felvetődik a kérdés, hogy a fenti értékeket akkor milyen pontossággal tároljuk, azaz hány egész és hány tizedesjegyet tároljunk?<BR>
+Egy mérnöknek, aki egy autóüpályát épít, nem számít, hogy az 20 m vagy 20.0001 m széles.<BR>
+Egy mikroáramköröket tervező mérnöknek azonban 0.0001 méter, azaz 0.1 milliméter lényeges különbség, amit figyelembe kell venni. Neki azonban ritkán kell 10 cm-nél nagyobb méretekben gondolkozni.<BR>
+Egy fizikusnak a fény sebessége, ami 300 000 000 m/s és a gravitációs állandó, ami 0.0000000000667 értékű, megjelenhet ugyanabban az egyenletben.
+Ahhoz, hogy mindenkinek kielégítsük az igényeit, olyan számformátumot kell használnunk, amely minden nagyságrendben ugyanazt a pontosságot nyújtja.
+A gyakorlatban azonban a relatív pontosság a lényeges, azaz a pontosságot a legnagyobb helyértékhez képest mérjük.<BR>
+Ezt változó pontosságot azonban olyan számformátummal, amiben az egészrész számjegyeinek száma előre rögzített, és a tizedesjegyek száma is előre megadott, nem tudjuk teljesíteni.<BR>
+A megoldás a lebegőpontos szám, ami a matematikában tanult normál alakhoz hasonló.<BR>
+</p>
+<H2>A lebegőpontos számokról</H2>
+A lebegőpomtos számiok két részből tevődnek össze:
+<UL>
+<li id ="listaelem">
+A <strong>mantissza</strong>, amely a szám fontos számjegyeit tartalmazza. A negatív számok mantisszája negatív előjelű.</LI>
+<li id ="listaelem">A <strong>karakterisztika</strong> azt mutatja meg, hogy az adott számban hol van a tizedespont (tizedesvessző). Anegatív karakterisztika olyan számokat jelöl, amelyek nagyon kicsik (nullához közeli értékűek)</LI>
+</UL>
+Egy ilyen formátum kielégít minden fentebb megfogalmazott követelményt:
+
+<UL>
+<li id ="listaelem">nagyon eltérő nagyságrendű számok at lehet vele ábrázolni. Ennek a korláta a karakterisztika nagysága</LI>
+<li id ="listaelem">Minden nagyságrend esetén ugyanazt a relatív pontosságot nyújtja</LI>
+<li id ="listaelem"> Különböző nagyságrendű számokkal számolhatunk anélkül, hogy ez a relatív pontosságot módosítaná, tehát az eredmény relatív pontossága is ugyanakkora marad </LI>
+</UL>
+<P>
+A lebegőpontos számokra a tudományos alakot használjuk, amelyben a tizedespont(tizedesvessző) az 1. és 2. számjegy között van.<BR>
+A karakterisztikát vagy kiírják a 10-es hatvány alakjában, vagy az "e" jelöléssel
+</p>
+<BR>
+<BR>
+<TABLE class="alt">
+<TR>
+<TH>Mantissza</TH><TH>Karakterisztika</TH><TH>Tudományos jelölés</TH><TH>'e' jelölés</TH><TH>Fixpontos jelölés</TH>
+</TR>
+<TR>
+<TD>1.5</TD><TD>4</TD><TD>1.5×10<sup>4</sup></TD><TD>1.5e+4</TD><TD>15 000</TD>
+</TR>
+<TR>
+<TD>-2.001</TD><TD>2</TD><TD>-2.001×10<sup>2</sup></TD><TD>-2.001e+2</TD><TD>-200.1</TD>
+</TR>
+<TR>
+<TD>5</TD><TD>-3</TD><TD>5×10<sup>-3</sup></TD><TD>5e-3</TD><TD>0.005</TD>
+</TR>
+<TR>
+<TD>6.667</TD><TD>-11</TD><TD>6.667×10<sup>-11</sup></TD><TD>6.667e-11</TD><TD>0.00000000006667</TD>
+</TR>
+</TABLE>
+<BR>
+<BR>
+<p>
+Három valós számtípust találunk a C#-ban:</p>
+<UL>
+<li id ="listaelem">float</LI>
+<li id ="listaelem">double</LI>
+<li id ="listaelem">decimal</LI>
+</UL>
+<H2>A lebegőpontos szabvány</H2>
+A lebegőpontos számok 2-es számrendszerbeni alakját az IEEE 754 szabvány szerint a következőképpen adjuk meg:
+<BR>
+<BR>
+<TABLE class="alt">
+<TR>
+<TH>Formátum</TH><TH>Méret bitekben</TH><TH>Mantisszaméret bitekben</TH><TH>Legkisebb érték</TH><TH>Legnagyobb érték</TH>
+</TR>
+<TR>
+<TD>Egyszeres pontosságú</TD><TD>32</TD><TD>23 + 1 előjelbit</TD><TD>kb. 1.2×10<sup>-38</sup></TD><TD>3.4×10<sup>38</sup></TD>
+</TR>
+<TR>
+<TD>Kétszeres pontosságú</TD><TD>64</TD><TD>52+ 1 előjelbit</TD><TD>kb. 5.0×10<sup>-324</sup></TD><TD>kb. 1.8×10<sup>308</sup></TD>
+</TR>
+</TABLE>
+
+<BR>
+<BR>
+<p>Mi a leggyakrabban a double típust fogjuk használni.</p>
+
+
+
+</article>
+</html>

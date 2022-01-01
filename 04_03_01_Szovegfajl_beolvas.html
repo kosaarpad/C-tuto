@@ -1,0 +1,246 @@
+<!--doctype html-->
+<html lang='hu'>
+   <meta charset='utf-8'>
+	 
+<link href="css/jquery-ui.min.css" rel="stylesheet">
+<link href="css/oldal.css" rel="stylesheet" type="text/css" />
+
+<script src="google-code-prettify/run_prettify.js"></script>  
+<script src="external/jquery/jquery.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/csharpmenu.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script>
+<script type="text/javascript" src="MathJax26.min/MathJax.js?config=TeX-AMS_HTML-full"></script>
+
+<style>
+	#menu
+	{width: 70px;text-align:left; background-color: #00a0a0;}
+	#ulmenu
+	{width: 250px;}
+	#limenu
+	{padding: none;}		
+	a{text-decoration: none;}
+	#tartalom
+	{width: 70px; height:20px; text-align:left; background-color: #00a0a0;}
+</style>
+<header>
+
+		<ul id="menu">
+		<script>
+		document.getElementById("menu").innerHTML = menuszoveg;
+		$( "#menu" ).menu();
+    </script>
+		</ul>
+		
+	<ul id="tartalom">
+		<script>
+		document.getElementById("tartalom").innerHTML = '<li id ="limenu"><a href="tartalom.html">Tartalom</a></li>';
+		$( "#tartalom" ).menu();
+    </script>
+		</ul>
+		
+<h1 style="color: white; position: absolute; left: 40%; top:0px; text-align: center; margin-top:0px;">C# középiskolásoknak</h1>
+</header>
+
+<article>
+<p style="width: 100%;height:40px;"></p>
+<!--ide jön a tartalom-->
+<H2>Szövegfájl olvasása soronként</h2>
+
+<p>Gyakran van szükségünk arra, hogy szöveges fájlból olvassunk be adatokat, vagy oda kimentsük azokat. 
+A fájlkezeléshez mindig szükségünk lesz a System.IO-ra.<BR>
+A <B>szövegfájlok</B> olyan, sorokba szervezett sztringek, amelyeknek a végén egy-egy <B>sorvégjel</B> található.
+A fájlok elérését (vagyis hogy a háttértárolónkon merre van a fájl) az útvonal megadásával határozzuk meg.
+A @ karakter az útvonal-sztring előtt azért van, hogy a "\" jeleket ne érzékelje escape jelnek, azaz
+a fáljl útvonalakat lehessen</p>
+<pre class="prettyprint lang-cs">
+string utvonal = "c:\\jatekok\\hulyejatek\\leiras.txt";
+helyett
+string utvonal = @"c:\jatekok\hulyejatek\leiras.txt";
+</pre>
+<p>
+formában leírni.<BR>
+<H3>Szövegfájlba írás a StreamReader osztállyal</H3>
+<p>
+Erre itt két példát mutatunk be, a két példa gyakorlatilag egyenértékű:</p>
+
+<pre class="prettyprint lang-cs">
+using System;
+using System.IO;
+public class Program
+{
+static void Main()
+		{
+		int szamlalo = 0;  
+		string sor;  
+		string utvonal=@"c:\adatok\test.txt";
+		//Megnyitja és soronként olvassa a fájlt:  
+		StreamReader fajl = new StreamReader(utvonal);  
+		while(!sr.EndOfStream)  
+			{  
+			Console.WriteLine (sor);  
+			szamlalo++;  
+			}  
+		fajl.Close();  //bezárja a StreamReader-t
+		Console.WriteLine("Ennyi sor van a fájlban", szamlalo);  
+		// Várakozás billentyű lenyomásra:  
+		Console.ReadLine();  
+		}
+}		
+</pre>
+<p>A második példa</p>
+<pre class="prettyprint lang-cs">
+using System;
+using System.IO;
+public class Program
+{
+static void Main()
+	{
+	string utvonal = @"c:\adatok\test.txt";
+	// Megnyitjuk a fájlt:
+	StreamReader sr = File.OpenText(utvonal);
+	string sor = "";
+	while (!sr.EndOfStream) 
+		{
+		Console.WriteLine(sor);
+		}
+	sr.Close();//lezárjuk a StreamReader-t
+	}
+}
+</pre>
+<p>
+Ha az "utvonal" helyett egyszerűen a fájl nevét írjuk be, akkor abban a mappában keresi a fájlt, 
+amelyikben a programunk van.
+</p>
+<H3>Fájlból olvasás egyszerűen</H3>
+<p>
+A fájlt egyetlen paranccsal is beolvashatjuk.<BR>
+Ez esetben szükségünk van egy sztring tömbre, amely a szövegfájl sorait tárolja.
+Az alábbi példák másik előnye, hogy nem kell az adatfolyamot külön lezárni, mint az előző esetekben (sr.Close())
+Ezt a sztring tömböt előre létre kell hoznunk:
+<pre class="prettyprint lang-cs">
+using System;
+using System.IO;
+using System.Text;
+class Program
+{
+static void Main()
+	{
+	//ha a fájl utf-8-as kódolású
+  //string[] sorok= File.ReadAllLines("test.txt", Encoding.UTF8);
+	//Ha a fájl ASCII kódolású
+	//string[] sorok= File.ReadAllLines("test.txt", Encoding.ASCII);
+	//az alapértéknek beállított kódolással:
+	string[] sorok= File.ReadAllLines("test.txt"); //beolvassa a szövegfájlt a sorok[] tömbbe
+	//ez már a fájl sorainak a kiírása a konzolba:
+	foreach (string sor in sorok)
+		{
+		Console.WriteLine(sor);
+		}
+	Console.ReadKey();	
+	}
+}
+</pre>
+A következő változatban nincs szükség előre létrehozott sztring tömbre:
+<pre class="prettyprint lang-cs">
+using System;
+using System.IO;
+using System.Text;
+class Program
+{
+static void Main()
+	{
+	//utf8-as szöveg:
+	//foreach (string sor in File.ReadLines("testutf8.txt", Encoding.UTF8))
+	
+	//windows ANSI szöveg:
+	foreach (string sor in File.ReadLines("test.txt", Encoding.Default))
+		{
+		Console.WriteLine(sor);
+		}
+	Console.ReadKey();	
+	}
+}
+</pre>
+Mivel nem biztos, hogy a fájl, amit meg szeretnénk nyitni, 
+létezik, ezért ezt megnyitás előtt ellenőrizni kell.
+Fájl megnyitása ellenőrzéssel:
+<pre class="prettyprint lang-cs">
+using System;
+using System.IO;
+using System.Text;
+static void Main()
+	{
+	string utvonal = @"c:\adatok\test.txt";
+	//vagy az aktuális mappában lévő fájl esetén:  
+	//string utvonal = "test.txt";
+
+	if (File.Exists(utvonal)) 
+		{
+		string[] sorok= File.ReadAllLines(utvonal); //beolvassa a szövegfájlt a sorok[] tömbbe
+		}
+	else
+		{
+		Console.WriteLine("Hiba történt. Nincs meg a fájl");
+		}
+	}		
+</pre>
+</p>
+
+<pre class="prettyprint lang-cs">
+using System;
+using System.IO;
+
+class Program
+{
+    public static void Main() 
+    {
+    string utvonal = @"c:\adatok\test.txt";
+    if (!File.Exists(utvonal)) 
+			{
+			// Létrehozunk egy fájlt amibe írunk.
+			StreamWriter sw = File.CreateText(path);            
+			sw.WriteLine("Szia");
+			sw.WriteLine("ez egy sor");
+			sw.WriteLine("ez még egy sor");
+			sw.Close();    	
+			}
+		else 
+			{
+			Console.WriteLine("Már létezik fájl!");
+			}
+</pre>	
+<pre class="prettyprint lang-cs">
+using System;
+using System.IO;
+
+class Test 
+{
+	public static void Main() 
+		{
+		string utvonal = @"c:\adatok\test.txt";
+		StreamWriter sw1 = File.AppendText(utvonal);
+		sw1.WriteLine("Ezek ");
+		sw1.WriteLine("Extra sorok");
+		sw1.WriteLine("amiket a már létező fájlhoz hozzáírunk");
+		sw1.Close();	
+		}
+}
+</pre>	
+
+
+<pre class="prettyprint lang-cs">
+//hatékonyabb, mint a readAllLines()
+foreach (var sor in File.ReadLines(@"C:\mytxt.txt"))
+{
+
+   //Do something     
+
+}
+</pre>
+</article>
+</html>

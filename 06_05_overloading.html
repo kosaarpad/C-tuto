@@ -1,0 +1,155 @@
+<!--doctype html-->
+<html lang='hu'>
+   <meta charset='utf-8'>
+	 
+<link href="css/jquery-ui.min.css" rel="stylesheet">
+<link href="css/oldal.css" rel="stylesheet" type="text/css" />
+
+<script src="google-code-prettify/run_prettify.js"></script>  
+<script src="external/jquery/jquery.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/csharpmenu.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script>
+<script type="text/javascript" src="MathJax26.min/MathJax.js?config=TeX-AMS_HTML-full"></script>
+
+<style>
+	#menu
+	{width: 70px;text-align:left; background-color: #00a0a0;}
+	#ulmenu
+	{width: 250px;}
+	#limenu
+	{padding: none;}		
+	a{text-decoration: none;}
+	#tartalom
+	{width: 70px; height:20px; text-align:left; background-color: #00a0a0;}
+</style>
+<header>
+
+		<ul id="menu">
+		<script>
+		document.getElementById("menu").innerHTML = menuszoveg;
+		$( "#menu" ).menu();
+    </script>
+		</ul>
+		
+	<ul id="tartalom">
+		<script>
+		document.getElementById("tartalom").innerHTML = '<li id ="limenu"><a href="tartalom.html">Tartalom</a></li>';
+		$( "#tartalom" ).menu();
+    </script>
+		</ul>
+		
+<h1 style="color: white; position: absolute; left: 40%; top:0px; text-align: center; margin-top:0px;">C# középiskolásoknak</h1>
+</header>
+
+<article>
+<p style="width: 100%;height:40px;"></p>
+<!--ide jön a tartalom-->
+<H3>Operator overloading</H3>
+<p>
+Operátoroknak nevezzük a C#-ban a műveleti jeleket.<BR>
+Az <B>operator overloading</B>, rossz magyar fordítással: operátor túlterhelés, helyesebben: operátor rádefiniálás vagy operátor felülírás.<BR>
+Akkor alkalmazzuk, ha egy operátornak meg akarjuk változtatni a működését. Operátorok pl a "+, -, /, *, &&, ||, ==, &lt;, &gt;, " stb.
+Például az összeadás vagy a szorzás törtszámoknál másképpen történik, mint egész számoknál. Így ha törteket adunk össze, szükség van a "+" operátor kiterjesztésére úgy, hogy törtekre is és a hagyományos számokra is egyaránt működjön.
+Az overloading használható unáris operátorokra és bináris operátorokra egyaránt.
+<B>Unáris operátor</B> az olyan operátor, ami egy változóra/értékre hat.<BR>
+Ilyen operátorok: <B>+ mint előjel, - mint előjel, !, ~, ++, --</B>
+A bináris operátor két változót/ értéket kapcsol össze.<BR>
+Ilyen operátorok: <B>+ (összeadás), -(kivonás), *, +, %, ==, !=, &lt;, &gt;, &lt;=, &gt;=, &&, ||</B>
+
+<H4>Minta unáris operátorra</H4>
+<pre class="prettyprint lang-cs">
+public static Osztálynév operator operátorjel (Osztálynév o1)
+{
+// Kód, ami az új műveletet leírja
+}
+</pre>
+<BR><BR>
+<H4>Minta bináris operátorra</H4>
+<pre class="prettyprint lang-cs">
+public static Osztálynév operator operátorjel (Osztálynév o1, Osztálynév o2)
+{
+// Kód, ami az új műveletet leírja
+}
+</pre>
+<BR>
+<BR>
+Konkrétabb példa: Tört osztályt hozunk létre. <BR>
+A törteket másképpen kell pl összeadni, mint az egész vagy lebegőpontos számokat, mivel közös nevezőre kell hozni, és a bővített törtek számlálóit kell összeadni.
+<pre class="prettyprint lang-cs">
+using System;
+class Tort
+{
+public int szamlalo, nevezo;
+
+public Tort(int ujszam, int ujnev )//Konstruktor	
+	{
+	this.szamlalo = ujszam;
+	this.nevezo = ujnev;
+	
+	}
+public int Lnko(int a, int b)
+{int c ;
+	while (b > 0) 
+		{	
+		c = b;
+		b = a % b;
+		a = c;
+		}	
+	return a;
+}
+public void Egyszerusit()
+	{
+	//kiszámoljuk a számláló és a nevező legnagyobb közös osztóját
+	//ha ez >1, akkor osztjuk vele a számlálót és a nevezőt
+	
+	int lnko=this.Lnko(this.szamlalo,this.nevezo);	
+	if(lnko>1)	
+		{ 
+  	this.szamlalo=this.szamlalo/lnko;
+		this.nevezo=this.nevezo/lnko;
+		}
+	}
+public void Kiir()//kiírja a törtet
+	{
+	Console.Write(this.szamlalo+"/"+this.nevezo);		
+	}
+//itt az overloading: a + operátor itt törteket fog összeadni
+public static Tort operator + (Tort t1, Tort t2)
+	{//közös nevező a nevezők lekisebb közös többszöröse:
+	//Lkkt =(szám1*szám2)/Lnko(szám1, szám2);
+  int kozosnevezo=(t1.nevezo*t2.nevezo)/t1.Lnko(t1.nevezo, t2.nevezo);
+  int ujszamlalo=t1.szamlalo*(kozosnevezo/t1.nevezo)+t2.szamlalo*(kozosnevezo/t2.nevezo);
+  return new Tort(ujszamlalo, kozosnevezo);	
+	}
+
+}
+class Program
+	{
+	static Tort t1, t2, t3;
+    static void Main()
+		{			
+		t1= new Tort(3,4);
+		t2= new Tort(5,8);
+		t3=t1+t2; //itt a + jel egészen mást fog csinálni!!! Ugyanis törteket ad össze...
+		Console.WriteLine("t1 és t2 összege:");
+		t3.Kiir();
+		int a=2, b=3;
+		Console.WriteLine("a és b összege:" + (a+b));//itt a + jel hagyományosan működik!
+		Console.ReadKey();
+		}
+	}
+</pre>
+<BR>
+Láthatjuk, hogy a rendszer itt mindig tudja, mikor melyik + jel szerint kell az összeadást végeznie.<BR>
+Mégpedig onnan, hogy megnézi, mik az operandusok, azaz az értékek, amikre a + operátor hat.<BR>
+Ha az értékek egészek, vagy lebegőpontosak, akkor a + jel hagyományosan működik.<BR>
+Ha az értékek törtek, akkor a program által előírt módon fogja az összeadást végrehajtani.<BR>
+</p>
+
+</article>
+</html>

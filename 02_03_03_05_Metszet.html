@@ -1,0 +1,100 @@
+<!--doctype html-->
+<html lang='hu'>
+   <meta charset='utf-8'>
+	 
+<link href="css/jquery-ui.min.css" rel="stylesheet">
+<link href="css/oldal.css" rel="stylesheet" type="text/css" />
+
+<script src="google-code-prettify/run_prettify.js"></script>  
+<script src="external/jquery/jquery.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/csharpmenu.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script>
+<script type="text/javascript" src="MathJax26.min/MathJax.js?config=TeX-AMS_HTML-full"></script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML">
+</script>	
+<style>
+	#menu
+	{width: 70px;text-align:left; background-color: #00a0a0;}
+	#ulmenu
+	{width: 250px;}
+	#limenu
+	{padding: none;}		
+	a{text-decoration: none;}
+	#tartalom
+	{width: 70px; height:20px; text-align:left; background-color: #00a0a0;}
+</style>
+<header>
+
+		<ul id="menu">
+		<script>
+		document.getElementById("menu").innerHTML = menuszoveg;
+		$( "#menu" ).menu();
+    </script>
+		</ul>
+		
+	<ul id="tartalom">
+		<script>
+		document.getElementById("tartalom").innerHTML = '<li id ="limenu"><a href="tartalom.html">Tartalom</a></li>';
+		$( "#tartalom" ).menu();
+    </script>
+		</ul>
+		
+<h1 style="color: white; position: absolute; left: 40%; top:0px; text-align: center; margin-top:0px;">C# középiskolásoknak</h1>
+</header>
+
+<article>
+<p style="width: 100%;height:40px;"></p>
+<!--ide jön a tartalom-->
+<H2>Példaprogram: halmazok metszete</H2>
+
+<p>
+Adott két halmaz: az A és a B.<BR> 
+A = {1,2,3,4,5}<BR>
+B = {3,4,5,6,7,8,9}<BR>
+<IMG SRC="images/halmaz01.png"/><BR>
+Feladat: képezzük az A és B  halmazok metszetét, a $C = A \cap B$ halmazt:<BR>
+<IMG SRC="images/metszet.png"/><BR>
+<pre class="prettyprint lang-cs">
+using System;
+using System.Collections.Generic;
+class Program
+	{
+	private static void HalmazMutat(HashSet&lt;int&gt; halmaz)
+		{
+		Console.Write("{");
+		foreach (int elem in halmaz)
+			{
+			Console.Write(" {0}", elem);
+			}
+		Console.WriteLine(" }");
+		}
+	static void Main()
+		{
+		HashSet&lt;int&gt; A = new HashSet&lt;int&gt;(){1,2,3,4,5};//itt a halmazokat tömbfelsiorolásból képezzük
+		HashSet&lt;int&gt; B = new HashSet&lt;int&gt;(){3,4,5,6,7,8,9};
+		Console.ForegroundColor = ConsoleColor.Yellow;
+		Console.WriteLine("Az A halmaz:");
+		HalmazMutat(A);
+		Console.WriteLine("A B halmaz:");
+		HalmazMutat(B);
+		//halmazok metszete:  
+		HashSet&lt;int&gt; C = new HashSet&lt;int&gt;(A);
+		C.IntersectWith(B);
+		Console.WriteLine();
+		Console.WriteLine(" A és B metszete a C:");
+		HalmazMutat(C);
+		}
+	}
+	
+</pre>
+
+
+
+</article>
+</html>

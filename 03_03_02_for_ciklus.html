@@ -1,0 +1,238 @@
+<!--doctype html-->
+<html lang='hu'>
+   <meta charset='utf-8'>
+	 
+<link href="css/jquery-ui.min.css" rel="stylesheet">
+<link href="css/oldal.css" rel="stylesheet" type="text/css" />
+
+<script src="google-code-prettify/run_prettify.js"></script>  
+<script src="external/jquery/jquery.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/csharpmenu.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script>
+<script type="text/javascript" src="MathJax26.min/MathJax.js?config=TeX-AMS_HTML-full"></script>
+
+<style>
+	#menu
+	{width: 70px;text-align:left; background-color: #00a0a0;}
+	#ulmenu
+	{width: 250px;}
+	#limenu
+	{padding: none;}		
+	a{text-decoration: none;}
+	#tartalom
+	{width: 70px; height:20px; text-align:left; background-color: #00a0a0;}
+</style>
+<header>
+
+		<ul id="menu">
+		<script>
+		document.getElementById("menu").innerHTML = menuszoveg;
+		$( "#menu" ).menu();
+    </script>
+		</ul>
+		
+	<ul id="tartalom">
+		<script>
+		document.getElementById("tartalom").innerHTML = '<li id ="limenu"><a href="tartalom.html">Tartalom</a></li>';
+		$( "#tartalom" ).menu();
+    </script>
+		</ul>
+		
+<h1 style="color: white; position: absolute; left: 40%; top:0px; text-align: center; margin-top:0px;">C# középiskolásoknak</h1>
+</header>
+
+<article>
+<p style="width: 100%;height:40px;"></p>
+<!--ide jön a tartalom-->
+<H2>A For ciklus</H2>
+<p>Formátuma:</p>
+<pre> 
+for (inicializálás; logikai_feltétel; ciklusváltozó_módosítás)
+     <span style="color: red;">ismételendő_utasítás;</span>
+ </pre> 
+vagy  ha a ciklusmag több utasításból áll:
+ <pre> 
+for (inicializálás; logikai_feltétel; ciklusváltozó_módosítás)
+<span style="color: red;">     { 
+      ismételendő_utasítás1;
+      ismételendő_utasítás2;
+      ismételendő_utasítás3;
+	  ...
+      ismételendő_utasításN;
+     }
+	 </span>
+</pre> 
+<p>
+A  fenti példákban a <span style="color: red;"> pirossal</span> kiemelt rész a <strong><u>ciklusmag.</u></strong><BR>
+A for ciklus úgy ismételteti a ciklusmagot, hogy közben számlálja is az ismétléseket. A számláláshoz használt változót (vagy változókat) <strong><u>ciklusváltozóknak</u></strong> nevezzük.
+<BR>
+Lássunk egy egyszerű példát:
+</p>
+<pre class="prettyprint lang-cs">	
+using System;
+class Program
+{
+	static void Main()
+	{
+	int i;
+	for (i=0; i &lt 10; i++)
+		{
+		Console.WriteLine(""+i);
+		Console.WriteLine("Szia");
+		}
+	}
+}
+</pre>
+<p>
+Lássuk tehát, hogyan működik ez a ciklus:
+</p>
+<OL>
+<li id = "listaelem">     Először a ciklusszámlálót (i-t) inicializáljuk, ami azt jelenti, hogy i megkapja a kezdőértékét, azaz a 0-t</LI>
+<li id = "listaelem">   Utána kiértékelődik a logikai feltétel: i &lt 10 .  Ha nem igaz, akkor a ciklus véget ér. Ha viszont igaz, akkor</LI>
+<li id = "listaelem">   Végrehajtódik a ciklusmag</LI>
+<li id = "listaelem">   A ciklusmag végrehajtása után a ciklusváltozót <U>automatikusan módosul.</U> Itt a módosuláss azt jelenti, hogy i-t növeljük 1-gyel: i++;<BR>
+        Ezután a 3. ponthoz ugrunk.</LI>
+</OL>
+<p>Készíthetünk olyan ciklust is, amelyben a ciklusszámláló nem egyesével számlál:</p>
+<pre class="prettyprint lang-cs">	
+using System;
+class Program
+{
+	static void Main()
+	{
+	int i;
+	for (i=0; i &lt 15; i+=3)
+		Console.Write(""+i+",");
+	}
+}
+</pre>
+<p>Ez a program az i ciklusszámlálót írja ki minen ismétléskor. Az i-t 3-mal növeli, majd megint kiírja az i-t, egészen addig, amíg az  <strong>i &lt 15</strong> feltétel igaz marad.
+<BR>
+A számlálós ciklussal a ciklusváltozót visszafele is számláltathatjuk:
+</p>
+<pre class="prettyprint lang-cs">	
+using System;
+class Program
+{
+	static void Main()
+	{
+	int i;
+	for (i=14; i &gt= 0; i--)
+		Console.Write(""+i+",");
+	}
+}
+</pre>
+<p>Ez a program az is az i ciklusszámlálót írja ki minen ismétléskor. Csakhogy itt az i első értéke 14, majd 1-esével csökken 0-ig.
+Ha az i-t 3-asával akarjuk csökkenteni:
+</p>
+<pre class="prettyprint lang-cs">	
+using System;
+class Program
+{
+	static void Main()
+	{
+	int i;
+	for (i=14; i &gt= 0; i-=3)
+		Console.Write(""+i+",");
+	}
+}
+</pre>
+<p>Egyszerre több ciklusváltozót is használhatunk:</p>
+
+<pre class="prettyprint lang-cs">	
+using System;
+class Program
+{
+	static void Main()
+	{
+	int i, n;
+	for ( n=0, i=10 ; n!=i ; n++, i-- )
+		 Console.WriteLine("n = "+n + " i = " + i);
+	}
+}
+</pre>
+<p>Kimenet:</p>
+<div class="codeblock3">
+<pre>
+n = 0 i = 10
+n = 1 i = 9
+n = 2 i = 8
+n = 3 i = 7
+n = 4 i = 6
+</pre>
+</div>
+<BR>
+<p>
+Itt az <strong>n</strong> nő 0-ról egyesével, az <strong>i</strong> csökken 10-ről egyesével, és addig ismétlődik a kiírás, amíg <strong>n</strong> nem egyenlő <strong>i</strong>-vel.
+<H3>A ciklusváltozó nem csak egész szám lehet...</H3>
+...hanem pl. karakter vagy felsorolás is.
+Lássunk egy példát karakteres számlálós ciklussal:
+</p>
+<pre class="prettyprint lang-cs">	
+using System;
+class Program
+{
+	static void Main()
+	{
+	char betu;
+	for ( betu='A'; betu &lt 'G';betu++ )
+		 Console.Write(betu+",");
+	}
+}
+</pre>
+<p>
+Ez a program kiírja egymás mellé az 'A, B, C, D, E, F' karaktersorozatot, egymástól vesszővel elválasztva.
+</p>
+<H3>Egymásba ágyazott for ciklusok </H3>
+<p>Sokszor kell valamilyen értéket egy másikkal párosítani. <BR>
+példál betűkhöz értékeket.
+Tudjuk, hogy a következő órán valaki a csoportból felelni fog fizikából. <BR>
+A csoport tagjai: <BR>
+<strong>A</strong>ladár, <strong>B</strong>éla, <strong>C</strong>ili, <strong>D</strong>óra, <strong>E</strong>lemér, <strong>F</strong>eri.<BR>
+Írjunk programot, amely kiírja a felelési esemény összes lehetséges kimenetelét!<BR>
+Felelhet ugye Aladár, és 1-est kaphat  (A---1), de kaphat 2-est (A---2), 3-ast...stb.<BR>
+vagy<BR>
+Felelhet Béla és, 1-est kaphat (B---1), de kaphat 2-est (B---2), 3-ast...stb.<BR>
+...stb.<BR>
+A feladat tehát kiírni az összes lehetséges eseményt, vagyis (betű---jegy) kombinációt.
+</p>
+
+<pre class="prettyprint lang-cs">	
+using System;
+class Program
+	{
+	static void Main()
+		{
+		char betu;
+		int jegy;
+		for ( betu='A'; betu &lt 'G';betu++ )
+			{
+			for ( jegy=1; jegy &lt= 5;jegy++ )
+				Console.Write(betu+"---"+jegy+"  ");
+			Console.WriteLine();//betűváltás után új sor
+			}
+		}
+	}
+</pre>
+
+<p>Kimenet:</p>
+<div class="codeblock3">
+<pre>
+A---1  A---2  A---3  A---4  A---5
+B---1  B---2  B---3  B---4  B---5
+C---1  C---2  C---3  C---4  C---5
+D---1  D---2  D---3  D---4  D---5
+E---1  E---2  E---3  E---4  E---5
+F---1  F---2  F---3  F---4  F---5
+</pre>
+</DIV>
+
+
+
+</article>
+</html>

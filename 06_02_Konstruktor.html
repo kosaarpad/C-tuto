@@ -1,0 +1,131 @@
+<!--doctype html-->
+<html lang='hu'>
+   <meta charset='utf-8'>
+	 
+<link href="css/jquery-ui.min.css" rel="stylesheet">
+<link href="css/oldal.css" rel="stylesheet" type="text/css" />
+
+<script src="google-code-prettify/run_prettify.js"></script>  
+<script src="external/jquery/jquery.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/csharpmenu.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script>
+<script type="text/javascript" src="MathJax26.min/MathJax.js?config=TeX-AMS_HTML-full"></script>
+
+<style>
+	#menu
+	{width: 70px;text-align:left; background-color: #00a0a0;}
+	#ulmenu
+	{width: 250px;}
+	#limenu
+	{padding: none;}		
+	a{text-decoration: none;}
+	#tartalom
+	{width: 70px; height:20px; text-align:left; background-color: #00a0a0;}
+</style>
+<header>
+
+		<ul id="menu">
+		<script>
+		document.getElementById("menu").innerHTML = menuszoveg;
+		$( "#menu" ).menu();
+    </script>
+		</ul>
+		
+	<ul id="tartalom">
+		<script>
+		document.getElementById("tartalom").innerHTML = '<li id ="limenu"><a href="tartalom.html">Tartalom</a></li>';
+		$( "#tartalom" ).menu();
+    </script>
+		</ul>
+		
+<h1 style="color: white; position: absolute; left: 40%; top:0px; text-align: center; margin-top:0px;">C# középiskolásoknak</h1>
+</header>
+
+<article>
+<p style="width: 100%;height:40px;"></p>
+<!--ide jön a tartalom-->
+
+A konstruktor kulcsfontosságú fogalom az objektum-orientált programozásban. <BR>
+<UL>
+<LI>A konstruktor az osztály egy speciális metódusa (tagfüggvénye), amelynek szerepe az <B>osztályváltozók</B> 
+ellátása <B>kezdőértékkel</B>. </LI>
+<LI>A neve megegyezik a az osztály nevével.</LI>
+<LI>Automatikusan végrehajtódik, amikor példányosítjuk az osztályt, azaz amikor létrehozunk egy új objektumot.</LI>
+<LI>A konstruktornak soha sincs visszatérési értéke (-> nincs return)</LI>
+<LI>Ha nem hozunk létre mi kostruktort, a rendszer létrhoz automatikusan egy úgynevezett implicit konstruktort, amit <B>default konstruktornak nevezünk</B></LI>
+<LI></LI>
+</UL>
+<H3>Példa konstruktorra</H3>
+<pre class="prettyprint lang-cs">
+using System;
+public class Téglalap
+{
+double hossz, szél;
+//konstruktor
+public Téglalap(double ujhossz, double ujszél)
+	{
+	this.hossz=ujhossz;
+	this.szél=ujszél;
+	}
+}
+class Program
+{
+// Main metódus
+static void Main(string[] args)
+	{
+	Téglalap t1 = new Téglalap(4,1);//egy téglalap példány
+	Téglalap t2 = new Téglalap(7,3);//egy másik téglalap példány
+	Console.ReadKey();
+	}
+}
+</pre>
+<H3>A copy konstruktor</H3>
+<p>
+A copy konstruktor egy olyan konstruktor, amely lemásolja egy másik objektum változóit.
+A C#-ban a copy konstruktornak is van paramétere, mégpedig egy ugyanolyan osztálytípusú paramétere, amilyent másolni akarunk.
+A copy konstruktor akkor hasznos, ha már egy létező osztályból akarunk egy újat létrehozni a már létező osztály változóinak értékeivel.
+A copy konstruktor átadja a mintaosztály változóértékeit az új osztálynak, anélkül, hogy a mintaosztályt módosítaná.
+Lássuk egy példán keresztül, hogyan is működik a copy konstruktor:
+<pre class="prettyprint lang-cs">
+using System;
+public class Téglalap
+{
+double hossz, szél;
+//sima konstruktor:
+public Téglalap(double ujhossz, double ujszél)
+	{
+	this.hossz=ujhossz;
+	this.szél=ujszél;
+	}
+}
+//copy konstruktor:
+public Téglalap(Téglalap minta)
+
+{
+this.hossz=minta.hossz;
+this.szél=minta.szél;
+}
+class Program
+{
+// Main metódus
+static void Main(string[] args)
+	{
+	Téglalap t1 = new Téglalap(4,1);//egy téglalap példány
+	t2 = t1;//egy másik téglalap példány 
+	//t2 ugyanolyan hosszúságú és szélességű, mint t1:
+	Console.WriteLine(t2.hossz);
+	Console.WriteLine(t2.szél);
+	Console.ReadKey();
+	}
+}
+</pre>
+
+</p>
+
+</article>
+</html>

@@ -1,0 +1,135 @@
+<!--doctype html-->
+<html lang='hu'>
+   <meta charset='utf-8'>
+	 
+<link href="css/jquery-ui.min.css" rel="stylesheet">
+<link href="css/oldal.css" rel="stylesheet" type="text/css" />
+
+<script src="google-code-prettify/run_prettify.js"></script>  
+<script src="external/jquery/jquery.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/csharpmenu.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script>
+<script type="text/javascript" src="MathJax26.min/MathJax.js?config=TeX-AMS_HTML-full"></script>
+
+<style>
+	#menu
+	{width: 70px;text-align:left; background-color: #00a0a0;}
+	#ulmenu
+	{width: 250px;}
+	#limenu
+	{padding: none;}		
+	a{text-decoration: none;}
+	#tartalom
+	{width: 70px; height:20px; text-align:left; background-color: #00a0a0;}
+</style>
+<header>
+
+		<ul id="menu">
+		<script>
+		document.getElementById("menu").innerHTML = menuszoveg;
+		$( "#menu" ).menu();
+    </script>
+		</ul>
+		
+	<ul id="tartalom">
+		<script>
+		document.getElementById("tartalom").innerHTML = '<li id ="limenu"><a href="tartalom.html">Tartalom</a></li>';
+		$( "#tartalom" ).menu();
+    </script>
+		</ul>
+		
+<h1 style="color: white; position: absolute; left: 40%; top:0px; text-align: center; margin-top:0px;">C# középiskolásoknak</h1>
+</header>
+
+<article>
+<p style="width: 100%;height:40px;"></p>
+<!--ide jön a tartalom-->
+
+<H2>Egymásba ágyazott if ... else utasítások</H2>
+
+<p>Az if…else utasítások egymásba ágyazhatók, ha több, mint két irányba ágaztatjuk el a végrehajtást:
+
+Például:</p>
+<pre class="prettyprint lang-cs">	
+using System;
+class Program
+{
+static void Main()
+	{
+	int szam;
+	Console.WriteLine("Kérek egy egész számot:");
+	szam = Convert.ToInt32(Console.ReadLine());
+	if (szam &lt 0)
+		Console.WriteLine("A szám negatív!");	
+	else if (szam ==0)
+		Console.WriteLine("A szám nulla!");	
+	else 
+		Console.WriteLine("A szám pozitív!");	
+	}
+}
+</pre>
+<p>
+Az utolsó else ág nem tartalmaz feltételt, mert ha a szám nem negatív és nem nulla, akkor csak pozitív lehet.</p>
+<pre class="prettyprint lang-cs">	
+using System;
+class Program
+{
+	static void Main()
+	{
+	int jegy;
+	Console.WriteLine("Hányas lett a programozás dogád?");
+	jegy = Convert.ToInt32(Console.ReadLine());
+	if (jegy==1)
+		Console.WriteLine("Ez elégtelen!");	
+	else if (jegy==2)
+		Console.WriteLine("Ez elégséges!");	
+	else if (jegy==3)
+		Console.WriteLine("Ez közepes!");	
+	else if (jegy==4)
+		Console.WriteLine("Ez jó!");	
+	else if (jegy==5)
+		Console.WriteLine("Ez jeles!");	
+	}
+}
+</pre>
+<p>
+Egy tipikus eset, ahol egy kiszámított érték szerint többféleképpen értékelünk, a testtömegindex program:
+</p>
+<pre class="prettyprint lang-cs">	
+using System;
+class Program
+{
+    static void Main()
+    {
+	double testmag, testsuly, tti;
+	Console.WriteLine("Hány kiló vagy?");
+	testsuly = Convert.ToDouble(Console.ReadLine());
+	Console.WriteLine("Hány centi magas vagy?");
+	testmag = Convert.ToDouble(Console.ReadLine());
+	//átalakítjuk a testmag-ot cm-ből m-be:
+	testmag = testmag/100.0;
+	tti = testsuly/(testmag*testmag);
+	if (tti &lt 15)
+		Console.WriteLine("Anorexiás vagy!!! Fordulj orvoshoz!");
+	else if (tti &lt 18) 
+		Console.WriteLine("Kórosan sovány vagy!!!");
+	else if (tti &lt 20) 
+		Console.WriteLine("Sovány vagy!!!");
+	else if (tti &lt 25) 
+		Console.WriteLine("Átlagos a testalkatod!");
+	else if (tti &lt 28) 
+		Console.WriteLine("El vagy hízva!");
+	else if (tti &lt 30) 
+		Console.WriteLine("Súlyos elhízás!!! Fordulj orvoshoz!");
+    }
+}
+</pre>
+
+
+</article>
+</html>

@@ -1,0 +1,370 @@
+<!--doctype html-->
+<html lang='hu'>
+   <meta charset='utf-8'>
+	 
+<link href="css/jquery-ui.min.css" rel="stylesheet">
+<link href="css/oldal.css" rel="stylesheet" type="text/css" />
+
+<script src="google-code-prettify/run_prettify.js"></script>  
+<script src="external/jquery/jquery.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/csharpmenu.js"></script>
+
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML">
+</script>	
+<style>
+	#menu
+	{width: 70px;text-align:left; background-color: #00a0a0;}
+	#ulmenu
+	{width: 250px;}
+	#limenu
+	{padding: none;}		
+	a{text-decoration: none;}
+	#tartalom
+	{width: 70px; height:20px; text-align:left; background-color: #00a0a0;}
+</style>
+<header>
+
+		<ul id="menu">
+		<script>
+		document.getElementById("menu").innerHTML = menuszoveg;
+		$( "#menu" ).menu();
+    </script>
+		</ul>
+		
+	<ul id="tartalom">
+		<script>
+		document.getElementById("tartalom").innerHTML = '<li id ="limenu"><a href="tartalom.html">Tartalom</a></li>';
+		$( "#tartalom" ).menu();
+    </script>
+		</ul>
+		
+<h1 style="color: white; position: absolute; left: 40%; top:0px; text-align: center; margin-top:0px;">C# középiskolásoknak</h1>
+</header>
+
+<article>
+<p style="width: 100%;height:40px;"></p>
+<!--ide jön a tartalom-->
+
+<H1>A logikai adattípus</H1>
+<p style ="font-weight:bold; font-size = 20px; text-decoration: underline;">
+Az adattípus = (A lehetséges értékek halmaza) + (az értékhalmazon végezhető műveletek)<BR>
+</p>
+<p>
+A <strong>logikai</strong> típus, vagyis a <strong>bool</strong> segítségével olyan változókat valósíthatunk meg, amelyeknek mindössze 2 értékük van: <b>true</b> és <b>false</b>.<BR>
+Ennek az adattípusnak az értékkészlete tehát 2 értékből áll, és a logikai műveletek végeszhetők el vele:
+</p>
+<p style ="font-weight:bold; font-size = 20px; text-decoration: underline;">
+(false, true) + (&&, ||, !, ^) 
+</P>
+A <strong>bool</strong> műveletkészlete tehát:
+
+<UL>
+<li id ="listaelem">
+a <B> && </B> vagyis logikai ÉS
+</LI>
+<li id ="listaelem">
+a <B> || </B> vagyis logikai VAGY
+</LI>
+<li id ="listaelem">
+a <B> ! </B> vagyis logikai NEM
+</LI>
+<li id ="listaelem">
+a <B> ^ </B> vagyis logikai KIZÁRÓ VAGY
+</LI>
+</UL>
+
+<h2>
+A logikai NEM művelet: !
+</h2>
+
+
+<p>Egy bemenete van, tehát egy ítéletre hat.</p>
+<p>Igazságtáblázat:</p>
+<table id="table8" style="BORDER-COLLAPSE: collapse" borderColor="#111111" cellSpacing="0" cellPadding="0" width="12%" border="1">
+	<tr>
+		<th align="middle" width="46%">Be</th>
+		<th align="middle" width="54%">Ki</th>
+	</tr>
+	<tr>
+		<th align="middle" width="46%">A</th>
+		<th align="middle" width="54%">!A</th>
+	</tr>
+	<tr>
+		<td align="middle" width="46%">false</td>
+		<td align="middle" width="54%">true</td>
+	</tr>
+	<tr>
+		<td align="middle" width="46%">true</td>
+		<td align="middle" width="54%">false</td>
+	</tr>
+</table>
+<p>
+Példaprogram
+</p>
+<pre class="prettyprint lang-cs">
+using System;
+class Program
+	{
+    static void Main()
+		{
+		bool A = false;
+		Console.WriteLine("Ha az A=" + A + " akkor !A = "+!A);
+		A = true;
+		Console.WriteLine("Ha az A=" + A + " akkor !A = "+!A);
+		}
+	}
+</pre>
+<p>Output</p>
+<div class="codeblock3"><pre>
+d:\suli\!!2017-18\C#_tuto_2018\kodok\Logikai>not
+
+Ha az A=False akkor !A = True
+Ha az A=True akkor !A = False
+
+d:\suli\!!2017-18\C#_tuto_2018\kodok\Logikai>
+
+</pre>
+</div>
+
+<h2>És</h2>
+<p><u>Két</u> bemenete van, tehát két ítéletet kapcsol össze. <u>Csak akkor ad 
+igazat, ha mindkét bemenet igaz</u></p>
+<p>Jelölés: <strong>A && B</strong></p>
+<BR>
+<p>
+Példa ÉS műveletre:<BR><BR>
+kétjegyű = (szám &gt; 9) &&(szám &lt; 100)<BR><BR>
+Látható, hogy ahhoz, hogy a kétjegyűség igaz legyen, egyszerre mindkét feltételnek teljesülnie kell (vagyis értéke true kell legyen)
+</p>
+<p>Igazságtáblázat:</p>
+<table id="table9" style="BORDER-COLLAPSE: collapse" borderColor="#111111" cellSpacing="0" cellPadding="0" width="19%" border="1">
+	<tr>
+		<th align="middle" width="21%">Be<sustrong>1</sustrong></th>
+		<th align="middle" width="23%">Be<sustrong>2</sustrong></th>
+		<th align="middle" width="56%">Ki</th>
+	</tr>
+	<tr>
+		<th align="middle" width="21%">A</th>
+		<th align="middle" width="23%">B</th>
+		<th align="middle" width="56%">A && B</th>
+	</tr>
+	<tr>
+		<td align="middle" width="21%">false</td>
+		<td align="middle" width="23%">false</td>
+		<td align="middle" width="56%">false</td>
+	</tr>
+	<tr>
+		<td align="middle" width="21%">false</td>
+		<td align="middle" width="23%">true</td>
+		<td align="middle" width="56%">false</td>
+	</tr>
+	<tr>
+		<td align="middle" width="21%">true</td>
+		<td align="middle" width="23%">false</td>
+		<td align="middle" width="56%">false</td>
+	</tr>
+	<tr>
+		<td align="middle" width="21%">true</td>
+		<td align="middle" width="23%">true</td>
+		<td align="middle" width="56%">true</td>
+	</tr>
+</table>
+<p>
+Példaprogram
+</p>
+
+<pre class="prettyprint lang-cs">
+using System;
+class Program
+	{
+    static void Main()
+		{
+		bool A = false, B=false, C;
+		C = A && B;
+		Console.WriteLine("Ha A=" + A + ", B = " + B + " akkor A && B = " + C);
+		A = false; B = true;
+		C = A && B;
+		Console.WriteLine("Ha A=" + A + ", B = " + B + " akkor A && B = " + C);
+		A = true; B = false;
+		C = A && B;
+		Console.WriteLine("Ha A=" + A + ", B = " + B + " akkor A && B = " + C);
+		A = true; B = true;
+		C = A && B;
+		Console.WriteLine("Ha A=" + A + ", B = " + B + " akkor A && B = " + C);
+		}
+	}
+</pre>
+<p>Output</p>
+<div class="codeblock3"><pre>
+d:\suli\!!2017-18\C#_tuto_2018\kodok\Logikai>and
+
+Ha A=False, B = False akkor A && B = False
+Ha A=False, B = True akkor A && B = False
+Ha A=True, B = False akkor A && B = False
+Ha A=True, B = True akkor A && B = True
+
+d:\suli\!!2017-18\C#_tuto_2018\kodok\Logikai>
+</pre>
+</div>
+<h2>VAGY</h2>
+<p><u>Két</u> bemenete van, tehát két ítéletet kapcsol össze. <u>Csak akkor ad 
+igazat, ha legalább az egyik bemenet igaz</u></p>
+
+<p>Jelölés: <strong>A || B</strong></p>
+
+<p>
+Példa VAGY műveletre:<BR><BR>
+nemnulla = (szám &lt; 0) || (szám &gt; 0)<BR><BR>
+Látható, hogy ahhoz, hogy a kétjegyűség igaz legyen, egyszerre mindkét feltételnek teljesülnie kell (vagyis értéke true kell legyen)
+</p>
+
+<p>Igazságtáblázat:</p>
+<table id="table9" style="BORDER-COLLAPSE: collapse" borderColor="#111111" cellSpacing="0" cellPadding="0" width="19%" border="1">
+	<tr>
+		<th align="middle" width="21%">Be<sustrong>1</sustrong></th>
+		<th align="middle" width="23%">Be<sustrong>2</sustrong></th>
+		<th align="middle" width="56%">Ki</th>
+	</tr>
+	<tr>
+		<th align="middle" width="21%">A</th>
+		<th align="middle" width="23%">B</th>
+		<th align="middle" width="56%">A || B</th>
+	</tr>
+	<tr>
+		<td align="middle" width="21%">false</td>
+		<td align="middle" width="23%">false</td>
+		<td align="middle" width="56%">false</td>
+	</tr>
+	<tr>
+		<td align="middle" width="21%">false</td>
+		<td align="middle" width="23%">true</td>
+		<td align="middle" width="56%">true</td>
+	</tr>
+	<tr>
+		<td align="middle" width="21%">true</td>
+		<td align="middle" width="23%">false</td>
+		<td align="middle" width="56%">true</td>
+	</tr>
+	<tr>
+		<td align="middle" width="21%">true</td>
+		<td align="middle" width="23%">true</td>
+		<td align="middle" width="56%">true</td>
+	</tr>
+</table>
+
+<p>Példaprogram</p>
+<pre class="prettyprint lang-cs">
+using System;
+class Program
+	{
+    static void Main()
+		{
+		bool A = false, B=false, C;
+		C = A || B;
+		Console.WriteLine("Ha A=" + A + ", B = " + B + " akkor A || B = " + C);
+		A = false; B = true;
+		C = A || B;
+		Console.WriteLine("Ha A=" + A + ", B = " + B + " akkor A || B = " + C);
+		A = true; B = false;
+		C = A || B;
+		Console.WriteLine("Ha A=" + A + ", B = " + B + " akkor A || B = " + C);
+		A = true; B = true;
+		C = A || B;
+		Console.WriteLine("Ha A=" + A + ", B = " + B + " akkor A || B = " + C);
+		}
+	}
+</pre>
+<p>Output</p>
+<div class="codeblock3"><pre>
+
+d:\suli\!!2017-18\C#_tuto_2018\kodok\Logikai>and
+
+Ha A=False, B = False akkor A || B = False
+Ha A=False, B = True akkor A || B = True
+Ha A=True, B = False akkor A || B = True
+Ha A=True, B = True akkor A || B = True
+
+d:\suli\!!2017-18\C#_tuto_2018\kodok\Logikai>
+</pre>
+</DIV>
+
+<h2>KIZÁRÓ VAGY</h2>
+<p><u>Két</u> bemenete van, tehát két ítéletet kapcsol össze. <u>Csak akkor ad 
+igazat, ha a két bemenet nem egyforma</u></p>
+<p>Jelölés: <strong>A ^ B</strong></p>
+<p>Igazságtáblázat:</p>
+<table id="table9" style="BORDER-COLLAPSE: collapse" borderColor="#111111" cellSpacing="0" cellPadding="0" width="19%" border="1">
+	<tr>
+		<th align="middle" width="21%">Be<sustrong>1</sustrong></th>
+		<th align="middle" width="23%">Be<sustrong>2</sustrong></th>
+		<th align="middle" width="56%">Ki</th>
+	</tr>
+	<tr>
+		<th align="middle" width="21%">A</th>
+		<th align="middle" width="23%">B</th>
+		<th align="middle" width="56%">A ^ B</th>
+	</tr>
+	<tr>
+		<td align="middle" width="21%">false</td>
+		<td align="middle" width="23%">false</td>
+		<td align="middle" width="56%">false</td>
+	</tr>
+	<tr>
+		<td align="middle" width="21%">false</td>
+		<td align="middle" width="23%">true</td>
+		<td align="middle" width="56%">true</td>
+	</tr>
+	<tr>
+		<td align="middle" width="21%">true</td>
+		<td align="middle" width="23%">false</td>
+		<td align="middle" width="56%">true</td>
+	</tr>
+	<tr>
+		<td align="middle" width="21%">true</td>
+		<td align="middle" width="23%">true</td>
+		<td align="middle" width="56%">false</td>
+	</tr>
+</table>
+
+<p>Példaprogram</p>
+
+<pre class="prettyprint lang-cs">
+using System;
+class Program
+	{
+    static void Main()
+		{
+		bool A = false, B=false, C;
+		C = A ^ B;
+		Console.WriteLine("Ha A=" + A + ", B = " + B + " akkor A ^ B = " + C);
+		A = false; B = true;
+		C = A ^ B;
+		Console.WriteLine("Ha A=" + A + ", B = " + B + " akkor A ^ B = " + C);
+		A = true; B = false;
+		C = A ^ B;
+		Console.WriteLine("Ha A=" + A + ", B = " + B + " akkor A ^ B = " + C);
+		A = true; B = true;
+		C = A ^ B;
+		Console.WriteLine("Ha A=" + A + ", B = " + B + " akkor A ^ B = " + C);
+		}
+	}
+</pre>
+
+<p>Output</p>
+<div class="codeblock3"><pre>
+d:\suli\!!2017-18\C#_tuto_2018\kodok\Logikai>and
+
+Ha A=False, B = False akkor A ^ B = False
+Ha A=False, B = True akkor A ^ B = True
+Ha A=True, B = False akkor A ^ B = True
+Ha A=True, B = True akkor A ^ B = False
+
+d:\suli\!!2017-18\C#_tuto_2018\kodok\Logikai>
+</pre>
+</DIV>
+
+</article>
+</html>

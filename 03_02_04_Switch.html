@@ -1,0 +1,152 @@
+<!--doctype html-->
+<html lang='hu'>
+   <meta charset='utf-8'>
+	 
+<link href="css/jquery-ui.min.css" rel="stylesheet">
+<link href="css/oldal.css" rel="stylesheet" type="text/css" />
+
+<script src="google-code-prettify/run_prettify.js"></script>  
+<script src="external/jquery/jquery.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/csharpmenu.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script>
+<script type="text/javascript" src="MathJax26.min/MathJax.js?config=TeX-AMS_HTML-full"></script>
+
+<style>
+	#menu
+	{width: 70px;text-align:left; background-color: #00a0a0;}
+	#ulmenu
+	{width: 250px;}
+	#limenu
+	{padding: none;}		
+	a{text-decoration: none;}
+	#tartalom
+	{width: 70px; height:20px; text-align:left; background-color: #00a0a0;}
+</style>
+<header>
+
+		<ul id="menu">
+		<script>
+		document.getElementById("menu").innerHTML = menuszoveg;
+		$( "#menu" ).menu();
+    </script>
+		</ul>
+		
+	<ul id="tartalom">
+		<script>
+		document.getElementById("tartalom").innerHTML = '<li id ="limenu"><a href="tartalom.html">Tartalom</a></li>';
+		$( "#tartalom" ).menu();
+    </script>
+		</ul>
+		
+<h1 style="color: white; position: absolute; left: 40%; top:0px; text-align: center; margin-top:0px;">C# középiskolásoknak</h1>
+</header>
+
+<article>
+<p style="width: 100%;height:40px;"></p>
+<!--ide jön a tartalom-->
+<H2>Többszörös elágazások: a switch..case utasítás</H2>
+<p>
+Az egymásba ágyazott if…else utasítások olykor nehezen átláthatók. <BR>
+Ezért alkották meg a <strong>switch</strong> utasítást ami átláthatóbb többszörös elágazást tesz lehetővé.
+Szerkezete:
+</p>
+<pre class="prettyprint lang-cs">	
+switch (szelektor)
+{
+case érték1:
+        utasítás1;
+        utasítás2;
+        break;
+case érték2:
+        utasítás3;
+        utasítás4;
+        break;
+case érték3:
+        utasítás5;
+        utasítás6;
+        utasítás7;
+        break;
+default:
+        utasítás8;
+        utasítás9;
+}
+</pre>
+<p>
+Itt a <strong>szelektor</strong> egy olyan változó, amely lehet valamilyen egész típus, karakter vagy felsorolás típus.
+Olvasata:
+</p>
+<pre class="prettyprint lang-cs">	
+Ágazz el szelektor értéke alapján a következőképpen:
+    Ha a szelektor = érték1-gyel, akkor hajtsd végre utasítás1-et, majd utasítás2-t!
+    Ha a szelektor = érték2-vel, akkor hajtsd végre utasítás3-at, majd utasítás4-et!
+    Ha a szelektor = érték3-mal, akkor hajtsd végre utasítás5-öt, utasítás6-ot, majd utasítás7-et!
+    Ha a szelektor = alapértékkel, akkor  hajtsd végre utasítás8-at, majd utasítás9-et!
+</pre>	
+<p>
+A <strong>break</strong> utasítás azért van, hogy a program az adott ág végrehajtása után kiugorjon a switch blokkból.<BR>
+Ha a <strong>szelektor</strong> értéke <strong>érték1</strong>, akkor az <strong>utasítás1</strong> és <strong>utasítás2</strong> végrehajtása után kiugrik, és így az alatta lévő utasítások nem hajtódnak végre.<BR>
+Például:
+</p>
+<pre class="prettyprint lang-cs">	
+using System;
+class Program
+{
+	static void Main()
+	{
+	int jegy;
+	Console.WriteLine("Hányas lett a programozás dogád?");
+	jegy = Convert.ToInt32(Console.ReadLine());
+	switch(jegy)
+		{
+		case 1:
+		Console.WriteLine("Ez elégtelen!");	
+		break;
+		case 2:
+		Console.WriteLine("Ez elégséges!");	
+		break;
+		case 3:
+		Console.WriteLine("Ez közepes!");	
+		break;
+		case 4:
+		Console.WriteLine("Ez jó!");	
+		break;
+		case 5:
+		Console.WriteLine("Ez jeles!");	
+		break;
+		}	
+	}
+}
+</pre>
+<p>
+Az előző fejezetben a testtömegindex feladatnál ez az elágazás nem alkalmazható, 
+mert a <strong>tti</strong> változó lenne itt a szelektor, de a szelektor nem lehet valós típusú.<BR>
+Ha a fenti példában a case 1: utáni break; parancsot kifelejtjük, akkor az 1-esre kiírja az <strong>"Ez elégtelen!"</strong>, majd az <strong>"Ez elégséges!"</strong> üzenetet is, ami itt hiba lenne.<BR>
+A case belépési pont után csak egy érték adható meg, intervallum vagy több
+érték megadása nem megengedett, hiszen ezek az 'értékek' gyakorlatilag egy
+címke szerepét töltik be. Ha két értékhez rendeljük ugyanazt a tevékenységet,
+akkor két címkét kell definiálni.
+<BR>
+Példa:
+</p>
+<pre class="prettyprint lang-cs">	
+…
+switch (a)
+	{
+	case 1:
+	case 2:
+	Console.WriteLine("Egy és kettő esetén…");
+	break;
+	default:Console.WriteLine("Egyébként…");
+	break;
+	}
+…
+</pre>	
+
+
+</article>
+</html>

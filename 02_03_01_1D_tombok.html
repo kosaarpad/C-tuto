@@ -1,0 +1,572 @@
+<!--doctype html-->
+<html lang='hu'>
+   <meta charset='utf-8'>
+	 
+<link href="css/jquery-ui.min.css" rel="stylesheet">
+<link href="css/oldal.css" rel="stylesheet" type="text/css" />
+
+<script src="google-code-prettify/run_prettify.js"></script>  
+<script src="external/jquery/jquery.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/csharpmenu.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script>
+<script type="text/javascript" src="MathJax26.min/MathJax.js?config=TeX-AMS_HTML-full"></script>
+
+<style>
+	#menu
+	{width: 70px;text-align:left; background-color: #00a0a0;}
+	#ulmenu
+	{width: 250px;}
+	#limenu
+	{padding: none;}		
+	a{text-decoration: none;}
+	#tartalom
+	{width: 70px; height:20px; text-align:left; background-color: #00a0a0;}
+</style>
+<header>
+
+		<ul id="menu">
+		<script>
+		document.getElementById("menu").innerHTML = menuszoveg;
+		$( "#menu" ).menu();
+    </script>
+		</ul>
+		
+	<ul id="tartalom">
+		<script>
+		document.getElementById("tartalom").innerHTML = '<li id ="limenu"><a href="tartalom.html">Tartalom</a></li>';
+		$( "#tartalom" ).menu();
+    </script>
+		</ul>
+		
+<h1 style="color: white; position: absolute; left: 40%; top:0px; text-align: center; margin-top:0px;">C# középiskolásoknak</h1>
+</header>
+
+<article>
+<p style="width: 100%;height:40px;"></p>
+<!--ide jön a tartalom-->
+
+<H2>Összetett adatok: a tömbök</H2>
+<p>
+Gyakran van szükségünk arra, hogy több azonos típusú adatot tároljunk el, ilyenkor kényelmetlen lenne
+mindegyiknek külön változót foglalnunk:
+</p>
+<pre class="prettyprint lang-cs">
+using System;
+
+class Program
+{
+	static void Main()
+		{
+		int szam0=10, szam1=20,
+		    szam2=30,szam3=40,
+			szam4=50;
+		
+		}
+}
+</pre>
+<p>pl. 100 darab int típusú változót így még leírni is egy örökkévalóság lenne... <BR>
+De ezt nem is kell megtennünk, hiszen rendelkezésünkre áll a tömb adatszerkezet.<BR>
+A fenti problémát tömbbel a következőképpen oldjuk meg:<BR>
+Ahelyett, hogy külön szam0,szam1, szam2, ...stb. változónk lenne, egy név alatt, indexelve tároljuk a változókat:<BR>
+szam[0], szam[1], szam[2],...stb.<BR>
+Itt a szam[n] jelentése: szam valtozó n-ik eleme.<BR>
+A fenti programrész a következőképpen nézne ki:</p>
+<pre class="prettyprint lang-cs">
+using System;
+
+class Program
+{
+	static void Main()
+		{
+		int[] szam = { 10, 20, 30, 40, 50};//int tömb deklarálása értékadással
+		}
+}
+</pre>
+<p>Ha azonban sok száz, vagy sok ezer étékünk van, a következő kód hatékonyabb:</p>
+<pre class="prettyprint lang-cs">
+using System;
+
+class Program
+{
+	static void Main()
+		{
+		int[] szam = new int[5];//5, mivel a fenti példában 5 db változónk volt
+		for (int i = 0;i &lt 5; i++)
+			szam[i] = (i+1)*10;
+		}
+}
+</pre>
+<p>Itt az 5 értéket átírhatjuk pl. 5000-re a kód úgy is működni fog. </p><BR> 
+<h3> Mi is tehát a tömb?</h3> 
+<p>A tömb <strong>meghatározott számú, azonos típusú</strong> elemek halmaza. <BR>
+Minden elemre egyértelműen mutat egy <strong>index</strong>(egész szám), ez az adat többeli <strong>sorszáma</strong>.<BR> 
+<p style="color: red;font-weight: bold;text-decoration: underline;">A tömbben az indexelés (sorszámozás) MINDIG 0-val kezdődik.</p> <BR>
+A tömbök referenciatípusok. Ez azt jelenti, hogy <u>nem egy konkrét értéksorozatot, hanem egy memóriatartomány helyét tárolják</u><BR> </p>
+<FIGURE >
+	<IMG SRC = "images/tomb01.png" style = "margin:0px auto;display:block;"><BR>
+	<FIGCAPTION style = "text-align:center">A C# (is) mindig folytonos memóriablokkokban helyezi el egy tömb
+	elemeit.
+	</FIGCAPTION>
+</FIGURE>
+ <BR>
+
+<H3> Tömb deklarálása</H3>
+<p>Tömböt a következőképpen deklarálhatunk:
+Alapvetően a következőképpen történik:</p>
+<pre class="prettyprint lang-cs">	
+adattípus[] tömbNév;
+</pre>
+<p>ahol</p>
+<UL>
+<li id ="listaelem"> az adattípus megadja, hogy a tömbök egyes adatai milyen típusúak. a típus bármilyen C# típus lehet, akár egy másik tömb is! </LI>
+<li id ="listaelem"> a [ ] jelzi, hogy itt tömböt deklarálunk. </LI>
+<li id ="listaelem"> a tömbNév az új változónk neve, ezen keresztül hivatkozunk a benne tárolt értékekre. </LI>
+</UL>
+<p>példa:</p>
+<pre class="prettyprint lang-cs">	
+double[] homerseklet;
+</pre>
+<H3> Tömb inicializálása</H3>
+<p>A deklaráció után a tömb még nem jön létre. Ahhoz, hogy a tömb létrejöjjön, vagyis a gépben egy 
+memóriatartomány a részére lefoglalódjon, a tömböt inicializálni kell. Mivel a tömb referenciatípus, 
+az inicializálás a <strong>new</strong> kulcsszóval történik. Példa:</p>
+<pre class="prettyprint lang-cs">	
+double[] homerseklet = new double[5];
+</pre>
+<p>Most már tudjuk, hogy 5 db lebegőpontos adatot tárolunk a <strong>homerseklet</strong> változóban.
+Na de mekkora értékeket tárol a <strong>homerseklet</strong> tömb?</p>
+<H3> Tömb feltöltése értékekkel</H3>
+A tömbünket feltölthetjük értékekkel
+<UL>
+<li id ="listaelem">
+egyenként, ha az index segítségével az egyes elemekre hivatkozunk</LI>
+<li id ="listaelem">egyszerre, ha az értéksorozatot kapcsos zárójelek között, vesszővel elválasztva felsoroljuk</LI>
+</UL>
+Az első megoldás:
+<pre class="prettyprint lang-cs">	
+using System;
+
+class Program
+{
+	static void Main()
+		{
+		double[] homerseklet = new double[5];
+		homerseklet [0] = 12.7;
+		homerseklet [1] = 13.9;
+		homerseklet [2] = 14.9;
+		homerseklet [3] = 13.2;
+		homerseklet [4] = 11.8;
+		}
+}
+</pre>
+A második megoldás:
+<pre class="prettyprint lang-cs">	
+using System;
+
+class Program
+{
+	static void Main()
+		{
+		double[] homerseklet = new double[5] { 12.7,13.9, 14.9, 13.2, 11.8};
+		}
+}
+</pre>
+<p>A tömb elemszáma itt el is hagyható:</p>
+<pre class="prettyprint lang-cs">	
+using System;
+
+class Program
+{
+	static void Main()
+		{
+		double[] homerseklet = { 12.7,13.9, 14.9, 13.2, 11.8};
+		}
+}
+</pre>
+<p>
+Egy tömbváltozónak egy másik tömbváltozó értékeit értékadással átadhatjuk, DE <u>ilyenkor az két tömb ugyanarra a memóriatartományra fog mutatni!</u>
+példa:</p>
+<pre class="prettyprint lang-cs">	
+int[] FeriJegyei = new int[] {2,3,4,4,5,1};
+int[] KatiJegyei = FeriJegyei;
+</pre>
+<p>
+A dolog működik, ki tudjuk íratni a tömbök értékét, DE ha az egyik tömbön változtatunk, akkor a másik is ugyanúgy változni fog, mivel UGYANARRA A TÖMBRE HIVATKOZUNK, csak más-más néven!<BR>
+Ha tehát a Feri kettesét hármasra javítom, a Kati kettese is hármasra módosul.
+A probléma elkerülhető, ha a Kati illetve a Feri jegyeit külön inicializálom:
+</p>
+<pre class="prettyprint lang-cs">	
+int[] FeriJegyei = new int[] {2,3,4,4,5,1};
+int[] KatiJegyei = new int[] {2,3,4,4,5,1};
+</pre>
+<p>
+Így külön-külön memóriatartományra mutat a két tömb, és az egyik módosítása nem fogja a másik tömböt érinteni.</p>
+<H3> Tömb elemeinek elérése</H3>
+<p>
+Egy tömb elemeit indexeléssel érjük el. Ez úgy történik, hogy a tömb neve után szögletes zárójelbe írom az elem sorszámát.
+Például:</p>
+<pre class="prettyprint lang-cs">	
+int elsojegy = FeriJegyei[0];// külön változóba másoltuk Feri első jegyét
+</pre>	
+<p>Lássunk egy  teljes programot, ami az tömbelemek inicializálását és kiírását mutatja be:</p>
+
+
+<pre class="prettyprint lang-cs">	
+using System;
+
+class Program
+{
+	static void Main()
+		{
+		int[] lottoSzamok = new int[5]; //deklarálás és inicializálás: 5 db egész szám
+		for ( int n=0; n &lt 5; n++)
+			{
+			lottoSzamok[n] = n*10+5;
+			}
+		//kiíratás:
+		for ( int n=0; n &lt 5; n++)
+			{
+			Console.WriteLine("Az "+ n +". szám: "+lottoSzamok[n]);
+			}
+		
+		}
+}
+</pre>
+<p>Kimenet:</p>
+
+<div class = "codeblock3">
+<pre>
+Az 0. szám: 5
+Az 1. szám: 15
+Az 2. szám: 25
+Az 3. szám: 35
+Az 4. szám: 45
+</pre>
+</div>
+<BR>
+<p>ugyanez a program foreach ciklussal:</p>
+<pre class="prettyprint lang-cs">	
+using System;
+
+class Program
+{
+	static void Main()
+		{
+		int[] lottoSzamok = new int[5]; //deklarálás és inicializálás: 5 db egész szám
+		for ( int n=0; n &lt 5; n++)
+			{
+			lottoSzamok[n] = n*10+5;
+			}
+		//kiíratás:
+		int n = 0;
+		foreach ( int szam in lottoSzamok)
+			{
+			Console.WriteLine("Az "+ n +". szám: " + szam);
+			n++;
+			}
+		
+		}
+}
+</pre>
+
+<p>Kimenet:</p>
+<div class = "codeblock3">
+<pre>
+Az 0. szám: 5
+Az 1. szám: 15
+Az 2. szám: 25
+Az 3. szám: 35
+Az 4. szám: 45
+</pre>
+</div>
+<H3>A tömb "hossza"</H3>
+<p>A tömbkezelés esetén mindig fontos tudni, hogy a tömbünk hány elemet tartalmaz, nehogy "lelépjünk" a tömbről, és olyan tömbelemre hivatkozzunk, amely nem létezik (alulcímzés: lottoSzam[-3], túlcímzés: lottoSzam[7])<BR>
+A tömb hossza lekérdezhető a Length tulajdonsággal:</p>
+<pre class="prettyprint lang-cs">	
+tömbnév.Length;
+//pl:
+lottoSzam.Length;
+</pre>
+Példa:	
+<pre class="prettyprint lang-cs">	
+using System;
+
+class Program
+{
+	static void Main()
+		{
+		int[] lottoSzamok = new int[5]; //deklarálás és inicializálás: 5 db egész szám
+		int hossz = lottoSzamok.Length; //itt a hossz=5, mert ennyi elemmel inicializáltuk a tömböt
+		for ( int n=0; n &lt hossz; n++)
+			{
+			lottoSzamok[n] = n*10+5;
+			}
+		//kiíratás:
+		Console.WriteLine("A tömb hossza: "+hossz);
+		for ( int n=0; n &lt hossz; n++)
+			{
+			Console.WriteLine("Az "+ n +". szám: "+lottoSzamok[n]);
+			}
+		
+		}
+}
+</pre>
+
+
+<p>Kimenet:</p>
+<div class = "codeblock3">
+<pre>
+A tömb hossza: 5
+Az 0. szám: 5
+Az 1. szám: 15
+Az 2. szám: 25
+Az 3. szám: 35
+Az 4. szám: 45
+</pre>
+</DIV>
+<H2>Műveletek tömbökkel<H2>
+<H3>Tömb elemeinek rendezése</H3>
+<p>
+Sokszor van szükség a tömb elemeinek rendezésére.
+Erre a C# rendelkezik egy Array objektummal, melynek egyik beépített metódusa a <strong>rendezés.</strong><BR>
+</p>
+<pre class="prettyprint lang-cs">	
+int[] lottoSzamok = new int[]{88, 23, 45, 2, 9};
+//így rendezzük a lottoSzamok tömböt:
+Array.Sort(lottoSzamok);
+</pre>
+ezután, ha a tömbünket kiíratjuk, akkor rendezve lesz. Ha csökkenő sorrendben rendezzük, akkor az Array.Reverse(lottoSzamok) metódust alkalmazzuk, mint az alábbi példában:
+
+<pre class="prettyprint lang-cs">	
+using System;
+
+class Program
+{
+	static void Main()
+		{
+		int[] lottoSzamok = new int[]{88, 23, 45, 2, 9}; 
+		
+		//kiíratás:
+		Console.WriteLine("A tömb rendezés előtt:");
+		foreach ( int szam in lottoSzamok)
+			{
+			Console.Write(szam +", ");
+			}
+		Console.WriteLine();
+		//rendezzük:
+		Array.Sort(lottoSzamok);
+		//kiíratás:
+		
+		Console.WriteLine("A tömb rendezés után:");
+		foreach ( int szam in lottoSzamok)
+			{
+			Console.Write(szam + ", ");
+			}
+		Console.WriteLine();	
+		//csökkenő sorrendben
+		Array.Reverse(lottoSzamok);
+		//kiíratás:
+		Console.WriteLine("A tömb csökkenő sorrendben:");
+		foreach ( int szam in lottoSzamok)
+			{
+			Console.Write(szam + ", ");
+			}
+		}
+}
+</pre>
+
+<p>Kimenet:</p>
+<div class = "codeblock3">
+<pre>
+A tömb rendezés előtt:
+88, 23, 45, 2, 9,
+A tömb rendezés után:
+2, 9, 23, 45, 88,
+A tömb csökkenő sorrendben:
+88, 45, 23, 9, 2,
+</pre>
+</DIV>
+
+<H3>Tömb elemeinek összegezése</H3>
+<p>
+Sokszor van szükség a tömb elemeinek összegére.
+Ez kétféleképpen is megoldható. A hagyományos eljárásban egy ciklussal végigmegyünk a tömbön és egy változóba összeadogatjuk az elemeket:
+</p>
+
+<pre class="prettyprint lang-cs">	
+using System;
+
+class Program
+{
+	static void Main()
+		{
+		int[] lottoSzamok = new int[]{88, 23, 45, 2, 9}; 
+		
+		//kiíratás:
+		Console.WriteLine("A tömb:");
+		foreach ( int szam in lottoSzamok)
+			{
+			Console.Write(szam +", ");
+			}
+		Console.WriteLine();
+		//összegezzük:
+		int osszeg=0;
+		
+		foreach ( int szam in lottoSzamok)
+			{
+			osszeg += szam;
+			}
+		Console.WriteLine("A tömb elemeinek összege: " + osszeg);	
+		}
+}
+</pre>
+
+<p>Kimenet:</p>
+<div class = "codeblock3">
+<pre>
+A tömb:
+88, 23, 45, 2, 9,
+A tömb elemeinek összege:
+167
+</pre>
+</DIV>
+
+<p>
+Egy kényelmesebb módszert ad az összegzésre a System.Linq használata:
+</p>
+
+<pre class="prettyprint lang-cs">	
+using System;
+using System.Linq;
+class Program
+{
+	static void Main()
+		{
+		int[] lottoSzamok = new int[]{88, 23, 45, 2, 9}; 
+		//kiíratás:
+		Console.WriteLine("A tömb:");
+		foreach ( int szam in lottoSzamok)
+			{
+			Console.Write(szam +", ");
+			}
+		Console.WriteLine();
+		//összegezzük:
+		int osszeg = lottoSzamok.Sum();
+		//kiírjuk az összeget:
+		Console.WriteLine("A tömb elemeinek összege: " + osszeg);	
+		}
+}
+</pre>
+<p>Kimenet:</p>
+<div class = "codeblock3">
+<pre>
+A tömb:
+88, 23, 45, 2, 9,
+A tömb elemeinek összege:
+167
+</pre>
+</div>
+<H3>Tömb legkisebb/legnagyobb eleme</H3>
+<p>
+Hagyományos módszerrel legnagyobb keresése:<BR>
+Feltételezzük, hogy a legnagyobb az első elem. Végigmegyünk a tömbön, és ha nagyobbat találunk, ezt tartjuk meg, és így a tömbön végighaladva megtaláljuk a legnagyobbat. <BR>
+A keresést az 1. indexű elemmel kezdjük:
+</p>
+<pre class="prettyprint lang-cs">	
+using System;
+
+class Program
+{
+	static void Main()
+		{
+		int[] lottoSzamok = new int[]{88, 23, 45, 2, 9}; //deklarálás és inicializálás: 5 db egész szám
+		
+		//kiíratás:
+		Console.WriteLine("A tömb:");
+		foreach ( int szam in lottoSzamok)
+			{
+			Console.Write(szam +", ");
+			}
+		Console.WriteLine();
+		//legnagyobb szám:
+		int legNagyobb = lottoSzamok[0];
+		int maxHelye = 0;
+		int tombMeret = lottoSzamok.Length;
+		for( int i=1;i &lt tombMeret; i++)
+			{
+			if (lottoSzamok[i] &gt legNagyobb)
+				{
+				maxHelye = i;
+				legNagyobb = lottoSzamok[i];
+				}
+			}			
+		//kiíratás:
+		Console.WriteLine("Legnagyobb szám: "+ legNagyobb);
+		Console.WriteLine("Legnagyobb szám a "+ maxHelye + " indexű");
+		}
+}
+</pre>
+<p>Kimenet:</p>
+<div class = "codeblock3">
+<pre>
+A tömb:
+88, 23, 45, 2, 9,
+Legnagyobb szám: 88
+Legnagyobb szám a 0 indexű
+</pre>
+</DIV>
+
+<p>
+A legkisebb keresése hasonló módon történik.
+A Linq használata a legkisebb/legnagyobb keresését is egyszerűbbé teszi:
+</p>
+
+<pre class="prettyprint lang-cs">	
+using System;
+using System.Linq;
+
+class Program
+{
+	static void Main()
+		{
+		int[] lottoSzamok = new int[]{88, 23, 45, 2, 9}; 
+		
+		//kiíratás:
+		Console.WriteLine("A tömb:");
+		foreach ( int szam in lottoSzamok)
+			{
+			Console.Write(szam +", ");
+			}
+		Console.WriteLine();
+		//legnagyobb szám:
+		int legNagyobb = lottoSzamok.Max();
+		int maxHelye = Array.IndexOf(lottoSzamok, legNagyobb);
+		int legKisebb = lottoSzamok.Min();	
+		int minHelye = Array.IndexOf(lottoSzamok,legKisebb);
+		//kiíratás:
+		Console.WriteLine("Legnagyobb szám: "+ legNagyobb);
+		Console.WriteLine("Legnagyobb szám a "+ maxHelye + " indexű");
+		Console.WriteLine("Legkisebb szám: "+ legKisebb);		
+		Console.WriteLine("Legkisebb szám a "+ minHelye + " indexű");
+		}
+}
+</pre>
+<p>Kimenet:</p>
+<div class = "codeblock3">
+<pre>
+A tömb:
+88, 23, 45, 2, 9,
+Legnagyobb szám: 88
+Legnagyobb szám a 0 indexű
+Legkisebb szám: 2
+Legkisebb szám a 3 indexű
+</pre>
+</DIV>
+
+</article>
+</html>

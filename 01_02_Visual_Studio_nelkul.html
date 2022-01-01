@@ -1,0 +1,74 @@
+<!--doctype html-->
+<html lang='hu'>
+   <meta charset='utf-8'>
+	 
+<link href="css/jquery-ui.min.css" rel="stylesheet">
+<link href="css/oldal.css" rel="stylesheet" type="text/css" />
+
+<script src="google-code-prettify/run_prettify.js"></script>  
+<script src="external/jquery/jquery.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/csharpmenu.js"></script>
+<script type="text/javascript" src="MathJax26.min/MathJax.js?config=TeX-AMS_HTML-full"></script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML">
+</script>	
+<style>
+	#menu
+	{width: 70px;text-align:left; background-color: #00a0a0;}
+	#ulmenu
+	{width: 250px;}
+	#limenu
+	{padding: none;}		
+	a{text-decoration: none;}
+	#tartalom
+	{width:70px; height:20px; text-align:left; background-color: #00a0a0;}
+</style>
+<header>
+
+		<ul id="menu">
+		<script>
+		document.getElementById("menu").innerHTML = menuszoveg;
+		$( "#menu" ).menu();
+    </script>
+		</ul>
+		
+	<ul id="tartalom">
+		<script>
+		document.getElementById("tartalom").innerHTML = '<li id ="limenu"><a href="tartalom.html">Tartalom</a></li>';
+		$( "#tartalom" ).menu();
+    </script>
+		</ul>
+		
+<h1 style="color: white; position: absolute; left: 40%; top:0px; text-align: center; margin-top:0px;">C# középiskolásoknak</h1>
+</header>
+
+<article>
+<p style="width: 100%;height:40px;"></p>
+<!--ide jön a tartalom-->
+<h2>Mi van, ha nincs Visual Studiónk?</h2>
+<p>Amennyiben nincs fejlesztőeszközünk, egy sima szövegszerkesztő eszköz is megteszi. Pl. a sima jegyzettömbbel vagy Notepad++-szal is megírhatjuk a programunkat.<BR>
+Ekkor azonban kell írnunk egy parancsfájlt, ami fordításkor megkönnyíti a munkánkat. <BR> Ennek a parancsfájlnak legyen a neve: <b>ford.bat</b></p>
+
+<pre class="prettyprint">
+echo off
+SET PATH=%PATH%;C:\Windows\Microsoft.NET\Framework64\v4.0.30319
+set arg1=%1
+shift
+csc %arg1% 
+</pre>
+<p>
+Itt a SET PATH... kezdetű sorban a <b>csc.exe</b> fordítóprogram elérési útvonalát kell megadnunk.
+Az így elkészült parancsfájl használata:
+</p>
+<p style="text-align: center;font-weight: bold;">ford programnév.cs &lt; ENTER &gt;</p>
+<p>
+Ennek hatására a programunk - amennyiben helyesen van megírva - lefordul. Vagyis lesz egy programnév.exe fájlunk.
+Ha a programunk hiba nélkül lefordult, a futtatáshoz írjuk be a program nevét, majd az ENTER billentyűt nyomjuk le. 
+A programunk elindul, és amennyiben nem történik futási hiba, a program lefut.
+</p>
+
+
+</article>
+</html>

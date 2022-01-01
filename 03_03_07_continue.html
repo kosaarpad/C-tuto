@@ -1,0 +1,215 @@
+<!--doctype html-->
+<html lang='hu'>
+   <meta charset='utf-8'>
+	 
+<link href="css/jquery-ui.min.css" rel="stylesheet">
+<link href="css/oldal.css" rel="stylesheet" type="text/css" />
+
+<script src="google-code-prettify/run_prettify.js"></script>  
+<script src="external/jquery/jquery.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/csharpmenu.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script>
+<script type="text/javascript" src="MathJax26.min/MathJax.js?config=TeX-AMS_HTML-full"></script>
+
+<style>
+	#menu
+	{width: 70px;text-align:left; background-color: #00a0a0;}
+	#ulmenu
+	{width: 250px;}
+	#limenu
+	{padding: none;}		
+	a{text-decoration: none;}
+	#tartalom
+	{width: 70px; height:20px; text-align:left; background-color: #00a0a0;}
+</style>
+<header>
+
+		<ul id="menu">
+		<script>
+		document.getElementById("menu").innerHTML = menuszoveg;
+		$( "#menu" ).menu();
+    </script>
+		</ul>
+		
+	<ul id="tartalom">
+		<script>
+		document.getElementById("tartalom").innerHTML = '<li id ="limenu"><a href="tartalom.html">Tartalom</a></li>';
+		$( "#tartalom" ).menu();
+    </script>
+		</ul>
+		
+<h1 style="color: white; position: absolute; left: 40%; top:0px; text-align: center; margin-top:0px;">C# középiskolásoknak</h1>
+</header>
+
+<article>
+<p style="width: 100%;height:40px;"></p>
+<!--ide jön a tartalom-->
+
+<H2>A continue utasítás</H2>
+<p>A <strong>continue</strong> utasítás hatására az éppen végrehajtott ciklusfutam megszakad, és a következő ciklusfutamra ugrunk.
+
+Vegyünk egy egyszerű ciklust:
+</p>
+<pre class="prettyprint lang-cs">	
+using System;
+
+class Program
+{
+	static void Main()
+		{
+		int n;
+		for ( n=0; n &lt 10; n++)
+			{
+			Console.WriteLine("n = "+n);
+			}
+		}
+}
+</pre>
+<p>Kimenet:</p>
+<div class = "codeblock3">
+<pre>
+n = 0
+n = 1
+n = 2
+n = 3
+n = 4
+n = 5
+n = 6
+n = 7
+n = 8
+n = 9
+</pre>
+</DIV>
+<BR>
+Ugyanez a program egy continue utasítással:
+<pre class="prettyprint lang-cs">	
+using System;
+
+class Program
+{
+	static void Main()
+		{
+		int n;
+		for ( n=0; n &lt 10; n++)
+			{
+			if (n == 5) 
+				{
+				continue;
+				}
+			Console.WriteLine("n = "+n);
+			}
+		}
+}
+</pre>
+<p>Kimenet:</p>
+<div class = "codeblock3">
+<pre>
+n = 0
+n = 1
+n = 2
+n = 3
+n = 4
+n = 6
+n = 7
+n = 8
+n = 9
+</pre>
+</DIV>
+</TR>
+</TABLE>
+<p>
+Ha a ciklusáltozó (n) eléri az 5 értéket - ez a <strong>ugrási feltétel</strong> - a continue hatására az aktuális ciklusfutam végrehajtása abbamarad, és a következő ciklusfutamra ugrunk.<BR>
+Így az értéksorozatból az 5 hiányozni fog, ezért a 4 értékről a 6 értékre ugrunk <BR>
+<BR>
+<BR>
+Hasonló példa <strong>while</strong> ciklussal: 
+</p>
+<pre class="prettyprint lang-cs">	
+using System;
+
+class Program
+{
+	static void Main()
+		{
+		int n;
+		while(n &lt 10)
+			{
+			if (n == 5) 
+				{
+				n++;//ez kötelező! ha nem növeljük az n-et, akkor végtelen ciklusunk lesz!
+				continue;
+				}
+			Console.WriteLine("n = "+n);
+			n++;
+			}
+		}
+}
+</pre>
+<p>Kimenet:</p>
+<div class = "codeblock3">
+<pre>
+n = 0
+n = 1
+n = 2
+n = 3
+n = 4
+n = 6
+n = 7
+n = 8
+n = 9
+</pre>
+</DIV>
+
+<BR>
+<BR>
+<p>Tovább példa  <strong>do.. while</strong> ciklussal: </p>
+
+<pre class="prettyprint lang-cs">	
+using System;
+
+class Program
+{
+	static void Main()
+		{
+		int n;
+		do
+			{
+			if (n == 5) 
+				{
+				n++;//a végtelen ciklus elkerülése végett
+				continue;
+				}
+			Console.WriteLine("n = "+n);
+			n++;
+			}
+		while(n &lt 10);	
+		}
+}
+</pre>
+
+<p>Kimenet:</p>
+<div class = "codeblock3">
+<pre>
+n = 0
+n = 1
+n = 2
+n = 3
+n = 4
+n = 6
+n = 7
+n = 8
+n = 9
+</pre>
+</DIV>
+
+<BR>
+<p>Az átugrási feltételként bármilyen logikai kifejezést használhatunk.<BR>
+<STRONG>Ez az utasítás tehát arra jó, hogy egy adatsorozatban - néhány kivétellel - minden adaton végrehajtsunk valamilyen műveletet.</STRONG>
+</p>
+</article>
+</html>

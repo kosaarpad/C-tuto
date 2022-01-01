@@ -1,0 +1,92 @@
+<!--doctype html-->
+<html lang='hu'>
+   <meta charset='utf-8'>
+	 
+<link href="css/jquery-ui.min.css" rel="stylesheet">
+<link href="css/oldal.css" rel="stylesheet" type="text/css" />
+
+<script src="google-code-prettify/run_prettify.js"></script>  
+<script src="external/jquery/jquery.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/csharpmenu.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script>
+<script type="text/javascript" src="MathJax26.min/MathJax.js?config=TeX-AMS_HTML-full"></script>
+
+<style>
+	#menu
+	{width: 70px;text-align:left; background-color: #00a0a0;}
+	#ulmenu
+	{width: 250px;}
+	#limenu
+	{padding: none;}		
+	a{text-decoration: none;}
+	#tartalom
+	{width: 70px; height:20px; text-align:left; background-color: #00a0a0;}
+</style>
+<header>
+
+		<ul id="menu">
+		<script>
+		document.getElementById("menu").innerHTML = menuszoveg;
+		$( "#menu" ).menu();
+    </script>
+		</ul>
+		
+	<ul id="tartalom">
+		<script>
+		document.getElementById("tartalom").innerHTML = '<li id ="limenu"><a href="tartalom.html">Tartalom</a></li>';
+		$( "#tartalom" ).menu();
+    </script>
+		</ul>
+		
+<h1 style="color: white; position: absolute; left: 40%; top:0px; text-align: center; margin-top:0px;">C# középiskolásoknak</h1>
+</header>
+
+<article>
+<p style="width: 100%;height:40px;"></p>
+<!--ide jön a tartalom-->
+<H3>A "this"</H3>
+<p>
+A <B>this</B> mutató az aktuális osztály vagy struktúra egy változójára mutat.<BR>
+Statikus osztály esetében enem használjuk, csak nem statikus osztályoknál.<BR>
+A this mutatót nem csak a konstruktorban, hanem az osztály tagfüggvényeiben (metódusaiban) is használjuk.
+Példa:
+<pre class="prettyprint lang-cs">
+using System;
+	class Személy 
+	{
+	string név; 
+	int szül_év;
+	//Konstruktor
+	public Személy(string ujnév, int ujsz_év)
+		{
+		this.név=ujnév; //&lt;- utal arra, hogy ennek az osztálynak a név változójáról van szó
+		this.szül_év=ujsz_év;//&lt;- utal arra, hogy ennek az osztálynak a szül_év változójáról van szó
+		}
+	public void Bemutatkozik()
+		{
+		Console.WriteLine("A nevem: "+this.név);//&lt;- utal arra, hogy ennek az osztálynak a név változójáról van szó
+		}	
+	}
+	class Program
+	{
+  // Main metódus
+	static void Main(string[] args)
+		{
+		Személy sz1 = new Személy("Kiss István", 1998);//
+		sz1.Bemutatkozik();
+		Console.ReadKey();
+		}
+}
+</pre>	
+Itt a Személy osztály NEM statikus, ezért itt a this mutatót kell használnunk az osztályváltozókra.<BR>
+Itt a Program osztály statikus, ezért itt a this mutatót NEM használjuk az osztályváltozókra.
+</p>
+
+
+</article>
+</html>

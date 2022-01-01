@@ -1,0 +1,165 @@
+<!--doctype html-->
+<html lang='hu'>
+   <meta charset='utf-8'>
+	 
+<link href="css/jquery-ui.min.css" rel="stylesheet">
+<link href="css/oldal.css" rel="stylesheet" type="text/css" />
+
+<script src="google-code-prettify/run_prettify.js"></script>  
+<script src="external/jquery/jquery.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/csharpmenu.js"></script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML">
+</script>	
+<style>
+	#menu
+	{width: 70px;text-align:left; background-color: #00a0a0;}
+	#ulmenu
+	{width: 250px;}
+	#limenu
+	{padding: none;}		
+	a{text-decoration: none;}
+	#tartalom
+	{width: 70px; height:20px; text-align:left; background-color: #00a0a0;}
+</style>
+<header>
+
+		<ul id="menu">
+		<script>
+		document.getElementById("menu").innerHTML = menuszoveg;
+		$( "#menu" ).menu();
+    </script>
+		</ul>
+		
+	<ul id="tartalom">
+		<script>
+		document.getElementById("tartalom").innerHTML = '<li id ="limenu"><a href="tartalom.html">Tartalom</a></li>';
+		$( "#tartalom" ).menu();
+    </script>
+		</ul>
+		
+<h1 style="color: white; position: absolute; left: 40%; top:0px; text-align: center; margin-top:0px;">C# középiskolásoknak</h1>
+</header>
+
+<article>
+<p style="width: 100%;height:40px;"></p>
+<!--ide jön a tartalom-->
+
+<H1>A lebegőpontos típusok: a float és a double</H1>
+
+
+<BR>
+<BR>
+<TABLE class="alt">
+<TR>
+<TH>Formátum</TH><TH>Méret bitekben</TH><TH>Mantisszaméret bitekben</TH><TH>Legkisebb érték</TH><TH>Legnagyobb érték</TH>
+</TR>
+<TR>
+<TD>Egyszeres pontosságú</TD><TD>32</TD><TD>23 + 1 előjelbit</TD><TD>kb. 1.2×10<sup>-38</sup></TD><TD>3.4×10<sup>38</sup></TD>
+</TR>
+<TR>
+<TD>Kétszeres pontosságú</TD><TD>64</TD><TD>52+ 1 előjelbit</TD><TD>kb. 5.0×10<sup>-324</sup></TD><TD>kb. 1.8×10<sup>308</sup></TD>
+</TR>
+</TABLE>
+
+<BR>
+<BR>
+
+<H2>A float</H2>
+<p>
+Pontossága 6-7 tizedesjegy. Azonban ha 10<sup>38</sup>-nál nagyobb vagy 10<sup>-38</sup>-nál kisebb számokkal van dolgod (pl magfizika, csillagászat) akkor inkább a double típust használd.<BR>
+Előnye a számolási sebesség. Ezzel a típussal lehet a leggyorsabban mérnöki számításokat végezni.<BR>
+Másik előnye, hogy mindössze 4 bájtnyi helyet foglal el a memóriában, tehát helytakarékos. Ez akkor lehet fontos, ha kevés a RAM a gépünkben.<BR>
+</p>
+<H2>Hogyan deklarálunk és használunk egyszeres pontosságú számokat?</H2>
+<pre class="prettyprint lang-cs">
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        float ertek1 = 1.001f; // Kisbetűs típusjelző
+        float ertek2 = 1.002F; // Nagybetűs típusjelző
+
+        Console.WriteLine(ertek1);
+        Console.WriteLine(ertek2);
+    }
+}
+</pre>
+
+<pre class="prettyprint lang-cs">
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        // float típus használata
+        float szam = 1.5F;
+        Console.WriteLine(szam);
+        // Beállítunk egy negatív értéket:
+        szam = -1.001F;
+        Console.WriteLine(szam);
+        Console.WriteLine(szam == -1.001F); // Egyenlőség lekérdezés: == operátor
+        Console.WriteLine(szam + 200); // Összeadás: a + operátor
+        Console.WriteLine(szam.GetType());//System.Single-t ad eredményül
+        Console.WriteLine(typeof(float));//System.Single-t ad eredményül
+        Console.WriteLine(float.MinValue.ToString("0"));//a legkisebb érték szöveggé konvertálva
+        Console.WriteLine(float.MaxValue.ToString("0"));//a legnagyobb érték szöveggé konvertálva
+    }
+}
+</pre>
+<H3>A float konstansok</H3>
+<p>
+Egy fontos probléma az, hogy össze tudjunk hasonlítani két, majdnem egyenlő, de nem pont egyenlő float típusú értéket.
+A float.Epsilon konstans érték a legkisebb pozitív float érték.
+</p>
+<pre class="prettyprint lang-cs">
+using System;
+
+class Program
+{
+	static void Main()
+    {
+			Console.WriteLine(float.Epsilon);//a legkisebb pozitív float érték, 1.401298E-45
+			Console.WriteLine(float.NaN);//a "nem szám" = Not a Number érték
+			Console.WriteLine(float.NegativeInfinity);//-Infinity-t ír ki, ez a -végtelen
+			Console.WriteLine(float.PositiveInfinity);//Infinity-t ír ki, ez a +végtelen
+    }
+}
+</pre>
+
+<H2>A double</H2>
+<p>
+Pontossága 15-16 tizedesjegy, Legnagyobb érték, amittárolni tudunk ebben a típusban a 10<sup>308</sup><BR>
+A legkisebb  pozitív érték 10<sup>-324</sup> nagyságrendű.<BR>
+A memóriában, háttértárolón 8 byte helyet foglal el egy double típusú érték.<BR>
+Nagy helyfoglalása mellett hátrány az is, hogy lassabban végezhetők a műveletek a float-hoz képest. A szokásos műveletek pl Nvidia videokártyán
+3-24x lassabbak double-lel, mint float-tal.</p>
+<pre class="prettyprint lang-cs">
+using System;
+
+class Program
+{
+	static void Main()
+	{
+		// double típus deklarálása.
+		double szam = 1.5;
+		Console.WriteLine(szam);
+		szam = -1; // lehet negatív is
+		Console.WriteLine(szam);
+		Console.WriteLine(szam == -1); // Egyenlőségvizsgálat: == operátor
+		Console.WriteLine(szam + 100); // Összeadás + operátor
+		Console.WriteLine(szam.GetType());//System.Double-t ír ki
+		Console.WriteLine(typeof(double));//System.Double-t ír ki
+		Console.WriteLine(double.MinValue);//-1.79769313486232E+308
+		Console.WriteLine(double.MaxValue);//1.79769313486232E+308
+	}
+}
+</pre>
+
+
+</article>
+</html>

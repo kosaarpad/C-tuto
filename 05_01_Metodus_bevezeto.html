@@ -1,0 +1,244 @@
+<!--doctype html-->
+<html lang='hu'>
+   <meta charset='utf-8'>
+	 
+<link href="css/jquery-ui.min.css" rel="stylesheet">
+<link href="css/oldal.css" rel="stylesheet" type="text/css" />
+
+<script src="google-code-prettify/run_prettify.js"></script>  
+<script src="external/jquery/jquery.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/csharpmenu.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script>
+<script type="text/javascript" src="MathJax26.min/MathJax.js?config=TeX-AMS_HTML-full"></script>
+
+<style>
+	#menu
+	{width: 70px;text-align:left; background-color: #00a0a0;}
+	#ulmenu
+	{width: 250px;}
+	#limenu
+	{padding: none;}		
+	a{text-decoration: none;}
+	#tartalom
+	{width: 70px; height:20px; text-align:left; background-color: #00a0a0;}
+</style>
+<header>
+
+		<ul id="menu">
+		<script>
+		document.getElementById("menu").innerHTML = menuszoveg;
+		$( "#menu" ).menu();
+    </script>
+		</ul>
+		
+	<ul id="tartalom">
+		<script>
+		document.getElementById("tartalom").innerHTML = '<li id ="limenu"><a href="tartalom.html">Tartalom</a></li>';
+		$( "#tartalom" ).menu();
+    </script>
+		</ul>
+		
+<h1 style="color: white; position: absolute; left: 40%; top:0px; text-align: center; margin-top:0px;">C# középiskolásoknak</h1>
+</header>
+
+<article>
+<p style="width: 100%;height:40px;"></p>
+<!--ide jön a tartalom-->
+<H2>Metódusok(függvények)</H2>
+<p>
+Gyakran megesik, hogy egy program végrehajtásakor egy-egy tevékenységre többször is szükségünk van.<BR>
+Célszerű lenne, ha az adott tevékenységet csak egyszer kódolnánk le, és utána az adott programrészt, résztevékenységet utána többször is elindíthatnánk, amikor arra szükség van.
+Erre találták ki a függvényeket, amelyeket az objektumorientált nyelvezetben <strong>metódusok</strong>nak nevezünk.<BR>
+<strong>A metódus (függvény) egy elkülönített programrész, ami saját névvel rendelkezik, és egy jól meghatározott feladatot lát el.</strong>
+Ahhoz, hogy egy metódust használjunk,
+<UL>
+<LI id = "#listaelem">meg kell adnunk a metódus definícióját</LI>
+<LI id = "#listaelem">hívnuk kell a metódust, hogy a megírt kód végrehajtódjon</LI>
+</UL>
+Egy tiikus függvénydefiníció szerkezete a következő:
+</p>
+<pre class="prettyprint lang-cs">
+&lt;Hozzáférési módosító&gt; &lt;Visszatérési érték típusa&gt; &lt;Metódus neve&gt;(Paraméterlista) 
+{
+   &lt;utasítások&gt;
+}
+</pre>
+<p>
+<UL>
+<LI id = "#listaelem"><STRONG>Hozzáférési módosító</STRONG> - ezel adjuk meg a metódus láthatóságát egy másik osztályból. 
+    Leggyakoribb hozáférési módosítók:<STRONG>public, protected, private</STRONG> </LI>
+<LI id = "#listaelem"><STRONG>Visszatérési érték típusa</STRONG> - Egy metódus végrehajtásakor keletkezhet valamilyen számítási eredmény. 
+          Ennek az eredménynek a típusát adja meg. Ez képezi a függvény kimeneti adtát(output). Ha nincs visszatérési érték, akkor ide <STRONG>void</STRONG>-ot írunk.</LI>
+<LI id = "#listaelem"><STRONG>Metódus neve</STRONG> - Ez egy azonosító, (függvénynév), amellyel a metódust hívjuk</LI>
+<LI id = "#listaelem"><STRONG>Paraméterlista</STRONG> - Ez egy lista, ami a metódus bemeneti értékeinek típusait, azonosítóit adja meg. <STRONG>Figyelj az adatok sorrendjére!</STRONG> </LI>
+</UL>
+ Lássunk egy példát függvényre!
+ <pre class="prettyprint lang-cs">
+public double Atlag(double szam1, double szam2)
+	{
+	double osszeg, atlag;
+	osszeg = szam1 + szam2;
+	atlag = osszeg / 2;
+	return atlag;
+	}
+ </pre>
+ <BR>
+ <BR>
+ A függvényre tekinthetünk úgy is, mint egy gyártó egységre, amely a "nyersanyagból" (input adatok) legyártja a "végterméket" (output adat). <BR>
+ A bemenő adatokat a függvény <strong>paraméterlistájába</strong> soroljuk fel, a kimenő adat a return utáni változó vagy kifejezés.
+<BR><BR>
+ <img style="display: block;margin: auto;" src="images/fuggveny.png"><BR><BR>
+A függvény tehát egy kisebb program, ami a nayobb programunk része. Tartalmazhat saját változókat (osszeg, atlag)<BR>
+Ezekkel a változókkal és bemeneti adatokkal elvégezünk valamilyen számítást, az eredményt pedig a <STRONG>return</STRONG> kulcszó után adjuk meg.
+<BR>
+<BR>
+ <img style="display: block;margin: auto;" src="images/fuggvenyszerk.png"><BR><BR>
+<BR>
+<BR>
+Az így elkészült függvényt aztán a programunk egy másik részében <STRONG>meghívhatjuk</STRONG>, vagyis felhasználhatjuk két szám átlagának kiszámításásra:
+ <pre class="prettyprint lang-cs">
+ ...
+ double x1 = Atlag(2,3); //x1 értéke 2.5 lesz
+ double y2 = Atlag(10,3); //y2 értéke 6.5 lesz
+ ...stb.
+ </pre>
+ <BR>
+ A függvény nyújtotta nagy előny, hogy ha már egyszer megírtuk, utána akárhányszor hívhatjuk.
+</p>
+
+<p>
+Léteznek olyan függvények, amelyek nem adnak vissza semmilyen számítási eredményt, hanem egyszerűen elvégeznek valamilyen tevékenységet. Az ilyen függvények visszatérési értéke <STRONG>void
+</STRONG><BR>
+Lássunk egy példát:<BR>
+ <pre class="prettyprint lang-cs">
+ public void Koszones(string kinek)
+ {
+ Console.WriteLine("Szia, "+kinek +"!");
+ }
+ //hívás pl. a főprogramban:
+ Koszones("Dani"); //kimenet: Szia, Dani!
+ Koszones("Tibi"); //kimenet: Szia, Tibi!
+ </pre>
+ 
+ <BR>
+Figyeljük meg, hogy itt nincs <STRONG>return</STRONG> a függvény végén! 
+
+</p>
+<p>
+Léteznek továbbá olyan metódusok is, amelyeknek üres a paraméterlistájuk, vagyis nincsenek bemeneti adatai:<BR>
+Az ilyen esetekben a metódusnév után üres kerek zárójelpárral jelezzük, hogy függvényről van szó. Példa:<BR>
+<pre class="prettyprint lang-cs">
+ public void Kiir10csillagot()
+ {
+ Console.WriteLine("**********");
+ }
+ //hívás pl. a főprogramban:
+ Kiir10csillagot(); 
+ 
+ </pre>
+ 
+ <BR>
+ 
+</p>
+<p>
+Végül nézzük meg, hogyan illeszkednek ezek a függvények a főprogramba!
+<pre class="prettyprint lang-cs">
+using System;
+
+public class Program
+{
+public static double Atlag(double szam1, double szam2)
+	{
+	double osszeg, atlag;
+	osszeg = szam1 + szam2;
+	atlag = osszeg / 2;
+	return atlag;
+	}
+public static void Koszones(string kinek)
+	{
+	Console.WriteLine("Szia, "+kinek +"!");
+	}	
+public static void Kiir10csillagot()
+ {
+ Console.WriteLine("**********");
+ }
+
+static void Main()
+	{
+	double x1 = Atlag(8, 7);//metódushívás
+	Console.WriteLine("x1 = "+ x1);
+	Koszones("Feri");//metódushívás
+	Kiir10csillagot();
+	}
+}
+</pre>
+<BR>
+A kimenet:
+<BR>
+<div class = "codeblock3">
+<pre>
+x1 = 7,5
+Szia, Feri!
+**********
+</pre>
+</div>
+<BR>
+Itt a metódusokat a Program osztályon belül definiáltuk. Mivel ez az osztály statikus, ezért minden metódusa statikus lesz. <BR>
+Ezért a metódusok neve elé a <STRONG>static</STRONG> kulcsszót tesszük.<BR>
+Ennek a magyarázatát a későbbiekben, az osztályok tárgyalásakor fogjuk megadni.<BR>
+<STRONG>Vegyük észre, hogy a Main() is tulajdonképpen egy metódus!</STRONG>
+Annyiban kitüntetett a többi metódushoz képest, hogy ez a metódus hívás nélkül is végrehajtódik. Sőt, ez lesz az első a metódusok sorában, ami végrehajtásra kerül.
+<BR>
+A metódusokat a Program osztályon belül tetszőleges sorrendben pakolgathatjuk, és mindegyik metódus(a Main()-t kivéve hívhatja a másikat.<BR>
+Például a <STRONG>Koszones</STRONG> metódusban hívhatjuk a <STRONG>Kiir10csillagot</STRONG> metódust vagy fordítva.
+<BR>
+Egy másik, szokásos elrendezésben a Main() metódus van elől, utána a többi metódus:
+<pre class="prettyprint lang-cs">
+using System;
+
+public class Program
+{
+static void Main()
+	{
+	double x1 = Atlag(8, 7);//metódushívás
+	Console.WriteLine("x1 = "+ x1);
+	Koszones("Feri");//metódushívás
+	Kiir10csillagot();
+	}
+public static double Atlag(double szam1, double szam2)
+	{
+	double osszeg, atlag;
+	osszeg = szam1 + szam2;
+	atlag = osszeg / 2;
+	return atlag;
+	}
+public static void Koszones(string kinek)
+	{
+	Console.WriteLine("Szia, "+kinek +"!");
+	}	
+public static void Kiir10csillagot()
+ {
+ Console.WriteLine("**********");
+ }
+}
+</pre>
+<BR>
+A kimenet ugyanaz:
+<BR>
+<div class = "codeblock3">
+<pre>
+x1 = 7,5
+Szia, Feri!
+**********
+</pre>
+</div>
+<BR>
+
+</p>
+</article>
+</html>

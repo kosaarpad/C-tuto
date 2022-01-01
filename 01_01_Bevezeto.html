@@ -1,0 +1,175 @@
+<!--doctype html-->
+<html lang='hu'>
+   <meta charset='utf-8'>
+	 
+<link href="css/jquery-ui.min.css" rel="stylesheet">
+<link href="css/oldal.css" rel="stylesheet" type="text/css" />
+
+<script src="google-code-prettify/run_prettify.js"></script>  
+<script src="external/jquery/jquery.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/csharpmenu.js"></script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML">
+</script>	
+<style>
+	#menu
+	{width: 70px;text-align:left; background-color: #00a0a0;}
+	#ulmenu
+	{width: 250px;}
+	#limenu
+	{padding: none;}		
+	a{text-decoration: none;}
+	#tartalom
+	{width:70px; height:20px; text-align:left; background-color: #00a0a0;}
+</style>
+<header>
+
+		<ul id="menu">
+		<script>
+		document.getElementById("menu").innerHTML = menuszoveg;
+		$( "#menu" ).menu();
+    </script>
+		</ul>
+		<ul id="tartalom">
+		<script>
+		document.getElementById("tartalom").innerHTML = '<li id ="limenu"><a href="tartalom.html">Tartalom</a></li>';
+		$( "#tartalom" ).menu();
+    </script>
+		</ul>
+	
+<h1 style="color: white; position: absolute; left: 40%; top:0px; text-align: center; margin-top:0px;">C# középiskolásoknak</h1>
+</header>
+
+<article>
+<p style="width: 100%;height:40px;"></p>
+<!--ide jön a tartalom-->
+<H1>Ismerkedés a nyelvvel</H1>
+<H2>Fejlesztőeszközünk</H2>
+<p>
+Mielőtt elkezdenénk hosszú utunkat, fel kell fegyverkeznünk a megfelelő fejlesztőeszközzel! A .NET
+programozáshoz a legjobb választás a Microsoft saját terméke, a Visual Studio. A „nagy” fizetős változatok
+(Professional, Ultimate) mellett létezik az ingyenes Express család is, amelyek szinte teljes körű szolgáltatást
+nyújtanak.
+Az Express változatok „különlegessége”, hogy a nagy változatokkal ellentétben csak egy-egy részterületre
+koncentrálnak, külön változat van a webes és asztali alkalmazások készítéséhez.
+</p>
+<h2>Az első program</h2>
+<p>
+
+HELLO WORLD! program<br>
+Készítsük el első C# nyelven írt programunkat!
+A híres “Hello World!” program elsőként Dennis Ritchie és Brian Kernighan “A C programozási nyelv” című
+könyvében jelent meg, és azóta szinte hagyomány, hogy egy programozási nyelv bevezetőjeként ezt a
+programot mutatják be.
+A File menüben kattintsunk a New Project menüpontra, ekkor a megjelenő ablakban kiválaszthatjuk a projekt
+típusát. <br>
+Mi nagyrészt Console Application sablont fogunk használni, ezzel egy parancssorban futó
+programot hozhatunk létre.</p>
+<img style="display: block;margin: auto;" src="images/kep001b.png">
+<p>Az OK gombra kattintva elkészül az első projektünk, a forráskód így néz ki:</p>
+<pre class="prettyprint lang-cs">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+namespace TestApp
+	{
+	class Program
+		{
+		static void Main(string[] args)
+			{
+			}
+		}
+	}
+</pre>
+<p>
+Meglepően sok mindent látunk, ahhoz képest, hogy ez a program a világon semmit nem csinál. Menjünk
+sorjában, egyelőre különösebb magyarázat nélkül, a következő fejezetekben mindenre fény derül. Az első négy
+sorral azokat a névtereket jelöltük ki, amelyeket használni szeretnénk. Ebben az esetben a Visual Studio egy
+kicsit túlbuzgó volt, egyelőre az első sor is elég lett volna, de nyugodtan hagyjunk mindent, ahogy van, még
+nincs jelentősége.<BR>
+A következő lépésben megadjuk a programunk névterét, ez alapértelmezés szerint az lesz, amit a New Project
+ablakban a Name mezőben megadtunk.<BR>
+A class Program sor az, ami egy kicsit ijesztő lehet a kezdő programozó számára. A C# tisztán objektumorientált
+nyelv, ami egyelőre azt jelenti számunkra, hogy bármit teszünk, azt csakis egy osztályon belül egy függvényben
+vagy metódusban tehetjük. Egy osztályt a class kulcsszóval vezetünk be, amely után az osztály nevét kell írnunk.
+Ebben a pillanatban még nem kell ennél többet tudnunk az objektumorientált programozásról, de nemsokára
+ennek is eljön az ideje.
+</p>
+<p>
+Nem maradt más hátra, mint a Main függvény. Ez n
+agyon fontos összetevője minden C# programnak, hiszen ez
+az alkalmazásunk belépési pontja, itt kezdődik el a futása. Minden C# programnak tartalmaznia kell egy Main
+nevű függvényt, ellenkező esetben le sem fordul.
+</p>
+<p> Vizsgáljuk meg egy kicsit a fejlesztőeszközt is! </p>
+
+<img style="display: block;margin: auto;" src="images/kep002b.png">
+<p>
+Bal oldalon a forráskódot láthatjuk, míg a jobb oldalt az ún. Solution Explorer foglalja el. Minden esetben,
+amikor egy projektet készítünk, egy ún. Solution jön létre. Egy Solution több projektet is tartalmazhat, jobb
+gombbal kattintva hozhatjuk elő a hozzá tartozó helyi menüt, amely segítségével újabb projektet készíthetünk.
+Ugyanígy minden projekthez is tartozik ilyen menü, amellyel pl. új elemeket adhatunk hozzá.<BR>
+Látható, hogy egy „faszerű” szerkezetről van szó. A félkövér betűvel kiemelt projekt a StartUp elem, ez fog
+elindulni, ha futtatjuk a Solution-t. Tetszés szerint megváltoztathatjuk ezt a beállítást a kívánt projekt helyi
+menüjében (Set as StartUp project).<BR>
+A projekteket „lenyitva” a hozzá tartozó fájlokat találjuk, illetve két mappát, amelyek speciális célt szolgálnak. A
+Properties mappa a programról tartalmaz metaadatokat, például a készítő nevét, az aktuális verziószámot stb.
+A References mappa pedig a projektben használt osztálykönyvtárakat sorolja fel. Ebből rögtön kétféle is van, a
+BCL-hez tartozó könyvtárak (alapbeállítás szerint) nem másolódnak be a program kimeneti mappájába, míg a
+külső könyvtárak igen. Új projekt létrehozásakor is több könyvtárat találunk, ezek közül egyelőre a System és
+System.Core nélkülözhetetlen.<BR>
+Ahhoz, hogy a programunkat futtassuk, először le kell fordítanunk. Ezt a Build menüben található Build
+Solution paranccsal tehetjük meg. Ha több projektünk is van, egyenként is fordíthatunk a helyi menüből.
+Amennyiben nem kapunk hibaüzenetet, illetve a bal alsó sarokban megjelenik a Build Succeeded felirat, akkor
+a programunk szintaktikailag helyes, megpróbálhatjuk futtatni.<BR>
+Ehhez a Debug menü Start Debugging illetve Start Without Debugging parancsait kell használnunk. Ha a
+projekt a legutóbbi fordítás óta megváltozott, akkor automatikusan le is fordítja a programunkat a Visual
+Studio. Használhatunk gyorsbillentyűket is, F6 a fordítás, míg F5 a futtatás (és fordítás, ha szükséges). Végezetül
+szintén elérhetjük a célunk, ha a menüsorban található kis zöld fektetett háromszögre kattintunk.
+Lépjünk tovább, egyelőre a Main függvényen belül fogunk tevékenykedni. Ahhoz, hogy elkészíthessük a
+programunkat, tudnunk kell, hogyan kezelhetjük a parancssort a programunkból. A .NET Framework BCL-e erre
+is kínál megoldást, a Console osztály lesz segítségünkre:
+</p>
+<pre class="prettyprint lang-cs">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+namespace TestApp
+	{
+	class Program
+		{
+		static void Main(string[] args)
+			{
+			Console.WriteLine("Hello World");
+			Console.ReadKey();
+			}
+		}
+	}
+</pre>
+<p>
+Örömmel tapasztalhatjuk, hogy a Console szó után tett pont előhozza a választható függvények listáját. Ezt a
+Visual Studio IntelliSense-nek hívja. Ha nem ajánlja fel a listát a fejlesztőeszköz, akkor elképzelhető, hogy a
+kódkiegészítés nincs bekapcsolva. A visszakapcsoláshoz a következőket kell tenni:
+</p>
+<OL>
+<li id ="listaelem">Tools menü -> Options</LI>
+<li id ="listaelem">Ha nincs bejelölve a „Show All Settings” négyzet, akkor kapcsoljuk be!</LI>
+<li id ="listaelem">Text Editor -> C# -> IntelliSense -> Legyen bejelölve a „Show completion list after a character is typed”
+feliratú négyzet!</LI>
+</OL>
+<p>
+A <b>WriteLine</b> függvény kiírja a parancssorba a paraméterként kapott szöveget, majd új sort nyit. Amennyiben
+szeretnénk ugyanabban a sorban maradni, használjuk a <b>Console.Write</b> függvényt!
+A <b>Console.ReadKey</b> függvény feladata, hogy vár egy billentyűleütést a felhasználótól, mielőtt továbblépne a
+program. Miért van erre szükség? A legegyszerűbb, ha kipróbáljuk a programot nélküle. Amit látni fogunk, az
+egy villanás, hiszen a programunk csak annyit tesz, hogy kiír egy szöveget és kilép. Ez utóbbi miatt kellett
+valami, amivel megszakíthatjuk futását, és itt jön a képbe a ReadKey.
+</p>
+
+
+</article>
+</html>

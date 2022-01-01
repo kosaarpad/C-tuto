@@ -1,0 +1,484 @@
+<!--doctype html-->
+<html lang='hu'>
+   <meta charset='utf-8'>
+	 
+<link href="css/jquery-ui.min.css" rel="stylesheet">
+<link href="css/oldal.css" rel="stylesheet" type="text/css" />
+
+<script src="google-code-prettify/run_prettify.js"></script>  
+<script src="external/jquery/jquery.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/csharpmenu.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script>
+<script type="text/javascript" src="MathJax26.min/MathJax.js?config=TeX-AMS_HTML-full"></script>
+
+<style>
+	#menu
+	{width: 70px;text-align:left; background-color: #00a0a0;}
+	#ulmenu
+	{width: 250px;}
+	#limenu
+	{padding: none;}		
+	a{text-decoration: none;}
+	#tartalom
+	{width: 70px; height:20px; text-align:left; background-color: #00a0a0;}
+</style>
+<header>
+
+		<ul id="menu">
+		<script>
+		document.getElementById("menu").innerHTML = menuszoveg;
+		$( "#menu" ).menu();
+    </script>
+		</ul>
+		
+	<ul id="tartalom">
+		<script>
+		document.getElementById("tartalom").innerHTML = '<li id ="limenu"><a href="tartalom.html">Tartalom</a></li>';
+		$( "#tartalom" ).menu();
+    </script>
+		</ul>
+		
+<h1 style="color: white; position: absolute; left: 40%; top:0px; text-align: center; margin-top:0px;">C# középiskolásoknak</h1>
+</header>
+
+<article>
+<p style="width: 100%;height:40px;"></p>
+<!--ide jön a tartalom-->
+<H1>Listák</H1>
+<p>
+A lista az 1D tömbhöz hasonló adatszerkezet, amelyben tetszőleges számú, de azonos típusú adatsorozatot tárolunk.<BR>
+A listában előfordulhat több azonos értékű elem. Az elemeket a tömbhöz hasonlóan indexük (=sorszámuk) alapján is el tudjuk érni.<BR>
+A lista nagy előnye az 1D tömbbel szemben, hogy itt nem kell előre rögzítenünk a listaelemek számát.<BR>
+Így a lista mérete (= elemszáma) a  program futása közben tetszőlegesen nőhet vagy csökkenhet.<BR>
+A listaelemek beszúrása illetve törlése hatékonyabb, gyorsabb, mint a tömbök esetében.<BR>
+A lista hátránya a tömbökkel szemben az, hogy  az elemeket lassabban érjük el (= visszakeresés), mint a sima tömbök esetén.<BR>
+ 
+<H2>FONTOS!!!</H2>
+A lista megvalósítása a C#-ban a <strong>System.Collections.Generic</strong> névtérben található, ezért minden olyan program, ami listákat használ, a 
+<pre class="prettyprint lang-cs">
+using System;
+</pre>
+után kell tartalmazza a 
+<pre class="prettyprint lang-cs">
+using System.Collections.Generic;
+</pre> 
+sort.<BR><BR><BR>
+
+A C# a listákat a <strong>List</strong> osztállyal valósítja meg. 
+Ennek nagy előnye, hogy az osztály olyan előre megírt metódusokat tartalmaz, amelyek a keresést, rendezést, megszámlálást, összegezést, és egy sor listaműveletet megvalósítanak, így ezeket nem kell külön megírnunk, ha listát használunk.<BR> 
+<BR>
+<H2>Lista létrehozása</H2>
+A lista létrehozásakor (deklarálás) meg kel adnunk a lista elemeinek típusát.<BR>
+Listát létrehozhatunk egy 1D tömb adataiból is.
+<pre class="prettyprint lang-cs">
+List &lt;elemtípus&gt; Listanév = new List&lt;elemtípus&gt;();
+
+//Egészeket tartalmazó lista létrehozása:
+List&lt;int&gt; szamok = new List&lt;int&gt;();
+
+//Szöveges adatot tartalmazó lista létrehozása:
+List&lt;string&gt; nevsor = new List&lt;string&gt;();
+//Kutya típusú objektumokat tartalmazó lista létrehozása (ha már létezik Kutya osztály):
+List&lt;Kutya&gt; kutyaFalka = new List&lt;Kutya&gt;();
+
+</pre> 
+
+
+<H2>FONTOS!!!!! Lista létrehozása tömbből:</H2>
+<p>Ha már van egy tömbünk sok-sok értékkel, a tömb értékeiből listát készíthetünk:</p>
+<pre class="prettyprint lang-cs">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+public class Program
+	{
+	public static void Main()
+		{
+		List <int>szamlista = new List<int>();//ez még üres lista
+		int[] szamtomb = new int[3];//ez egy tömb
+		szamtomb[0] = 13;
+		szamtomb[1] = 23;
+		szamtomb[2] = 33;
+		szamlista=szamtomb.ToList();//számtömböt listává alakítjuk, a tömb értékei a szamlista-ba töltődnek
+		//kiírás:
+		foreach(int szam in szamok)
+			{
+			Console.WriteLine(szam + ",");
+			} 		
+		}
+	}		
+</pre>
+<H2>Példaprogram: Egész számok listája</H2>
+<p>Az alábbi program létrehoz egy listát, majd feltölti értékekkel, és bemutatja, hogyan lehet lekérdezni a lista méretét (=elemszámát) illetve a beszúrás és törléi műveleteket:</p>
+<pre class="prettyprint lang-cs">
+using System;
+using System.Collections.Generic;
+public class Program
+	{
+
+	public static void Main()
+		{
+		List &lt;int&gt; szamok = new List&lt;int&gt;();//itt a lista még üres...
+		//elemek hozzáadása a listához:
+		szamok.Add(10);
+		szamok.Add(10);//lehet 2 egyforma érték is...
+		szamok.Add(13);
+		szamok.Add(20);
+		szamok.Add(30);
+		szamok.Add(10);
+		szamok.Add(50);
+		//lista bejárása, kiíratása a konzolra:
+		foreach (int elem in szamok)
+			{
+			Console.Write(elem + ", ");
+			}
+		//lista elemszámainak kiíratása:
+		Console.WriteLine();
+		Console.WriteLine("Ennyi elem van a listában: "+szamok.Count);
+		//elem törlése a listából. Töröljük a 13-as értéket:
+		//ha több 13-as érték lenne, akkor a legkisebb sorszámút törli
+		szamok.Remove(13);
+		foreach (int elem in szamok)
+			{
+			Console.Write(elem + ", ");
+			}
+		Console.WriteLine();	
+		//a 17-es értékű elem beszúrása 2. sorszámú helyre:
+		szamok.Insert(2, 17);
+		foreach (int elem in szamok)
+			{
+			Console.Write(elem + ", ");
+			}
+		Console.WriteLine();
+		//Elem törlése a 2. indexű helyről: törli a 17-et:
+		szamok.RemoveAt(2);
+		foreach (int elem in szamok)
+			{
+			Console.Write(elem + ", ");
+			}
+		Console.WriteLine();
+		//a 3. elem kiíratása a tömbökéhez hasonló:
+		Console.WriteLine(szamok[3]);
+		//lista összes elemének törlése:
+		szamok.Clear();
+		}
+}
+</pre>
+<BR><BR>
+A programunk meglehetősen terjedelmesre sikerült. Valamelyest spórolhatunk a mérettel, ha függvényeket (saját metódusokat) használunk.
+<BR>
+A listadeklarálást kivisszük a Main() metóduson kívülre, és static kulcsszóval deklaráljuk. Így minden "Program" béli metódusból látni fogjuk<BR>
+<pre class="prettyprint lang-cs">
+using System;
+using System.Collections.Generic;
+public class Program
+	{
+	//ha a Program osztályba hozzuk létre a listát, akkor az static kell legyen
+	//mert a Program osztály statikus osztály, és a statikus osztály minden tulajdonsága, metódusa statikus kell legyen
+	static List &lt;int&gt;szamok = new List&lt;int&gt;();
+	static void ListatKiir()
+	{//lista bejárása, kiíratása a konzolra:
+		foreach (int elem in szamok)
+			{
+			Console.Write(elem + ", ");
+			}
+		Console.WriteLine();	
+	}
+	public static void Main()
+		{
+		//elemek hozzáadása a listához:
+		szamok.Add(10);
+		szamok.Add(10);//lehet 2 egyforma érték is...
+		szamok.Add(13);
+		szamok.Add(20);
+		szamok.Add(30);
+		szamok.Add(10);
+		szamok.Add(50);
+		ListatKiir();
+		//lista elemszámainak kiíratása:
+		Console.WriteLine("Ennyi elem van a listában: "+szamok.Count);
+		//elem törlése a listából. Töröljük a 13-as értéket:
+		//ha több 13-as érték lenne, akkor a legkisebb sorszámút törli
+		szamok.Remove(13);
+		ListatKiir();
+		//a 17-es értékű elem beszúrása 2. sorszámú helyre:
+		szamok.Insert(2, 17);
+		ListatKiir();
+		//Elem törlése a 2. indexű helyről: törli a 17-et:
+		szamok.RemoveAt(2);
+		ListatKiir();
+		//a 3. elem kiíratása a tömbökéhez hasonló:
+		Console.WriteLine(szamok[3]);
+		//lista összes elemének törlése:
+		szamok.Clear();
+		
+		}
+}
+</pre>	
+<H2>Példaprogram: szöveges értékek listája</H2>
+
+<p>
+<pre class="prettyprint lang-cs">
+using System;
+using System.Collections.Generic;
+public class Program
+	{
+	//ha a Program osztályba hozzuk létre a listát, akkor az static kell legyen
+	//mert a Program osztály statikus osztály, és a statikus osztály minden tulajdonsága, metódusa statikus kell legyen
+	static List &lt;string&gt; nevsor = new List&lt;string&gt;();
+	static void ListatKiir()
+	{//lista bejárása, kiíratása a konzolra:
+		foreach (string elem in nevsor)
+			{
+			Console.Write(elem + ", ");
+			}
+		Console.WriteLine();	
+	}
+	public static void Main()
+		{
+		//elemek hozzáadása a listához:
+		nevsor.Add("Kata");
+		nevsor.Add("Kata");//lehet 2 egyforma érték is...
+		nevsor.Add("Feri");
+		nevsor.Add("Béla");
+		nevsor.Add("Sári");
+		nevsor.Add("Zsuzsi");
+		nevsor.Add("Peti");
+		ListatKiir();
+		//lista elemszámainak kiíratása:
+		Console.WriteLine("Ennyi elem van a listában: "+nevsor.Count);
+		//elem törlése a listából. Töröljük a "Béla" értéket:
+		//ha több "Béla" érték lenne, akkor a legkisebb sorszámút törli
+		nevsor.Remove("Béla");
+		ListatKiir();
+		//a "Quasimodo" értékű elem beszúrása 2. sorszámú helyre:
+		nevsor.Insert(2, "Quasimodo");
+		ListatKiir();
+		//Elem törlése a 2. indexű helyről: törli a "Quasimodo"-t:
+		nevsor.RemoveAt(2);
+		ListatKiir();
+		}
+}
+</pre>	
+</p>
+<H2>Példaprogram1: Adott tulajdonságú elem megszámlálása</H2>
+<p>
+Adott egy számokból álló lista. Számoljuk meg, hány darab 10-es érték van a listában!
+</p>
+<pre class="prettyprint lang-cs">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+public class Program
+	{
+	static List &lt;int&gt;szamok = new List&lt;int&gt;();
+	static void ListatKiir()
+	{//lista bejárása, kiíratása a konzolra:
+		foreach (int elem in szamok)
+			{
+			Console.Write(elem + ", ");
+			}
+		Console.WriteLine();	
+	}
+	public static void Main()
+		{
+		//elemek hozzáadása a listához:
+		szamok.Add(10);
+		szamok.Add(10);//lehet 2 egyforma érték is...
+		szamok.Add(13);
+		szamok.Add(20);
+		szamok.Add(30);
+		szamok.Add(10);
+		szamok.Add(50);
+		ListatKiir();
+		int tizesDB = 0;//a számlálót létrehozáskor lenullázzuk
+		foreach(int sz in szamok)
+			{
+			if (sz==10)//ha van 10-es...
+				{
+				tizesDB++;//akkor a darabszámot 1-gyel növeljük
+				}
+			}
+		Console.WriteLine("A tizesek száma:"+tizesDB);		
+		//ugyanez a megszámlálás Linq-val:
+		int DB = szamok.Count(x => x==10);
+		Console.WriteLine("a tízesek száma:"+ DB);
+		}
+	}		
+</pre>		
+<H2>Példaprogram2: Adott tulajdonságú elem megszámlálása</H2>
+<p>Adott egy osztálynévsor. Hány Kata nevű diák van a névsorban?</p>
+<pre class="prettyprint lang-cs">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+public class Program
+	{
+	//ha a Program osztályba hozzuk létre a listát, akkor az static kell legyen
+	//mert a Program osztály statikus osztály, és a statikus osztály minden tulajdonsága, metódusa statikus kell legyen
+	static List &lt;string&gt; nevsor = new List&lt;string&gt;();
+	static void ListatKiir()
+	{//lista bejárása, kiíratása a konzolra:
+		foreach (string elem in nevsor)
+			{
+			Console.Write(elem + ", ");
+			}
+		Console.WriteLine();	
+	}
+	public static void Main()
+		{
+		//elemek hozzáadása a listához:
+		nevsor.Add("Kata");
+		nevsor.Add("Kata");//lehet 2 egyforma érték is...
+		nevsor.Add("Feri");
+		nevsor.Add("Béla");
+		nevsor.Add("Kata");
+		nevsor.Add("Zsuzsi");
+		nevsor.Add("Peti");
+		ListatKiir();
+		int kataDB = 0;
+		foreach(string nev in nevsor) //minden egyes nevsor-beli nev-re....
+			{
+			if (nev.Equals("Kata"))//ha a név Kata
+				{
+				kataDB++;//akkor a darabszámot 1-gyel növeljük
+				}
+			}
+		Console.WriteLine("A Katák száma:"+kataDB);	
+		//ugyanez a számlálás Linq-val:
+		int DB = nevsor.Count(x => x.Equals("Kata"));
+		Console.WriteLine("A Katák száma:"+DB);	
+		}
+}
+</pre>	
+<H2>Példaprogram: Listabeli értékek összegzése</H2>
+<p>
+Adott egy számokból álló lista. Adjuk meg a listabeli értékek összegét.
+<pre class="prettyprint lang-cs">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+public class Program
+	{
+	static List &lt;double&gt;szamok = new List&lt;double&gt;();
+	
+	public static void Main()
+		{
+		//elemek hozzáadása a listához:
+		szamok.Add(2.3);
+		szamok.Add(1.7);
+		szamok.Add(3.5);
+		szamok.Add(2.5);
+		
+		double osszeg = 0;//az összegváltozót létrehozáskor lenullázzuk
+		foreach(double sz in szamok)
+			{
+			osszeg += sz;
+			}
+		Console.WriteLine("A számok összege:"+osszeg);		
+		//ugyanez az összegzés  Linq-val:
+		double osszeg2 = szamok.Sum();
+		Console.WriteLine("a számok összege:"+ osszeg2);
+		}
+	}		
+</pre>		
+</p>
+<H2>Példaprogram: Listabeli legkisebb/legnagyobb érték</H2>
+<p>
+Adott egy számokból álló lista. Adjuk meg a legkisebb, legnagyobb értéket a listából.
+<pre class="prettyprint lang-cs">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+public class Program
+	{
+	static List &lt;double&gt;szamok = new List&lt;double&gt;();
+	
+	public static void Main()
+		{
+		//elemek hozzáadása a listához:
+		szamok.Add(2.3);
+		szamok.Add(1.7);
+		szamok.Add(3.5);
+		szamok.Add(2.5);
+		
+		double max = szamok[0];//feltételezzük, h. a lista első eleme a legnagyobb
+		foreach(double sz in szamok)
+			{
+			if (sz>max)
+				{
+				max = sz;
+				}
+			}
+			
+		Console.WriteLine("A legnagyobb érték:"+max);		
+		//ugyanez az összegzés  Linq-val:
+		double max2 = szamok.Max();
+		Console.WriteLine("A legnagyobb érték:"+ max2);
+		}
+	}		
+</pre>		
+<H2>Példaprogram: Számlista rendezése</H2>
+<p>Adott egy számokat tartalmazó lista. Rendezzük a listát növekvő sorrendbe.
+Mivel a Sort metódus a List osztály tagfüggvénye, ezért a System.Linq névtérre nincs szükség:
+</p>
+<pre class="prettyprint lang-cs">
+using System;
+using System.Collections.Generic;
+public class Program
+	{
+	static List &lt;double&gt;szamok = new List&lt;double&gt;();
+	static void ListatKiir()
+	{//lista bejárása, kiíratása a konzolra:
+		foreach (double elem in szamok)
+			{
+			Console.Write(elem + ", ");
+			}
+		Console.WriteLine();	
+	}
+	public static void Main()
+		{
+		//elemek hozzáadása a listához:
+		szamok.Add(2.3);
+		szamok.Add(1.7);
+		szamok.Add(3.5);
+		szamok.Add(2.5);
+		Console.WriteLine("A lista rendezés előtt:");
+		ListaKiir();		
+		szamok.Sort();
+		Console.WriteLine("A lista rendezés után:");
+		ListaKiir();		
+		}
+	}		
+</pre>		
+
+</p>
+<h3>Tömb listává alakítása</h3>
+Ha van már egy tömbünk, könnyen listává alakíthatjuk. Íme egy rövid példaprogram:
+<pre class="prettyprint lang-cs">	
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class Program{
+
+public static void Main()
+	{
+	//a tömb:
+	 string[] tomb = new string[]{"Piri", "Feri", "Zoli", "Sári"}
+  
+	//1. módszer:  A List konstruktorral:
+	List<string> lista1 = new List<string>(tomb);
+  // A  ToList metódussal:
+	List<string> lista2 = tomb.ToList();
+	}
+}	
+</pre>
+
+</article>
+</html>

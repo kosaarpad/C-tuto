@@ -1,0 +1,104 @@
+<!--doctype html-->
+<html lang='hu'>
+   <meta charset='utf-8'>
+	 
+<link href="css/jquery-ui.min.css" rel="stylesheet">
+<link href="css/oldal.css" rel="stylesheet" type="text/css" />
+
+<script src="google-code-prettify/run_prettify.js"></script>  
+<script src="external/jquery/jquery.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/csharpmenu.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script>
+<script type="text/javascript" src="MathJax26.min/MathJax.js?config=TeX-AMS_HTML-full"></script>
+
+<style>
+	#menu
+	{width: 70px;text-align:left; background-color: #00a0a0;}
+	#ulmenu
+	{width: 250px;}
+	#limenu
+	{padding: none;}		
+	a{text-decoration: none;}
+	#tartalom
+	{width: 70px; height:20px; text-align:left; background-color: #00a0a0;}
+</style>
+<header>
+
+		<ul id="menu">
+		<script>
+		document.getElementById("menu").innerHTML = menuszoveg;
+		$( "#menu" ).menu();
+    </script>
+		</ul>
+		
+	<ul id="tartalom">
+		<script>
+		document.getElementById("tartalom").innerHTML = '<li id ="limenu"><a href="tartalom.html">Tartalom</a></li>';
+		$( "#tartalom" ).menu();
+    </script>
+		</ul>
+		
+<h1 style="color: white; position: absolute; left: 40%; top:0px; text-align: center; margin-top:0px;">C# középiskolásoknak</h1>
+</header>
+
+<article>
+<p style="width: 100%;height:40px;"></p>
+<!--ide jön a tartalom-->
+<H3>A destruktor</H3>
+<p>
+A <B>destruktor</B> az osztálynak az a tagfüggvénye, amely akkor hívódik meg, ha az osztály a rendszer számára már nem elérhető, nem látható.<BR>
+Ez akkor történik meg, ha egy osztályt pl valamilyen lokális vátozóként hoztunk létre egy függvényben. <BR>
+A függvény lefutása után erre a lokális osztályra nincs már szükség.<BR>
+Ilyenkor hívódik meg a dstruktor, amelynek hatására az objektum törlődik a memóriából.<BR>
+A destruktort általában nem szoktuk lekódolni, mert az automatikusan létrejön.
+Ha mégis lekódoljuk, akkor a destruktor neve megegyezik az osztály nevével, előtte egy "~" jellel.
+Példa:
+<pre class="prettyprint lang-cs">
+using System;
+	class Vonal {
+		private double hossz;   // Length of a line
+		
+		public Line() {   // constructor
+				 Console.WriteLine("Vonel objektum létrehozása");
+			}
+		~Line() {   //destructor
+				 Console.WriteLine("A vonal objektum törlődik");
+			}
+		public void setHossz( double ujhossz ) {
+				 this.hossz = ujhossz;
+			}
+		public double getHossz() {
+				 return this.hossz;
+			}
+		}
+	class Program
+	{
+
+	static void Main(string[] args) {
+			 Vonal v = new Vonal();
+
+			 // hossz megadása
+			 v.setHossz(6.0);
+			 Console.WriteLine("Vonal hossza : {0}", v.getHossz());           
+		}
+	}
+</pre>
+<H4>Output:</H4>
+<div class="codeblock3">
+<BR>
+C:\Csharp&gt;<BR>
+Vonal hossza: 6.0<BR>
+A vonal objektum törlődik<BR>
+<BR>
+</div>
+</p>
+
+
+
+</article>
+</html>

@@ -1,0 +1,148 @@
+<!--doctype html-->
+<html lang='hu'>
+   <meta charset='utf-8'>
+	 
+<link href="css/jquery-ui.min.css" rel="stylesheet">
+<link href="css/oldal.css" rel="stylesheet" type="text/css" />
+
+<script src="google-code-prettify/run_prettify.js"></script>  
+<script src="external/jquery/jquery.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/csharpmenu.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script>
+<script type="text/javascript" src="MathJax26.min/MathJax.js?config=TeX-AMS_HTML-full"></script>
+
+<style>
+	#menu
+	{width: 70px;text-align:left; background-color: #00a0a0;}
+	#ulmenu
+	{width: 250px;}
+	#limenu
+	{padding: none;}		
+	a{text-decoration: none;}
+	#tartalom
+	{width: 70px; height:20px; text-align:left; background-color: #00a0a0;}
+</style>
+<header>
+
+		<ul id="menu">
+		<script>
+		document.getElementById("menu").innerHTML = menuszoveg;
+		$( "#menu" ).menu();
+    </script>
+		</ul>
+		
+	<ul id="tartalom">
+		<script>
+		document.getElementById("tartalom").innerHTML = '<li id ="limenu"><a href="tartalom.html">Tartalom</a></li>';
+		$( "#tartalom" ).menu();
+    </script>
+		</ul>
+		
+<h1 style="color: white; position: absolute; left: 40%; top:0px; text-align: center; margin-top:0px;">C# középiskolásoknak</h1>
+</header>
+
+<article>
+<p style="width: 100%;height:40px;"></p>
+<!--ide jön a tartalom-->
+
+<H2>Az if utasítás</H2>
+
+<p>
+Szerkezete:
+</p>
+<pre class="prettyprint lang-cs">	
+if (logikai_feltétel) 
+	utasítás;
+</pre>
+<p>
+Magyarul kb így olvashatjuk: „Ha a feltétel igaz, akkor hajtsd végre az utasítást!”<BR>
+</p>
+Ha több utasítást kell végrehajtani, akkor az utasítás helyett utasításblokk szerepel:
+<pre class="prettyprint lang-cs">	
+if (logikai_feltétel)
+   {
+    utasítás1;
+    utasítás2;
+    utasítás3;
+    …
+    }
+</pre>
+<p>	
+Először a logikai feltétel értékelődik ki. Az utasításblokk tehát csak akkor kerül végrehajtásra, ha a logikai feltétel igaznak bizonyul.<BR>
+Példa:
+</p>
+<pre class="prettyprint lang-cs">	
+using System;
+class Program
+{
+    static void Main()
+    {
+	int x;
+	x=100;
+	if (x == 100) 
+		Console.WriteLine("x értéke 100");	
+    }
+}
+</pre>
+<p>
+Itt ugye ellenőrzésre kerül, hogy x egyenlő.e 100-zal. Mivel x értéke tényleg 100, a feltétel igaz lesz, a program kiírja az "x értéke 100" üzenetet.<BR>
+Nézzük meg, mit ad a fenti program, ha x értéke nem 100?
+</p>
+<pre class="prettyprint lang-cs">	
+using System;
+class Program
+{
+    static void Main()
+    {
+	int x;
+	x=101;
+	if (x == 100) 
+		Console.WriteLine("x értéke 100");	
+    }
+}
+</pre>
+<p>
+Ebben az esetben az if utáni utasítás nem hajtódik végre, mivel a 101 == 100 logikai feltétel hamis.
+Ha több utasítás áll az if után, akkor kapcsos zárójeleket alkalmazunk, utasításblokkba zárva az utasítások sorozatát:
+</p>
+<pre class="prettyprint lang-cs">	
+using System;
+class Program
+{
+    static void Main()
+    {
+	int x;
+	x=101;
+	if (x == 100) 
+	    {
+		Console.WriteLine("x értéke");
+		Console.WriteLine("100");	
+		}
+    }
+}
+</pre>
+<p>Még egy példa:</p>
+<pre class="prettyprint lang-cs">	
+using System;
+class Program
+{
+    static void Main()
+    {
+	int jegy;
+	Console.WriteLine("Hányas lett a programozás dogád?");
+	jegy = Convert.ToInt32(Console.ReadLine());
+	if (jegy &gt 4) 
+		Console.WriteLine("jeles!");	
+    }
+}
+</pre>
+<img src="kepek/ifthen_sin.png">
+
+
+</article>
+</html>

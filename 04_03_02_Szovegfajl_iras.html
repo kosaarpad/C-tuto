@@ -1,0 +1,181 @@
+<!--doctype html-->
+<html lang='hu'>
+   <meta charset='utf-8'>
+	 
+<link href="css/jquery-ui.min.css" rel="stylesheet">
+<link href="css/oldal.css" rel="stylesheet" type="text/css" />
+
+<script src="google-code-prettify/run_prettify.js"></script>  
+<script src="external/jquery/jquery.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/csharpmenu.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script>
+<script type="text/javascript" src="MathJax26.min/MathJax.js?config=TeX-AMS_HTML-full"></script>
+
+<style>
+	#menu
+	{width: 70px;text-align:left; background-color: #00a0a0;}
+	#ulmenu
+	{width: 250px;}
+	#limenu
+	{padding: none;}		
+	a{text-decoration: none;}
+	#tartalom
+	{width: 70px; height:20px; text-align:left; background-color: #00a0a0;}
+</style>
+<header>
+
+		<ul id="menu">
+		<script>
+		document.getElementById("menu").innerHTML = menuszoveg;
+		$( "#menu" ).menu();
+    </script>
+		</ul>
+		
+	<ul id="tartalom">
+		<script>
+		document.getElementById("tartalom").innerHTML = '<li id ="limenu"><a href="tartalom.html">Tartalom</a></li>';
+		$( "#tartalom" ).menu();
+    </script>
+		</ul>
+		
+<h1 style="color: white; position: absolute; left: 40%; top:0px; text-align: center; margin-top:0px;">C# középiskolásoknak</h1>
+</header>
+
+<article>
+<p style="width: 100%;height:40px;"></p>
+<!--ide jön a tartalom-->
+<H2>Szövegfájlba írás StreamWriter-rel</h2>
+<p>
+Az alábbi program létrehoz egy szövegfájlt, és abba ír sorokat.<BR>
+Ha azonban már létezik ilyen nevű fájl, akkor törli, és azonos néven létrehoz egy újat.
+Az új információt beleírja a fájlba, a régi fájl tartalma azonban elvész.
+<pre class="prettyprint lang-cs">
+using System;
+using System.IO;
+
+class Program
+{
+ public static void Main() 
+	{
+	string utvonal = @"c:\adatok\test.txt";
+	// Létrehozunk egy fájlt amibe írunk.
+	StreamWriter sw = File.CreateText(path);            
+	sw.WriteLine("Szia");
+	sw.WriteLine("ez egy sor");
+	sw.WriteLine("ez még egy sor");
+	sw.Close();    	
+	Console.ReadKey();
+	}
+}
+</pre>
+<BR>
+<BR>
+Ha azonban először ellenőrizzük, hogy létezik-e az adott útvonalon ilyen nevű fájl, 
+akkor ez a probléma megelőzhető.
+Az alábbi program először ellenőrzi, hogy létezik-e ilyen nevű fájl, és ha nem létezik, 
+csak akkor hoz létre egy újat:
+<pre class="prettyprint lang-cs">
+using System;
+using System.IO;
+
+class Program
+{
+    public static void Main() 
+    {
+    string utvonal = @"c:\adatok\test.txt";
+    if (!File.Exists(utvonal)) //ha nincs ilyen fájl: 
+			{
+			// Létrehozunk egy fájlt amibe írunk.
+			StreamWriter sw = File.CreateText(utvonal);            
+			sw.WriteLine("Szia"); //egy sor írása
+			sw.WriteLine("ez egy sor"); //még egy sor írása
+			sw.WriteLine("ez még egy sor");
+			sw.Close();    	//fájl bezárása
+			}
+		else 
+			{
+			Console.WriteLine("Már létezik ilyen néven egy fájl!");
+			}
+		Console.ReadKey();	
+		}
+}		
+</pre>	
+<BR>
+<BR>
+
+Előfordulhat, hogy egy már létező fájlba akarunk beleírni plusz infót.
+Ilyenkor a fájlt hozzáírásra nyitjuk meg. Az ezelőtt beleírt információ megmarad:
+<pre class="prettyprint lang-cs">
+using System;
+using System.IO;
+
+class Test 
+{
+	public static void Main() 
+		{
+		string utvonal = @"c:\adatok\test.txt";
+		StreamWriter sw1 = File.AppendText(utvonal);//megnyitás hozzáírásra
+		sw1.WriteLine("Ezek ");
+		sw1.WriteLine("Extra sorok");
+		sw1.WriteLine("amiket a már létező fájlhoz hozzáírunk");
+		sw1.Close();	
+		}
+}
+</pre>	
+<H3>Fájlba írás Streamwriter nélkül</H3>
+ez esetben először egy string tömbbe kell tárolnunk a fájlba kiírandó informaációt:
+<pre class="prettyprint lang-cs">
+using System;
+using System.IO;
+using System.Text;
+class Program
+{
+static void Main()
+	{
+	string[] vers = new string[4];
+	vers[0] = "Kedves Szüleim!";
+	vers[1] = "Fáznak a füleim!";
+	vers[2] = "Küldjetek egy sapkát,";
+	vers[3] = "Üdvözlöm a macskát."; 
+	File.WriteAllLines("kimenet01.txt", vers, Encoding.UTF8);
+	Console.WriteLine("fájl sikeresen létrehozva.");
+	Console.ReadKey();	
+	}
+}
+</pre>
+<H3>Fájlbővítés Streamwriter nélkül</H3>
+<p>
+<pre class="prettyprint lang-cs">
+using System;
+using System.IO;
+using System.Text;
+
+class Test
+{
+    public static void Main()
+    {
+		//string utvonal = @"c:\temp\MyTest.txt";
+
+		// egy tömbbe tároljuk a hozzáírandó sorokat:
+		string [] pluszSorok = new string[3];
+		pluszSorok[0]= "Ez egy sor" + Environment.NewLine;
+		pluszSorok[1]= "Ez meg még egy sor..." + Environment.NewLine;
+		pluszSorok[2]= "Ez meg a ráadás sor..." + Environment.NewLine;
+		string utvonal="kimenet1.txt";
+    if (File.Exists(utvonal))
+			{
+			foreach (string sor in pluszSorok)  
+					File.AppendAllText(utvonal, sor, Encoding.UTF8);
+			Console.WriteLine("fájl kiegészítve");		
+			}
+    }
+}
+</pre>
+</p>
+</article>
+</html>

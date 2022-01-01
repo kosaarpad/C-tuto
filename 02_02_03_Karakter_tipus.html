@@ -1,0 +1,138 @@
+<!--doctype html-->
+<html lang='hu'>
+   <meta charset='utf-8'>
+	 
+<link href="css/jquery-ui.min.css" rel="stylesheet">
+<link href="css/oldal.css" rel="stylesheet" type="text/css" />
+
+<script src="google-code-prettify/run_prettify.js"></script>  
+<script src="external/jquery/jquery.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/csharpmenu.js"></script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML">
+</script>	
+
+<style>
+	#menu
+	{width: 70px;text-align:left; background-color: #00a0a0;}
+	#ulmenu
+	{width: 250px;}
+	#limenu
+	{padding: none;}		
+	a{text-decoration: none;}
+	#tartalom
+	{width: 70px; height:20px; text-align:left; background-color: #00a0a0;}
+</style>
+<header>
+
+		<ul id="menu">
+		<script>
+		document.getElementById("menu").innerHTML = menuszoveg;
+		$( "#menu" ).menu();
+    </script>
+		</ul>
+		
+	<ul id="tartalom">
+		<script>
+		document.getElementById("tartalom").innerHTML = '<li id ="limenu"><a href="tartalom.html">Tartalom</a></li>';
+		$( "#tartalom" ).menu();
+    </script>
+		</ul>
+		
+<h1 style="color: white; position: absolute; left: 40%; top:0px; text-align: center; margin-top:0px;">C# középiskolásoknak</h1>
+</header>
+
+<article>
+<p style="width: 100%;height:40px;"></p>
+<!--ide jön a tartalom-->
+<H2>A karakter típus (char)</H2>
+A C# <strong>char</strong> típusa valójában 2 bájtos Unicode kódolású karaktereket tárol.<BR>
+A C# a karakter értékeket egyszeres idézőjelek közé teszi: 'C', 'k', '%', '+'... stb.
+<H3>Deklaráció, értékadás</H3>
+<pre class="prettyprint lang-cs">	
+c0 = 'X';        // értékmegadás konkrét karakterrel
+c1 = '\x0058';   // értékmegadás 16-os számrendszerbeli kóddal
+c2 = (char)88;   // típuskényszerítés egész értékből
+c3 = '\u0058';   // Unicode
+</pre>
+<H3>Értékhalmaz</H3>
+A <strong>char</strong> értékhalmaza az összes Unicode karakter. Ezek között vannak a magyar ábécé ékezetes karaktereitől kezdva a görögön át az összes elterjedt nyelv karakterkészlete.
+<H3>Műveletek</H3>
+<p>A karakterekkel végezhető műveletek: </p>
+<UL>
+<li id ="listaelem">Char.ToLower(karakter): karakter kisbetűssé alakítása. Ha a karakter nagybetű, akkor kisbetűssé alakítja, egyéb esetben változatlanul hagyja</LI>
+<li id ="listaelem">Char.ToUpper(karakter): karakter nagybetűssé alakítása. Ha a karakter kisbetű, akkor nagybetűssé alakítja, egyéb esetben változatlanul hagyja</LI>
+<li id ="listaelem">Char.IsLetter(karakter): Lekérdezi, hogy egy karakter betű-e? Ha igen, akkor <strong>true</strong>, ha nem, akkor <strong>false</strong> eredményt ad</LI>
+<li id ="listaelem">Char.IsDigit(karakter): Lekérdezi, hogy egy karakter számjegy-e? Ha igen, akkor <strong>true</strong>, ha nem, akkor <strong>false</strong> eredményt ad</LI>
+</UL>
+<pre class="prettyprint lang-cs">	
+using System;
+class Program
+{
+    static void Main(string[] args)
+    {
+	char k='A', kisbetu, betu='b';
+	Console.WriteLine(k);
+	//lekérdezzük azt, h. a karakter számjegy-e?
+	Console.WriteLine("A " +k+" karakter szám-e? "+Char.IsDigit(k));
+	//lekérdezzük azt, h. a karakter betű-e?
+	Console.WriteLine("A " +k+" karakter szám-e? "+Char.IsLetter(k));
+	//karakter kisbetűvé alakítása:
+	kisbetu=Char.ToLower(k);
+	Console.WriteLine("A " +k+" kisbetus megfelelője: "+kisbetu);
+	//karakter nagybetűvé alakítása:
+	Console.WriteLine("A " +betu+" nagybetus megfelelője: "+Char.ToUpper(betu));
+	//karakter előállítása a karakterkódból
+	char k1=(char)65;
+	Console.WriteLine("Az 65-ös kódú betű: " + k1);
+	}
+}
+</pre>
+<H3>UTF-8-as karakterek megjelenítése a konzol alkalmazásokban.</H3>
+<p>
+Alapértelmezésben a windows konzol a windows 1250-es kódtáblát használja.
+<BR>
+Ez alkalmatlan arra, hogy egzotikusabb UTF karaktereket jelenítsünk meg rajta.<BR>
+Továbbá a raszteres régi betűtípusok sem képesek a modern utf-8 karakterek megjelenítésére<BR>
+Ha azonban a konzolt UTF-8-as kódolásúra állítjuk, a C# fordító nem hajlandó működni.
+A megoldás az, hogy:
+<UL>
+<LI>A konzolt <B>TrueType Consolas</B> betűtípusra állítjuk.</LI>
+<LI>A program elején a kódolás tulajdonságot utf8-ra állítjuk: <B>Console.OutputEncoding = Encoding.UTF8; </B></LI>
+<LI>kiíratjuk a megfelelő kódú utf-8-as karaktereket</LI>
+<LI>A program végén a kódolás tulajdonságot windows-1250-re visszaállítjuk: <B>Console.OutputEncoding = Encoding.("windows-1250")</B>;</LI>
+</UL>
+</p>
+<H4>Példaprogram</H4>
+<pre class="prettyprint lang-cs">	
+using System;
+using System.Text;
+class Program
+{
+	static void Main()
+	{
+	//a konzolt Consolas betűtípusra kell állítani	
+	Console.OutputEncoding = Encoding.UTF8;//utf8-as üzemmód	
+	char c2='\u00B2'; //kettő hatvány karakter
+	char c3='\u00B3'; //harmadik hatvány karakter
+	Console.WriteLine("x a négyzeten: x"+c2);	
+	Console.WriteLine("x a köbön: x"+c3);	
+	Console.WriteLine("A görög abc: ");	
+	int k=0;
+	for (int i=945; i &lt;971; i++)
+		{
+			Console.Write(" "+(char) i);
+			k++;
+			if (k % 10 == 0)      //10 karakter után újsor:
+				Console.WriteLine();
+		}	
+	Console.ReadKey();
+	//konzolt vissza kell állítani wi 1250-re, mert ha nem összeomlik a rendszer:	
+	Console.OutputEncoding= Encoding.GetEncoding("windows-1250");
+	}
+}	
+</pre>	
+
+</article>
+</html>

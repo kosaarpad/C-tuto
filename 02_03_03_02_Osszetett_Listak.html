@@ -1,0 +1,256 @@
+<!--doctype html-->
+<html lang='hu'>
+   <meta charset='utf-8'>
+	 
+<link href="css/jquery-ui.min.css" rel="stylesheet">
+<link href="css/oldal.css" rel="stylesheet" type="text/css" />
+
+<script src="google-code-prettify/run_prettify.js"></script>  
+<script src="external/jquery/jquery.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/csharpmenu.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script>
+<script type="text/javascript" src="MathJax26.min/MathJax.js?config=TeX-AMS_HTML-full"></script>
+
+<style>
+	#menu
+	{width: 70px;text-align:left; background-color: #00a0a0;}
+	#ulmenu
+	{width: 250px;}
+	#limenu
+	{padding: none;}		
+	a{text-decoration: none;}
+	#tartalom
+	{width: 70px; height:20px; text-align:left; background-color: #00a0a0;}
+</style>
+<header>
+
+		<ul id="menu">
+		<script>
+		document.getElementById("menu").innerHTML = menuszoveg;
+		$( "#menu" ).menu();
+    </script>
+		</ul>
+		
+	<ul id="tartalom">
+		<script>
+		document.getElementById("tartalom").innerHTML = '<li id ="limenu"><a href="tartalom.html">Tartalom</a></li>';
+		$( "#tartalom" ).menu();
+    </script>
+		</ul>
+		
+<h1 style="color: white; position: absolute; left: 40%; top:0px; text-align: center; margin-top:0px;">C# középiskolásoknak</h1>
+</header>
+
+<article>
+<p style="width: 100%;height:40px;"></p>
+<!--ide jön a tartalom-->
+<H1>Összetett listák: objektumokból alkotott listák</H1>
+A listák elemei nem csak egyszerű számok vagy szövegek lehetnek, hanem összetett adatok is, mint pl tömbök, listák, halmazok, vagy <strong>objektumok.</strong><BR>
+Ez utóbbi esetet vizsgáljuk meg közelebbről. <BR>
+Ha egy listában objektumokat tárolunk, akkor ezeket először létre kell hozni ( <strong>new Konstruktornév();</strong>) majd a szokásos <strong>Add()</strong> metódussal az újonnan létrehozott objektumot hozzáadjuk a listánkhoz.
+Lássunk egy példát.
+<H2>Objektumok listája<H2>
+<pre class="prettyprint lang-cs">
+using System;
+using System.Collections.Generic;//listák, halmazok, szótárak kezeléséhez
+
+class Kutya
+{
+public string nev;
+public int eletkor;
+public Kutya(string ujnev, int ujeletkor )//Konstruktor	
+	{
+	this.nev = ujnev;
+	this.eletkor = ujeletkor;
+	}
+public void Bemutatkozik()
+	{
+	Console.WriteLine("A nevem " + this.nev + " és " + this.eletkor + " éves vagyok.");
+	}
+public void Ugat(int hanyszor)
+	{int i;
+	for(i=0;i&lt;hanyszor;i++)
+		{
+		Console.Write("Vau!!!");
+		}
+	Console.WriteLine();	
+	}
+
+}
+class Program
+	{	
+	//létrehozunk egy kutyak nevű, üres listát
+	static List &lt;Kutya&gt; kutyak = new List&lt;Kutya&gt;();
+    static void Main()
+		{
+		//lista feltöltése:	
+		kutyak.Add(new Kutya("Bodri", 3));//
+		kutyak.Add(new Kutya("Füles", 5));//
+		kutyak.Add(new Kutya("Borzas", 1));//
+		kutyak.Add(new Kutya("Tücsök", 2));//
+		kutyak.Add(new Kutya("Bogáncs", 7));//
+		/*
+		listafeltöltés kicsit másképp:
+		Kutya k;   
+		k = new Kutya("Bodri", 3) 
+		kutyak.Add(k);
+		*/
+		int j=0;
+        foreach ( Kutya kutyapeldany in kutyak)
+			{
+			kutyapeldany.Bemutatkozik();
+			kutyapeldany.Ugat(j+1);
+			j++;
+			}		
+		}
+	}
+</pre>
+<H2>Objektum-lista: legnagyobb/legkisebb érték</H2>
+<p>
+Az objektumok sokféle tulajdonsággal rendelkeznek, amely szerint sorba rendezhetők, illetve legnagyobb/legkisebb érték szerint kiválaszthatók.<BR>
+Egy <strong>Diak</strong> típusú objektumnak lehet tanulmányi átlaga, életkora, stb. ami szerint a legjobb átlagú diák illetve a legidősebb diák kiválasztható/sorba rendezhető.<BR>
+Ezt mutatja be az alábbi példaprogram:
+<pre class="prettyprint lang-cs">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+public  class Diak
+    { 
+	public string Nev;
+    public int Szulev;
+    public double Atlag;
+    public Diak (string ujNev, int ujSzulev, double ujAtlag)
+		{
+		 this.Nev=ujNev;
+		 this.Szulev=ujSzulev;
+		 this.Atlag=ujAtlag;
+		}
+	}
+public class Program
+	{
+	static List&lt;Diak&gt; csoport = new List&lt;Diak&gt;();
+    static void Feltolt()
+		{
+		csoport.Add(new Diak("Pista", 2001, 3.14));
+		csoport.Add(new Diak("Kata", 2000, 4.94));
+		csoport.Add(new Diak("Bela", 2002, 4.72));
+		csoport.Add(new Diak("Anna", 1997, 3.86));
+		csoport.Add(new Diak("Vazul", 2003, 1.82));
+		csoport.Add(new Diak("Vivien", 1998, 2.91));			
+		}
+	static void Felsorol()
+		{
+		foreach(Diak d in csoport)
+			{
+			Console.WriteLine(d.Nev+", "+d.Szulev+", "+d.Atlag);
+			}
+		}
+	public static void Main()
+		{
+		Feltolt();	
+		Felsorol();
+		//Legjobb átlag:
+		double maxAtlag = csoport.Max(x=>x.Atlag);
+		
+		Console.WriteLine("legjobb átlag:");
+		Console.WriteLine(maxAtlag);
+		//legjobb átlagú diák keresése: Find metódus
+		Diak d1 = csoport.Find(x => x.Atlag == maxAtlag);
+		Console.WriteLine("legjobb átlagú diák:");
+		Console.WriteLine(d1.Nev+", "+d1.Szulev+", "+d1.Atlag);
+		
+		//legidősebb diák az, aki a legkorábban született:
+		int minSzulev = csoport.Min(x=>x.Szulev);
+		//A legidősebb diák:
+		Diak d2 = csoport.Find(x => x.Szulev == minSzulev);
+		Console.WriteLine("legidősebb diák:");
+		Console.WriteLine(d2.Nev+", "+d2.Szulev+", "+d2.Atlag);
+		
+		//létezik-e Pista nevű diák?
+		Console.WriteLine(csoport.Exists(x => x.Nev =="Pista"));
+		}
+	}	
+</pre>
+</p>
+<H2>Objektum-listák: rendezés</H2>
+<p>A listában tárolt objektumokat sokféle szempont szerint lehet rendezni. Például a fenti példa <strong>Diak</strong> osztálya 
+rendezhető <strong>névsor</strong> vagy <strong>születési idő</strong>, illetve <strong>tanulmányi átlag</strong> szerint.<BR>
+A rendezéshez az <strong>a.CompareTo(b)</strong> metódust használjuk, amellyel eldöntjük, hogy az a és b értékek közül melyik van előrébb az általunk kívánt sorrendben.<BR>
+
+Nézzünk egy ilyen példát:
+<pre class="prettyprint lang-cs">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+public  class Diak
+    { 
+	public string Nev;
+    public int Szulev;
+    public double Atlag;
+    public Diak (string ujNev, int ujSzulev, double ujAtlag)
+		{
+		 this.Nev=ujNev;
+		 this.Szulev=ujSzulev;
+		 this.Atlag=ujAtlag;
+		}
+	}
+public class Program
+	{
+	static List&lt;Diak&gt; csoport = new List&lt;Diak&gt;();
+	   static void Feltolt()
+		{
+		csoport.Add(new Diak("Pista", 2001, 3.14));
+		csoport.Add(new Diak("Kata", 2000, 2.74));
+		csoport.Add(new Diak("Bela", 2002, 4.72));
+		csoport.Add(new Diak("Anna", 1997, 4.86));
+		csoport.Add(new Diak("Vazul", 2003, 1.82));
+		csoport.Add(new Diak("Vivien", 1998, 2.91));			
+		}
+	static void Felsorol()
+		{
+		foreach(Diak d in csoport)
+			{
+			Console.WriteLine(d.Nev+", "+d.Szulev+", "+d.Atlag);
+			}
+		}
+	public static void Main()
+		{
+		Feltolt();	
+		Felsorol();
+		//Rendezés név szerint:
+		//!!!FIGYELEM!!!! az angol abécé szerint rendez, a magyar szerint a rendezés csak részben helyes!
+		csoport.Sort((x, y) => x.Nev.CompareTo(y.Nev));
+		Console.WriteLine("Rendezve Név szerint:");
+		Felsorol();
+		//Rendezés születési év szerint:
+		csoport.Sort((x, y) => x.Szulev.CompareTo(y.Szulev));
+		Console.WriteLine("Rendezve születési év szerint:");
+		Felsorol();
+		//Rendezés átlag szerint:
+		csoport.Sort((x, y) => x.Atlag.CompareTo(y.Atlag));
+		Console.WriteLine("Rendezve átlag szerint:");
+		Felsorol();
+		Console.WriteLine("Rendezve átlag szerint csökkenő sorrendben:");
+		csoport.Sort((y, x) => x.Atlag.CompareTo(y.Atlag));
+		Felsorol();
+		Console.WriteLine("A legjobb tanuló:");
+		Console.WriteLine(csoport[0].Nev);
+		Console.WriteLine(csoport[0].Szulev);
+		Console.WriteLine(csoport[0].atlag);
+		int utolso=csoport.Count-1;
+		Console.WriteLine("A leggyengébb tanuló:");
+		Console.WriteLine(csoport[utolso].Nev);
+		Console.WriteLine(csoport[utolso].Szulev);
+		Console.WriteLine(csoport[utolso].atlag);
+		
+		}
+	}	
+</p>
+
+</article>
+</html>

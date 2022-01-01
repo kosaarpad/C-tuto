@@ -1,0 +1,147 @@
+<!--doctype html-->
+<html lang='hu'>
+   <meta charset='utf-8'>
+	 
+<link href="css/jquery-ui.min.css" rel="stylesheet">
+<link href="css/oldal.css" rel="stylesheet" type="text/css" />
+
+<script src="google-code-prettify/run_prettify.js"></script>  
+<script src="external/jquery/jquery.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/csharpmenu.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML">
+</script>	
+<style>
+	#menu
+	{width: 70px;text-align:left; background-color: #00a0a0;}
+	#ulmenu
+	{width: 250px;}
+	#limenu
+	{padding: none;}		
+	a{text-decoration: none;}
+	#tartalom
+	{width: 70px; height:20px; text-align:left; background-color: #00a0a0;}
+</style>
+<header>
+
+		<ul id="menu">
+		<script>
+		document.getElementById("menu").innerHTML = menuszoveg;
+		$( "#menu" ).menu();
+    </script>
+		</ul>
+		
+	<ul id="tartalom">
+		<script>
+		document.getElementById("tartalom").innerHTML = '<li id ="limenu"><a href="tartalom.html">Tartalom</a></li>';
+		$( "#tartalom" ).menu();
+    </script>
+		</ul>
+		
+<h1 style="color: white; position: absolute; left: 40%; top:0px; text-align: center; margin-top:0px;">C# középiskolásoknak</h1>
+</header>
+
+<article>
+<p style="width: 100%;height:40px;"></p>
+<!--ide jön a tartalom-->
+<H1>Halmazok</H1>
+<p>
+A System.Collections.Generic  névtérben található egy <strong>HashSet</strong> osztály, amely az adatokat halmazszerűen tárolja.
+<BR>
+A halmaz a listákhoz képest eltérően viselkedik.<BR>
+<UL>
+<LI>A halmazokban tárolt adatoknak nincs meghatározott sorrendjük</LI>
+<LI>Minden adat egyedi, tehát ugyanaz az érték egy halmazban nem fordulhat elő kétszer.</LI>
+<LI>A <strong>HashSet</strong> osztály hatékonyan és gyorsan valósítja meg a halmazműveleteket, mint pl. az <strong>unió, metszet, különbség.</strong></LI>
+<LI>A halmazban akárhány elemet tárolhatunk. (csak a gép memóriamérete szab korlátot) </LI>
+</UL>
+</p>
+<H2>Alapvető halmazműveletek</H2>
+<UL>
+<LI><strong>h1.Add(x)</strong>: hozzáad egy x elemet a h1 halmazhoz</LI>
+<LI><strong>h1.Remove(x)</strong>: törli az x elemet a h1 halmazból.</LI>
+<LI><strong>h1.Contains(x)</strong>: lekérdezi, hogy x eleme-e a h1 halmaznak. Ha igen, akkor az eredmény True.</LI>
+<LI><strong>h1.Count</strong>: megadja a h1 halmazban tárolt elemek számát</LI>
+<LI><strong>h1.Clear()</strong>: a h1 halmaz összes elemét törli </LI>
+<LI><strong>h1.UnionWith(h2)</strong>: a h1 halmazt egyesíti a h2 halmazzal. Az egyesített halmaz a h1 lesz</LI>
+<LI><strong>h1.IntersectWith(h2)</strong>: a h1 halmazt metszi a h2 halmazzal. Az metszethalmaz a h1 lesz</LI>
+<LI><strong>h1.ExceptWith(h2)</strong>: a h1 halmazt minusz a h2 halmaz. Az különbséghalmaz a h1 lesz</LI>
+</UL>
+
+</p>
+<H2>Példaprogram: egész számok halmaza</H2>
+<p>
+<pre class="prettyprint lang-cs">
+using System;
+using System.Collections.Generic;
+class Program
+	{
+	private static void HalmazMutat(HashSet&lt;int&gt; halmaz)
+		{
+		Console.Write("{");
+		foreach (int elem in halmaz)
+			{
+			Console.Write(" {0}", elem);
+			}
+		Console.WriteLine(" }");
+		}
+	static void Main()
+		{
+		HashSet&lt;int&lt; A = new HashSet&lt;int&gt;();//egy A nevű, üres számhalmaz
+		//hozzáadunk pár elemet:
+		A.Add(10);
+		A.Add(10);
+		A.Add(10);
+		A.Add(20);
+		A.Add(30);
+		A.Add(40);
+		//kilistázzuk az A halmazt a konzolra:
+		//láthható, hogy noha a 10-et többször is hozzáadtuk, csak 1-szer szerepel az A ban
+		HalmazMutat(A); 
+		}
+	}
+</pre>
+</p>
+<H2>Példaprogram: sztringek halmaza</H2>
+<p>
+<pre class="prettyprint lang-cs">
+using System;
+using System.Collections.Generic;
+class Program
+	{
+	private static void HalmazMutat(HashSet&lt;string&gt; halmaz)
+		{
+		Console.Write("{");
+		foreach (string elem in halmaz)
+			{
+			Console.Write(" {0}", elem);
+			}
+		Console.WriteLine(" }");
+		}
+	static void Main()
+		{
+		HashSet &lt;string &gt; A = new HashSet&lt;string&gt;();//egy A nevű, üres sztringhalmaz
+		//hozzáadunk pár elemet:
+		A.Add("Piri");
+		A.Add("Feri");
+		A.Add("Zoli");
+		A.Add("Sári");
+		//kilistázzuk az A halmazt a konzolra:
+		HalmazMutat(A); 
+		}
+	}
+</pre>
+</p>
+	
+
+</p>
+
+
+</article>
+</html>

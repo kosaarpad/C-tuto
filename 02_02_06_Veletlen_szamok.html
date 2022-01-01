@@ -1,0 +1,211 @@
+<!--doctype html-->
+<html lang='hu'>
+   <meta charset='utf-8'>
+	 
+<link href="css/jquery-ui.min.css" rel="stylesheet">
+<link href="css/oldal.css" rel="stylesheet" type="text/css" />
+
+<script src="google-code-prettify/run_prettify.js"></script>  
+<script src="external/jquery/jquery.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/csharpmenu.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script>
+<script type="text/javascript" src="MathJax26.min/MathJax.js?config=TeX-AMS_HTML-full"></script>
+
+<style>
+	#menu
+	{width: 70px;text-align:left; background-color: #00a0a0;}
+	#ulmenu
+	{width: 250px;}
+	#limenu
+	{padding: none;}		
+	a{text-decoration: none;}
+	#tartalom
+	{width: 70px; height:20px; text-align:left; background-color: #00a0a0;}
+</style>
+<header>
+
+		<ul id="menu">
+		<script>
+		document.getElementById("menu").innerHTML = menuszoveg;
+		$( "#menu" ).menu();
+    </script>
+		</ul>
+		
+	<ul id="tartalom">
+		<script>
+		document.getElementById("tartalom").innerHTML = '<li id ="limenu"><a href="tartalom.html">Tartalom</a></li>';
+		$( "#tartalom" ).menu();
+    </script>
+		</ul>
+		
+<h1 style="color: white; position: absolute; left: 40%; top:0px; text-align: center; margin-top:0px;">C# középiskolásoknak</h1>
+</header>
+
+<article>
+<p style="width: 100%;height:40px;">
+</p>
+<!--ide jön a tartalom: -->
+<H1>Álvéletlen számok</H1>
+
+Sok esetben véletlen eseményeket kell a számítógéppel szimulálnunk.<BR>
+A számítógép igazából nem tud valódi véletlen számokat.<BR>
+Ezért egy matematikai eljárással megkever egy számsorozatot úgy, hogy az véletlenszerűnek tűnjön. 
+Az így megkevert számsorozatot álvéletlen számsorozatnak hívjuk.<BR>
+A C#-ban ezeket az eljárásokat a System.Random() osztály valósítja meg.<BR>
+<H2>Egész számok álvéletlen sorozata</H2>
+<p>
+Az alábbi program 1 darab álvéletlen, <B>int</B> típusú egész számot generál:
+<pre class="prettyprint lang-cs">
+using System;
+public class Program {
+   public static void Main() {
+      Random r = new Random();
+      int veletlenszam = r.Next();
+      Console.Write(veletlenszam); //generál egy álvéletlen egész értéket 0 és 2 147 483 647 között
+			Console.ReadKey();
+   }
+}
+</pre><BR><BR>
+Ha ezt a fenti programot lefordítjuk, és lefuttatjuk, egy pozitív egész számot ad 0 és 2 147 483 647 között.<BR>
+Minden újrafuttatáskor más értéket kapunk. (bár nagyon kicsi valószínűséggel, de előfordulhat, hogy kétszer egymás után ugyanazt az értéket adja...<BR>
+
+Ha pl. 10 darab álvéletlen, <B>int</B> típusú egész számra van szükségünk:
+<pre class="prettyprint lang-cs">
+using System;
+public class Program {
+   public static void Main() {
+      Random r = new Random();
+			for (int i=0; i &lt; 10;i++)
+				{
+				int veletlenszam = r.Next();   //generál egy álvéletlen egész értéket 0 és 2 147 483 647 között
+				Console.Write(veletlenszam + ", ");
+				}
+			Console.ReadKey();
+   }
+}
+</pre><BR><BR>
+Általában azonban nincs szükségünk ekkora számokra.Ha kisebb számokra van szükségünk, akkor a <B>Random.Next(int: Legnagyobb+1)</B> metódust használjuk.
+Ha pl. 0..20-ig szeretnénk (ál)véletlen számokat:
+<pre class="prettyprint lang-cs">
+using System;
+public class Program {
+   public static void Main() {
+      Random r = new Random();
+			for (int i=0; i &lt; 10;i++)
+				{
+				int veletlenszam = r.Next(21);   //generál egy álvéletlen egész értéket 0..20-ig
+				Console.Write(veletlenszam + ", ");
+				}
+			Console.ReadKey();
+   }
+}
+</pre><BR><BR>
+Ha azt szeretnénk, hogy ne 0-tól kezdődő értékeket kapjunk, akkor a <B>Random.Next(int: Legkisebb, int Legnagyobb+1)</B> metódust használjuk.
+Ha pl. 8..30-ig szeretnénk (ál)véletlen számokat:
+<pre class="prettyprint lang-cs">
+using System;
+public class Program {
+   public static void Main() {
+      Random r = new Random();
+			for (int i=0; i &lt; 10;i++)
+				{
+				int veletlenszam = r.Next(8,31);   //generál egy álvéletlen egész értéket 8..30-ig
+				Console.Write(veletlenszam + ", ");
+				}
+			Console.ReadKey();
+   }
+}
+</pre><BR>
+<H3>Feladatok</H3>
+<OL>
+<LI>Készítsünk programot, amely 5 darab kockadobást szimulál! A véletlen értékeket írassuk ki a konzolra.</LI>
+<LI>Készítsünk programot, amely 15 darab pénzfeldobást szimulál! A véletlen értékeket írassuk ki a konzolra.</LI>
+<LI>Készítsünk programot, ötöslottó húzást szimulál! (5 darab szám 1 és 90 között). A véletlen értékeket írassuk ki a konzolra.</LI>
+</OL>
+
+</p>
+<H2>Byte típusú egész értékek álvéletlen sorozata</H2>
+<p>
+Amennyiben csak olyan kis értékű véletlen értékekre van szükségünk, amelyek csak 0 és 255 közöttiek, akkor a <B>Random.NextBytes();</B> metódust használhatjuk.<BR>
+A fenti programok bármelyikébe az r.Next helyett r.NextBytes-t használhatunk.
+</p>
+<H2>Double típusú értékek álvéletlen sorozata</H2>
+<p>
+Az álvéletlen valós számok generálása a <B>Random.NextDouble()</B> metódussal valósítható meg, amely egy véletlen double értéket ad 0 és 1 között:
+<BR>
+Az alábbi példaprogam 7 darab véletlen értéket ad 0 és 1 között:<BR>
+<pre class="prettyprint lang-cs">
+using System;
+public class Program {
+   public static void Main() {
+      Random r = new Random();
+			for (int i=0; i &lt; 7;i++)
+				{
+				double veletlenszam = r.NextDouble();   //generál egy álvéletlen valós értéket 0..1-ig
+				Console.WriteLine(veletlenszam);
+				}
+			Console.ReadKey();
+   }
+}
+</PRE><BR>
+Ha pl 0 és 5 közötti valós véletlenszámokra van szükségünk:
+<BR>
+<pre class="prettyprint lang-cs">
+using System;
+public class Program {
+   public static void Main() {
+      Random r = new Random();
+			for (int i=0; i &lt; 7;i++)
+				{
+				double veletlenszam = r.NextDouble()*5;   //generál egy álvéletlen valós értéket 0..5-ig
+				Console.WriteLine(veletlenszam);
+				}
+			Console.ReadKey();
+   }
+}
+</PRE><BR>
+Az alábbi program 20 darab -2 és +4 közötti álvéletlen valós értékeket ad:
+<BR>
+<pre class="prettyprint lang-cs">
+using System;
+public class Program {
+   public static void Main() {
+      Random r = new Random();
+			for (int i=0; i &lt; 20;i++)
+				{
+				double veletlenszam = -2+r.NextDouble()*6;   //generál egy álvéletlen valós értéket -2..4-ig
+				Console.WriteLine(veletlenszam);
+				}
+			Console.ReadKey();
+   }
+}
+</PRE><BR>
+A 6-os szorzó azért van, mert -2 és +4 között 6 egységnyi távolság van.<BR>
+
+</p>
+<BR>
+<H3>Feladatok</H3>
+<OL>
+<LI>Készítsünk programot, amely csalós dobókockát szimulál, amely 1-től 5-ig egyenlő valószínűséggel ad értéket, a 6-ost viszont 3-szor nagyobb valószínűséggel adja .</LI>
+<LI>Szájhar Mónika matekból 10% eséllyel kap egyest, 30% eséllyel 2-est, 40% eséllyel kap 3-ast, 15% eséllyel kap 4-est, 5% eséllyel kap 5-öst.<BR>
+   Készítsünk egy "matekfeleltető szimulátort", amely egy évre a fenti valószínűségekkel kioszt Mónikának 12 darab jegyet a fenti esélyekkel!<BR>
+	 A jegyekből számoljunk átlagot, majd írassuk ki!
+	 </LI>
+<LI>Készítsünk ötöslottó  szimulátort! <BR>
+A program kérje be a játékos tippjét (5 darab számot 1 és 90 között), majd szimuláljunk egy lottóhúzást! (5 darab véletlenszám 1 és 90 között).<BR> 
+Írassuk ki a "kihúzott" számokat is, majd hasonlítsuk össze a játékos által beírt tippeket a "kihúzott" számokkal!<BR> 
+Írjuk ki, hányas találata volt a játékosnak!
+</LI>
+</OL>
+
+
+
+
+
+</article>
+</html>

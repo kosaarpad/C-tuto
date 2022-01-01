@@ -1,0 +1,457 @@
+<!--doctype html-->
+<html lang='hu'>
+   <meta charset='utf-8'>
+	 
+<link href="css/jquery-ui.min.css" rel="stylesheet">
+<link href="css/oldal.css" rel="stylesheet" type="text/css" />
+
+<script src="google-code-prettify/run_prettify.js"></script>  
+<script src="external/jquery/jquery.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/csharpmenu.js"></script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML">
+</script>	
+<style>
+	#menu
+	{width: 70px;text-align:left; background-color: #00a0a0;}
+	#ulmenu
+	{width: 250px;}
+	#limenu
+	{padding: none;}		
+	a{text-decoration: none;}
+	#tartalom
+	{width: 70px; height:20px; text-align:left; background-color: #00a0a0;}
+</style>
+<header>
+
+		<ul id="menu">
+		<script>
+		document.getElementById("menu").innerHTML = menuszoveg;
+		$( "#menu" ).menu();
+    </script>
+		</ul>
+		
+	<ul id="tartalom">
+		<script>
+		document.getElementById("tartalom").innerHTML = '<li id ="limenu"><a href="tartalom.html">Tartalom</a></li>';
+		$( "#tartalom" ).menu();
+    </script>
+		</ul>
+		
+<h1 style="color: white; position: absolute; left: 40%; top:0px; text-align: center; margin-top:0px;">C# középiskolásoknak</h1>
+</header>
+
+<article>
+<p style="width: 100%;height:40px;"></p>
+<!--ide jön a tartalom-->
+
+<H1>Az szöveg adattípus</H1>
+<p>
+A leggyakoribb típus a C#-ban, szövegértékek tárolására alkalmas,<BR>
+A <B>System.String</B> osztálynak megfelelő típus, ez az osztály tartalmazza a szöveges változókkal végzendő műveletek leírását. <BR>
+A C#-ban a szöveges változó a <B>string.</B>
+<H2>Szöveges változó deklarálása, értékadása</H2>
+<pre class="prettyprint lang-cs">
+using System;
+class Program
+{
+	static void Main()
+	{
+	string szoveg1; //deklaráció
+	szoveg = "alma"; //értékadás
+	//lehet egyben is:
+	string lanynev = "Zsuzsa";
+	//vagy konstruktorral
+	string lanynev = new String("Zsuzsa");
+	Console.WriteLine(lanynev); //kiírja: Zsuzsa
+	}
+}
+</pre>
+
+<H2>Szöveges adattípussal végezhető leggyakoribb műveletek</H2>
+<OL>
+<LI>A <B>+</B> és a <B>+=</B> művelet a <B>szövegösszefűzés</B> vagy <B>konkatenáció</B>. pl "alma"+"fa" eredmánye "almafa", "Törpa" += "pa" eredménye "Törpapa"</LI>
+<LI>A  <B>szövegösszefűzés</B> vagy <B>konkatenáció</B> megvalósítható a Concat metódussal: pl "alma".Concat("fa") eredmánye "almafa"</LI>
+<LI>Két szöveg értékének az egyenlőségét a szoveg1.Equals(szoveg2) metódussal kérdezzük le. Az eredmény <B>true</B> ha a két szövegérték azonos, <B>false</B> ha nem. </LI>
+<LI>A szoveg.Length a szöveg hossza, vagyis a karaktereinek a száma. pl ha szoveg="Kati" akkor szoveg.Length értéke 4, mert a "kati" string 4 betűből áll.</LI>
+<LI>A [ ] operátor a szöveg adott indexű (= sorszámú) karakterét adja meg. Az indexelés 0-val kezdődik. pl. ha szoveg="HELLO" akor szoveg[2]='L'</LI>
+</OL>
+<div class="imgdiv"><img  alt="C# String Indexelés" src="images/cs-string.PNG" ></div>
+<pre class="prettyprint lang-cs">
+using System;
+class Program
+{
+	static void Main()
+	{
+	string szoveg1="alma";
+	string szoveg2="fa";
+	string szoveg3;
+	szoveg3 = szoveg1+szoveg2; 
+	Console.WriteLine(szoveg3);//almafa
+	szoveg3 = szoveg1.Concat(szoveg2);
+	Console.WriteLine(szoveg3);//szintén almafa
+	//DE:
+	szoveg3 = szoveg2+szoveg1; 
+	Console.WriteLine(szoveg3);//faalma
+	Console.WriteLine(szoveg1.Length);// 4
+	Console.WriteLine(szoveg1[2]);//'m'
+	}
+}
+</pre>
+
+A @ karakter kiküszöböli
+a szövegen belüli „érzékeny” karakterek hatását. Ilyen például a
+backslash (\) karakter.
+<H1>További sztringműveletek</H1>
+</p>
+<H2>Szöveg nagybetűsítése</H2>
+<pre class="prettyprint lang-cs">
+using System;
+class Program
+{
+	static void Main()
+	{
+	string szoveg="aLMa";
+	string nagybetus = szoveg.ToUpper; //nagybetus értéke "ALMA" lesz
+	string kisbetus = szoveg.ToLower; //kisbetus értéke "alma" lesz
+	Console.WriteLine(nagybetus);
+	Console.WriteLine(kisbetus);
+	}
+}
+</pre>
+<H2>Szöveg végigpásztázása karakterenként</H2>
+<pre class="prettyprint lang-cs">
+using System;
+class Program
+{
+	static void Main()
+		{
+		string szoveg="ez egy szöveg";
+		for (int i = 0; i &lt szoveg.Length; i++)
+			{
+			Console.WriteLine(szoveg[i]);
+			}
+		//vagy
+		foreach (char c in szoveg)
+			{
+			Console.WriteLine(c);
+			}
+		}
+}
+</pre>
+<H2>Szöveg beszúrása egy másikba</H2>
+<pre class="prettyprint lang-cs">
+using System;
+class Program
+{
+	static void Main()
+		{
+		string szoveg="Te ügyes vagy." 
+		string ujszoveg = szoveg.Insert(2, "nagyon ");
+		Console.WriteLine(ujszoveg);
+		}
+}
+</pre>
+<H2>Szövegrész helyettesítése másik szöveggel</H2>
+<pre class="prettyprint lang-cs">
+using System;
+class Program
+{
+	static void Main()
+		{
+		string szoveg="Te nagyon ügyes vagy. Te kis ügyes." 
+		string ujszoveg = szoveg.Replace("ügyes", "lusta");
+		Console.WriteLine(ujszoveg);
+		}
+}
+</pre>
+<H2>Szövegrész törlése</H2>
+<p>A String.Remove() metódus adott pozíciótól töröl adott számú karaktert </p>
+<pre class="prettyprint lang-cs">
+using System;
+class Program
+{
+static void Main()
+	{
+	// Mindent töröl a 13. karaktertől
+	string szoveg = "Te ügyes vagy, ugye?"
+	string ujszoveg;
+	ujszoveg = szoveg.Remove(13);//töröl mindent a 13. karaktertől.
+	Console.WriteLine(ujszoveg);
+	//vagy
+	// Töröl a 2. karaktertől kezdve 5 karaktert
+	ujszoveg = szoveg.Remove(2,5);
+	Console.WriteLine(ujszoveg);
+	}
+}
+</pre>
+<H2>Szöveg trimmelése (elején/végén lévő nemkívánt karakterek törlése)</H2>
+<p>Szöveg elején/végén levő szóközöket, sorvégjeleket töröl, vagy az általunk megadott karaktereket</p>.
+<pre class="prettyprint lang-cs">
+using System;
+class Program
+{
+static void Main()
+	{
+	string szoveg = "Te ügyes vagy, ugye?\r\n";
+	string ujszoveg = szoveg.Trim();
+	Console.WriteLine(ujszoveg);//csak a "Te ügyes vagy, ugye?" marad, sorvégjel nélkül.
+	szoveg = "Te ügyes vagy, ugye?####";
+	ujszoveg = szoveg.Trim('#');
+	Console.WriteLine(szoveg);
+	Console.WriteLine(ujszoveg);//marad a szoveg # nélkül
+	}
+}
+</pre>	
+<H2>Szöveg felszabdalása kisebb szövegekké</H2>
+<p>Gyakran egy hosszabb szöveget fel kell szabdalnunk kisebb szövegekké, és ezeket a kisebb szövegeket külön adatként
+kell feldolgozni.</p>
+<pre class="prettyprint lang-cs">
+using System;
+class Program
+{
+	static void Main()
+		{
+		char[] elvalaszto = {' '};
+		string szoveg="Kiss Péter 36 éves 192 centi 87 kiló"
+		string[] szavak = szoveg.Split(elvalaszto);
+		foreach (string s in szavak)
+			{
+			Console.WriteLine(s);
+			}
+		}
+}
+</pre>
+<p>Itt pl ha ki akarjuk számítani Kiss Péter testtömegindexét, akkor a testmagasságra (192) és a testtömegre(87) különkülön szükségünk van.
+A végeredmény egy stringtömb lesz, a </p>
+
+<pre class="prettyprint lang-cs">
+string[] szavak = {"Kiss", "Péter", "36", "éves", "192","centi", "87", "kiló"};
+</pre>
+<H2>Szövegtömbből adott karakterrel határolt szöveg létrehozása</H2>
+<pre class="prettyprint lang-cs">
+using System;
+class Program
+{
+    static void Main()
+    {
+    string[] nevsor = new string[3] { "Piri", "Feri", "Zoli"};
+    string szoveg = string.Join(";", nevsor);
+	Console.WriteLine(szoveg);//"Piri;Feri;Zoli" lesz az eredmény
+	}
+}
+</pre>
+<H2>Szövegrész kinyerése szövegből</H2>
+<pre class="prettyprint lang-cs">
+using System;
+class Program
+{
+    static void Main()
+    {
+    // csak a kezdőpozíciót adjuk meg:
+    string szoveg = "almafaláb";
+		string resz, resz1;
+    resz = szoveg.Substring(4);
+    Console.WriteLine(resz);
+ 
+    // a kezdőpozíciót és az újszöveg hosszát adjuk meg:
+    resz2 = szoveg.Substring(4, 2);
+    Console.WriteLine(resz2);
+	}
+}
+</pre>
+<H2>Szövegtömb létrehozása</H2>
+<pre class="prettyprint lang-cs">
+using System;
+class Program
+{
+	static void Main()
+	{
+	//A legteljesebb:
+	string[] nevsor1 = new string[3] { "Ani", "Feri", "Zoli"};
+	// Tömbméretet nem írjuk ki
+	string[] nevsor2 = new string[] { "Ani", "Feri", "Zoli" };
+	// Nem írunk new kulcsszót:
+	string[] nevsor3 = {"Ani", "Feri", "Zoli"};
+	//2 dimenziós tömb:
+	string[,] strArr3 = new string[2, 2] { { "string 1", "string 2" }, { "string 3", "string 4" } };
+    // Omit Size of Array
+    string[,] strArr4 = new string[,] { { "string 1", "string 2" }, { "string 3", "string 4" } };
+    // Omit new keyword
+    string[,] strArr5 = { { "string 1", "string 2" }, { "string 3", "string 4" } };
+	}
+}
+</pre>
+<H2>Szövegből karaktertömb</H2>
+<pre class="prettyprint lang-cs">
+using System;
+class Program
+{
+	static void Main()
+	{
+	 string szoveg = "alma";
+	 char[] KarakterTomb = szoveg.ToCharArray();
+	 //eredmény: KarakterTomb={'a','l','m','a'} lesz
+	}
+}
+</pre>
+<H2>Karaktertömbből szöveg</H2>
+<pre class="prettyprint lang-cs">
+using System;
+class Program
+{
+	static void Main()
+	{
+	char[] KarakterTomb = {'a','l','m','a'};
+	string szoveg = new String(KarakterTomb); //a szoveg értéke "alma" lesz
+	}
+}
+</pre>
+<H2>Szöveg átalakítása egész számmá</H2>
+Nyilván csak azt a szöveget lehet egész számmá alakítani, amely egész számként értelmezhető.
+<pre class="prettyprint lang-cs">
+using System;
+class Program
+{
+	static void Main()
+	{
+	string szoveg = "12345";
+  int szam = Int32.Parse(szoveg);//ok
+	//vagy 
+	int szam = Convert.ToInt32(szoveg);
+	szoveg = "-15";
+  int szam = Int32.Parse(szoveg);//ok
+	szoveg = "15.2;
+	double valosszam = Convert.ToDouble(szoveg); //ok
+	
+	szoveg = "feri";
+  int szam = Int32.Parse(szoveg);//nyilván hibaüzenet lesz a vége
+	}
+}
+</pre>
+<H2>Szövegrész keresése egy adott szövegben</H2>
+Az IndexOf, LastIndexOf, StartsWith, és EndsWith metódusokkal lehetséges.
+<pre class="prettyprint lang-cs">
+using System;
+class Program
+{
+	static void Main()
+	{
+	string szoveg = "hamburgert ettem Hamburgban";
+	//IndexOf az első előfordulás indexpozícióját adja
+	Console.WriteLine(szoveg.IndexOf("burg"));//3 értéket ad, mert az első "burg" a 3. indexen kezdődik
+	Console.WriteLine(szoveg.LastIndexOf("burg"));//20 értéket ad, mert az utolsó "burg" a 20. indexen kezdődik
+	Console.WriteLine(szoveg.StartsWith("ham")) //true mert ham-mal kezdődik;
+	Console.WriteLine(szoveg.EndsWith("ham")) //false mert nem ham-mal végződik;
+    }
+}
+</pre>
+
+ 
+<H2>Szövegrész előfordulási száma egy adott szövegben</H2>
+<p>
+Hányszor fordul elő az <br>
+"Az ibafai papnak fapipája van tehát az ibafai papi pipa papi fapipa"<br>
+szövegben a "pap"?
+</p>
+<pre class="prettyprint lang-cs">
+using System;
+class Program
+{
+	static void Main()
+	{
+	// IndexOf használatával
+	int start = 0;
+	int szam = -1;
+	int index = -1;
+	string szoveg = "Az ibafai papnak fapipája van tehát az ibafai papi pipa papi fapipa";
+	string keresett = "pap";
+	while (start != -1)
+		{
+		start = szoveg.IndexOf(keresett, index + 1);
+		szam += 1;
+		index = start;
+		}
+	Console.WriteLine(keresett + " előfordul " + szam + " -szor");
+	// Reguláris kifejezésekkel
+	System.Text.RegularExpressions.Regex rex = new System.Text.RegularExpressions.Regex(keresett);
+	int szam = rex.Matches(szoveg).Count;
+	Console.WriteLine(keresett + " előfordul " + szam + " -szor");
+	}
+}
+</pre>
+<table class="acstmtbl">
+<caption>C# String metóduok</caption>
+
+<tr><th>Metódus</th><th>Leírás</th></tr>
+<tr><td><a href="/cs/notes/cs-string-clone.php">Clone()</a></td>
+   <td>A sztring egy teljes másolatát hozza létre..</td></tr>
+<tr><td>CompareTo()</td>
+   <td>Compare two strings and returns integer value as output. It returns 0 for true and 1 for false.</td></tr>
+<tr><td>Contains()</td>
+   <td>The C# Contains method checks whether specified character or string is exists or not in the string value.</td></tr>
+<tr><td><a href="/cs/notes/cs-string-endswith.php">EndsWith()</a></td>
+   <td>Checks whether the string ends with the specified string or not.</td></tr>  
+<tr><td>Equals()</td>
+   <td>The Equals Method in C# compares two string and returns Boolean value as output.</td></tr>
+<tr><td>GetHashCode()</td>
+   <td>This method returns HashValue of specified string.</td></tr>
+<tr><td>GetType()</td>
+   <td>It returns the System.Type of current instance.</td></tr>
+<tr><td>GetTypeCode()</td>
+   <td>It returns the Stystem.TypeCode for class System.String.</td></tr>
+<tr><td>IndexOf()</td>
+   <td>Returns the index position of first occurrence of specified character.</td></tr>
+<tr><td><a href="/cs/notes/cs-string-isnullorempty.php">IsNullOrEmpty()</a></td>
+   <td>Checks whether the specified string is null or empty.</td></tr>
+<tr><td><a href="/cs/notes/cs-string-isnullorwhitespace.php">IsNullOrWhiteSpace()</a></td>
+   <td>Checks whether the specified string is null, empty or contains only whitespaces.</td></tr>
+<tr><td><a href="/cs/notes/cs-string-padleft.php">PadLeft()</a></td>
+   <td>Returns a string that right-aligns the given string by padding with spaces or Unicode character on the left.</td></tr>
+<tr><td><a href="/cs/notes/cs-string-padright.php">PadRight()</a></td>
+   <td>Returns a string that right-aligns the given string by padding with spaces or Unicode character on the right.</td></tr>
+<tr><td><a href="/cs/notes/cs-string-replace.php">Replace()</a></td>
+   <td>This method replaces the character.</td></tr>
+<tr><td><a href="/cs/notes/cs-string-startswith.php">StartsWith()</a></td>
+   <td>Checks whether the string starts with the specified string or not.</td></tr>    
+<tr><td><a href="/cs/notes/cs-string-substring.php">Substring()</a></td>
+   <td>Retrieves a substring from a string.</td></tr>  
+<tr><td><a href="/cs/notes/cs-string-tochararray.php">ToCharArray()</a></td>
+   <td>Converts the character of the string to character array.</td></tr>  
+<tr><td><a href="/cs/notes/cs-string-tolower.php">ToLower()</a></td>
+   <td>Converts String into lower case based on rules of the current culture.</td></tr>
+<tr><td><a href="/cs/notes/cs-string-tolowerinvariant.php">ToLowerInvariant()</a></td>
+   <td>Converts String into lower case based on rules of the invariant culture.</td></tr>
+<tr><td><a href="/cs/notes/cs-string-tostring.php">ToString()</a></td>
+   <td>Converts the value of the instance to a string.</td></tr>   
+<tr><td><a href="/cs/notes/cs-string-toupper.php">ToUpper()</a></td>
+   <td>Converts String into Upper case based on rules of the current culture.</td></tr>
+<tr><td><a href="/cs/notes/cs-string-toupperinvariant.php">ToUpperInvariant()</a></td>
+   <td>Converts String into Upper case based on rules of the invariant culture.</td></tr>
+<tr><td><a href="/cs/notes/cs-string-trim.php">Trim()</a></td>
+   <td>Removes all leading and trailing instances of a character(s) / whitespaces from the current string.</td></tr>
+<tr><td><a href="/cs/notes/cs-string-trimend.php">TrimEnd()</a></td>
+   <td>Removes all trailing instances of a character(s) / whitespaces from the current string.</td></tr>
+<tr><td><a href="/cs/notes/cs-string-trimstart.php">TrimStart()</a></td>
+   <td>Removes all leading instances of a character(s) / whitespaces from the current string.</td></tr>
+
+<tr><td>Insert()</td>
+   <td>Insert the string or character in the string at the specified position.</td></tr>
+<tr><td>IsNormalized()</td>
+   <td>This method checks whether this string is in Unicode normalization form C.</td></tr>
+<tr><td>LastIndexOf()</td>
+   <td>Returns the index position of last occurrence of specified character.</td></tr>
+<tr><td>Length</td>
+   <td>It is a string property that returns length of string.</td></tr>
+<tr><td>Remove()</td>
+   <td>This method deletes all the characters from beginning to specified index position.</td></tr>
+
+<tr><td>Split()</td>
+   <td>This method splits the string based on specified value.</td></tr>
+
+
+</table>
+
+</article>
+</html>
