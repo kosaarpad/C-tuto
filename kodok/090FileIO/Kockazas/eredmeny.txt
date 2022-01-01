@@ -1,0 +1,100 @@
+﻿2 6 Géza nyert
+4 3 Feri nyert
+5 5 döntetlen
+4 6 Géza nyert
+1 5 Géza nyert
+2 3 Géza nyert
+4 5 Géza nyert
+6 3 Feri nyert
+4 1 Feri nyert
+5 3 Feri nyert
+4 4 döntetlen
+4 5 Géza nyert
+1 3 Géza nyert
+6 1 Feri nyert
+3 1 Feri nyert
+2 4 Géza nyert
+5 2 Feri nyert
+2 1 Feri nyert
+5 2 Feri nyert
+2 2 döntetlen
+6 4 Feri nyert
+6 1 Feri nyert
+6 6 döntetlen
+3 5 Géza nyert
+5 5 döntetlen
+5 4 Feri nyert
+5 5 döntetlen
+3 5 Géza nyert
+6 5 Feri nyert
+4 1 Feri nyert
+3 4 Géza nyert
+3 1 Feri nyert
+4 5 Géza nyert
+5 2 Feri nyert
+6 2 Feri nyert
+5 1 Feri nyert
+6 1 Feri nyert
+1 4 Géza nyert
+5 2 Feri nyert
+5 5 döntetlen
+6 2 Feri nyert
+4 3 Feri nyert
+6 2 Feri nyert
+2 5 Géza nyert
+2 5 Géza nyert
+1 6 Géza nyert
+4 5 Géza nyert
+1 5 Géza nyert
+3 6 Géza nyert
+5 5 döntetlen
+2 5 Géza nyert
+3 4 Géza nyert
+1 1 döntetlen
+3 3 döntetlen
+6 3 Feri nyert
+4 1 Feri nyert
+2 6 Géza nyert
+2 4 Géza nyert
+3 5 Géza nyert
+1 3 Géza nyert
+1 2 Géza nyert
+1 5 Géza nyert
+3 3 döntetlen
+4 1 Feri nyert
+3 1 Feri nyert
+6 6 döntetlen
+2 4 Géza nyert
+2 1 Feri nyert
+4 5 Géza nyert
+1 2 Géza nyert
+2 1 Feri nyert
+1 4 Géza nyert
+1 4 Géza nyert
+4 5 Géza nyert
+5 1 Feri nyert
+3 1 Feri nyert
+4 6 Géza nyert
+1 4 Géza nyert
+4 6 Géza nyert
+5 3 Feri nyert
+1 4 Géza nyert
+6 2 Feri nyert
+1 3 Géza nyert
+4 3 Feri nyert
+5 2 Feri nyert
+2 3 Géza nyert
+5 3 Feri nyert
+3 1 Feri nyert
+2 2 döntetlen
+5 2 Feri nyert
+3 3 döntetlen
+2 6 Géza nyert
+2 2 döntetlen
+4 3 Feri nyert
+1 1 döntetlen
+2 5 Géza nyert
+4 3 Feri nyert
+3 6 Géza nyert
+5 4 Feri nyert
+2 6 Géza nyert
